@@ -27,6 +27,7 @@ const productSchema = new mongoose.Schema({
     body: { type: String, default: 'No review' },
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
+    postedAt: { type: Date, default: Date.now() },
   },
   images: [String],
   imageThumb: {
