@@ -20,7 +20,7 @@ mongoose
   .connect(dbConnection, {
     useNewUrlParser: true,
   })
-  .then(() => console.log('Database Connection Successful!'))
+  .then(() => console.log('Database connected successfully'))
   .catch((err) => console.log(err.message));
 
 process.on('unhandledRejection', (err) => {
