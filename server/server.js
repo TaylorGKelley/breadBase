@@ -13,7 +13,7 @@ import app from './app.js';
 
 const dbConnection = process.env.DATABASE_URI.replace(
   '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
+  process.env.DATABASE_PASSWORD,
 );
 
 mongoose
