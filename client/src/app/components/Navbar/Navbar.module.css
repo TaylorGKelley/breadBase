@@ -1,0 +1,94 @@
+.NavToggleButton {
+  all: initial;
+  display: inline-block;
+  position: relative;
+  width: 36px;
+}
+
+.NavToggleButton > div {
+  width: 36px;
+  height: 26px;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.5s ease-in-out;
+  -moz-transition: 0.5s ease-in-out;
+  -o-transition: 0.5s ease-in-out;
+  transition: 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.NavToggleButton > div > span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #d3531a;
+  border-radius: 4px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: 0.25s ease-in-out;
+  -moz-transition: 0.25s ease-in-out;
+  -o-transition: 0.25s ease-in-out;
+  transition: 0.25s ease-in-out;
+}
+
+.NavToggleButton > div > span:nth-child(1) {
+  top: 0;
+}
+
+.NavToggleButton > div > span:nth-child(2),
+.NavToggleButton > div > span:nth-child(3) {
+  top: calc(50% - 2px);
+}
+
+.NavToggleButton > div > span:nth-child(4) {
+  bottom: 0%;
+  width: 77%;
+}
+
+.Open > span:nth-child(1) {
+  top: 18px;
+  opacity: 0;
+  width: 0;
+  left: 50%;
+  -webkit-transform: translateY(40%);
+  -moz-transform: translateY(40%);
+  -o-transform: translateY(40%);
+  transform: translateY(40%);
+}
+
+.Open > span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.Open > span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.Open > span:nth-child(4) {
+  top: 18px;
+  opacity: 0;
+  width: 0 !important;
+  left: 50%;
+  -webkit-transform: translateY(-40%);
+  -moz-transform: translateY(-40%);
+  -o-transform: translateY(-40%);
+  transform: translateY(-40%);
+}
+
+.NavDropdown {
+  display: none;
+}
