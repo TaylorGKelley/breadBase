@@ -26,7 +26,6 @@ export default function Navbar() {
             <span></span>
           </div>
         </div>
-
         <nav className={`${styles.NavDropdown}`}>
           <ul>
             <li></li>
@@ -38,8 +37,8 @@ export default function Navbar() {
       </div>
       <div className={styles.NavControls_userCartContainer}>
         <Link href='/MyCart'>
-          <Cart />{' '}
-        </Link>{' '}
+          <Cart />
+        </Link>
         <Link href='/MyAccount'>
           <User />
         </Link>
