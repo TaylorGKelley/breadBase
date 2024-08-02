@@ -1,5 +1,14 @@
-header {
-  --;
+#Navbar {
+  --clr-color: #f3f3f3;
+
+  height: 46px;
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
 
 .NavToggleButton {
@@ -29,7 +38,7 @@ header {
   position: absolute;
   height: 4px;
   width: 100%;
-  background: #d3531a;
+  background: var(--clr-color);
   border-radius: 4px;
   opacity: 1;
   left: 0;
@@ -95,4 +104,9 @@ header {
 
 .NavDropdown {
   display: none;
+}
+
+.NavControls_userCartContainer {
+  display: flex;
+  gap: 2rem;
 }

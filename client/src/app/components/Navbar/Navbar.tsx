@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import Link from 'next/link';
+import { Cart, User } from '../../../../public/icons/Icons';
 
 export default function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function Navbar() {
   };
 
   return (
-    <header>
+    <header id={styles.Navbar}>
       <div>
         <div
           className={styles.NavToggleButton}
@@ -35,9 +36,13 @@ export default function Navbar() {
           </ul>
         </nav>
       </div>
-      <div>
-        <Link href={'about'}></Link>
-        <Link href={'cart'}></Link>
+      <div className={styles.NavControls_userCartContainer}>
+        <Link href='/MyCart'>
+          <Cart />{' '}
+        </Link>{' '}
+        <Link href='/MyAccount'>
+          <User />
+        </Link>
       </div>
     </header>
   );
