@@ -14,8 +14,7 @@ export default function Navbar() {
   return (
     <header>
       <div>
-        <button
-          type='button'
+        <div
           className={styles.NavToggleButton}
           onClick={toggleNav}
         >
@@ -25,7 +24,7 @@ export default function Navbar() {
             <span></span>
             <span></span>
           </div>
-        </button>
+        </div>
 
         <nav className={`${styles.NavDropdown}`}>
           <ul>
