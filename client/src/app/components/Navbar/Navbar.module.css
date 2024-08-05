@@ -1,14 +1,18 @@
 #Navbar {
   --clr-color: #f3f3f3;
+  --size-toggle-button-width: 33px;
 
-  height: 46px;
   display: flex;
   justify-content: space-between;
-  padding: 2rem;
+  padding: 2.5rem 3rem;
 
   position: fixed;
   top: 0;
+  left: 50%;
+  translate: -50% 0;
+
   width: 100%;
+  max-width: 2000px;
 }
 
 .NavToggleButton {
@@ -16,11 +20,12 @@
   display: inline-block;
   position: relative;
   width: 36px;
+  z-index: 3;
 }
 
 .NavToggleButton > div {
-  width: 36px;
-  height: 26px;
+  width: var(--size-toggle-button-width);
+  height: calc(var(--size-toggle-button-width) * 0.73);
   position: relative;
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
@@ -103,10 +108,35 @@
 }
 
 .NavDropdown {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+  height: 100dvh;
+  background-color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5rem;
+  z-index: 2;
+}
+
+.NavDropdown.Open {
+  opacity: 1;
+  pointer-events: initial;
 }
 
 .NavControls_userCartContainer {
   display: flex;
   gap: 2rem;
+}
+
+.NavControls_userCartContainer svg,
+.NavToggleButton {
+  transition: filter 0.1s ease-in-out;
+}
+
+.NavControls_userCartContainer svg:hover,
+.NavToggleButton:hover {
+  filter: brightness(0.95);
+  -webkit-filter: brightness(0.95);
 }

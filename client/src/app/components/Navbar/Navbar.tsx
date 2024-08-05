@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import Link from 'next/link';
-import { Cart, User } from '../../../../public/icons/Icons';
+import { Cart, User } from '../icons/Icons';
 
 export default function Navbar() {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -26,12 +26,24 @@ export default function Navbar() {
             <span></span>
           </div>
         </div>
-        <nav className={`${styles.NavDropdown}`}>
+        <nav
+          className={`
+            ${styles.NavDropdown} 
+            ${menuIsOpen ? styles.Open : ''}`}
+        >
           <ul>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
+            <li>
+              <Link href='/'>Home</Link>
+            </li>
           </ul>
         </nav>
       </div>
