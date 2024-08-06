@@ -1,11 +1,13 @@
 #Navbar {
   --clr-color: #f3f3f3;
+  --clr-primary-background: grey;
+  --clr-secondary-background: darkgrey;
   --size-toggle-button-width: 33px;
 
-  display: flex;
-  justify-content: space-between;
-  padding: 2.5rem 3rem;
+  height: 10rem;
+}
 
+.NavMain_wrapper {
   position: fixed;
   top: 0;
   left: 50%;
@@ -15,127 +17,33 @@
   max-width: 2000px;
 }
 
-.NavToggleButton {
-  all: initial;
-  display: inline-block;
-  position: relative;
-  width: 36px;
-  z-index: 3;
+.NavMain {
+  display: flex;
+  justify-content: space-between;
+  padding: 2.5rem 3rem;
 }
 
-.NavToggleButton > div {
-  width: var(--size-toggle-button-width);
-  height: calc(var(--size-toggle-button-width) * 0.73);
-  position: relative;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: 0.5s ease-in-out;
-  -moz-transition: 0.5s ease-in-out;
-  -o-transition: 0.5s ease-in-out;
-  transition: 0.5s ease-in-out;
-  cursor: pointer;
+.NavMain_findBakeryContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.NavToggleButton > div > span {
-  display: block;
-  position: absolute;
-  height: 4px;
-  width: 100%;
-  background: var(--clr-color);
-  border-radius: 4px;
-  opacity: 1;
-  left: 0;
-  -webkit-transform: rotate(0deg);
-  -moz-transform: rotate(0deg);
-  -o-transform: rotate(0deg);
-  transform: rotate(0deg);
-  -webkit-transition: 0.25s ease-in-out;
-  -moz-transition: 0.25s ease-in-out;
-  -o-transition: 0.25s ease-in-out;
-  transition: 0.25s ease-in-out;
+.NavMain_title {
+  content: ''; /* delete this line */
 }
 
-.NavToggleButton > div > span:nth-child(1) {
-  top: 0;
-}
-
-.NavToggleButton > div > span:nth-child(2),
-.NavToggleButton > div > span:nth-child(3) {
-  top: calc(50% - 2px);
-}
-
-.NavToggleButton > div > span:nth-child(4) {
-  bottom: 0%;
-  width: 77%;
-}
-
-.Open > span:nth-child(1) {
-  top: 18px;
-  opacity: 0;
-  width: 0;
-  left: 50%;
-  -webkit-transform: translateY(40%);
-  -moz-transform: translateY(40%);
-  -o-transform: translateY(40%);
-  transform: translateY(40%);
-}
-
-.Open > span:nth-child(2) {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.Open > span:nth-child(3) {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.Open > span:nth-child(4) {
-  top: 18px;
-  opacity: 0;
-  width: 0 !important;
-  left: 50%;
-  -webkit-transform: translateY(-40%);
-  -moz-transform: translateY(-40%);
-  -o-transform: translateY(-40%);
-  transform: translateY(-40%);
-}
-
-.NavDropdown {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease-in-out;
-  height: 100dvh;
-  background-color: #333;
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 5rem;
-  z-index: 2;
-}
-
-.NavDropdown.Open {
-  opacity: 1;
-  pointer-events: initial;
-}
-
-.NavControls_userCartContainer {
+.NavMain_accountContainer {
   display: flex;
   gap: 2rem;
 }
 
-.NavControls_userCartContainer svg,
+.NavMain_accountContainer svg,
 .NavToggleButton {
   transition: filter 0.1s ease-in-out;
 }
 
-.NavControls_userCartContainer svg:hover,
+.NavMain_accountContainer svg:hover,
 .NavToggleButton:hover {
   filter: brightness(0.95);
   -webkit-filter: brightness(0.95);

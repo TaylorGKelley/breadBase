@@ -1,8 +1,9 @@
 import React from 'react';
+import { defaultColor } from './Icons';
 
 export default function User({
   width = '2rem',
-  fill = '#f3f3f3',
+  fill = defaultColor,
 }: React.SVGProps<SVGElement>) {
   return (
     <svg

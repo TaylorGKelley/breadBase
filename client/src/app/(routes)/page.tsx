@@ -7,5 +7,16 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <main className={styles.main}></main>;
+  return (
+    <main className={styles.main}>
+      <button
+        type='button'
+        onClick={() =>
+          setSessionStorageItem('selected-bakery', 'Royal Rolls Bakery')
+        }
+      >
+        Set Bakery to Royal Rolls Bakery with session storage
+      </button>
+    </main>
+  );
 }
