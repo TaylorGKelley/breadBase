@@ -1,10 +1,13 @@
+'use client';
+
 import React from 'react';
 import styles from './Navbar.module.css';
 import Link from 'next/link';
 import { Cart, Location, User } from '../icons/Icons';
+import useSelectedBakery from '@/app/store/selectedBakery';
 
 export default function Navbar() {
-  const bakeryTitle = 'use zustand';
+  const { title: bakeryTitle } = useSelectedBakery();
 
   return (
     <header id={styles.Navbar}>
