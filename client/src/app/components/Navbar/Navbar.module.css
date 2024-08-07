@@ -1,10 +1,15 @@
 #Navbar {
-  --clr-color: #f3f3f3;
-  --clr-primary-background: grey;
-  --clr-secondary-background: darkgrey;
+  --clr-color: #ccc;
+  --clr-primary-background: #383a3f;
+  --clr-secondary-background: #313236;
   --size-toggle-button-width: 33px;
 
-  height: 10rem;
+  height: max-content;
+}
+
+#Navbar a {
+  color: var(--clr-color);
+  text-decoration: none;
 }
 
 .NavMain_wrapper {
@@ -18,23 +23,72 @@
 }
 
 .NavMain {
+  background-color: var(--clr-primary-background);
   display: flex;
   justify-content: space-between;
-  padding: 2.5rem 3rem;
+  padding: 1rem 3rem;
 }
 
-.NavMain_findBakeryContainer {
+.NavDropdown {
+  background-color: var(--clr-secondary-background);
+  padding: 1rem;
+}
+
+.NavDropdown > ul {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 2.5rem;
+  justify-content: center;
+  list-style: none;
 }
 
 .NavMain_title {
-  content: ''; /* delete this line */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  height: 3.75rem;
+  width: max-content;
+  position: relative;
+}
+
+.NavMain_findBakeryContainer,
+.NavMain_accountContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.NavMain_findBakeryContainer a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.NavMain_findBakeryContainer a p::after {
+  content: '';
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: var(--clr-primary-background);
+  filter: brightness(0.9);
+  height: 200%;
+  width: 130%;
+  border-radius: 2rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+}
+
+.NavMain_findBakeryContainer a:hover p::after {
+  opacity: 1;
 }
 
 .NavMain_accountContainer {
   display: flex;
+  justify-content: flex-end;
   gap: 2rem;
 }
 

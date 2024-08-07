@@ -16,3 +16,62 @@ main {
   flex-grow: 1;
   background-color: #26272b;
 }
+
+h1 {
+  --font-size: 6rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+h2 {
+  --font-size: 4rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+h3 {
+  --font-size: 3rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+h4 {
+  --font-size: 2.25rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+h5 {
+  --font-size: 1.5rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+p {
+  --font-size: 1rem;
+  font-size: var(--font-size);
+  line-height: calc(var(--font-size) * 1.28);
+}
+
+.fade-transition {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.enter {
+  opacity: 0;
+}
+.enter-active {
+  opacity: 1;
+  transition: opacity 1000ms;
+}
+
+.exit {
+  opacity: 1;
+}
+.exit-active {
+  opacity: 0;
+  transition: opacity 1000ms;
+}
