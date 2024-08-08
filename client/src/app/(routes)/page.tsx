@@ -61,7 +61,7 @@ export default function Home() {
           blurFilter='27px'
         >
           <div className={styles.NearbyBakeries_container}>
-            <h2>Bakers near you</h2>
+            <h2 className={metamorphous.className}>Bakers near you</h2>
             <div className={styles.BakeryMap_container}>
               <BakeryMap />
             </div>

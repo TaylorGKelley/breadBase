@@ -16,7 +16,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
   height: 100%;
 }
 
@@ -25,7 +24,6 @@
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  color: white;
 }
 
 #Suggestions {
@@ -44,11 +42,16 @@
 }
 
 .NearbyBakeries_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 5rem 1rem;
   max-width: 1000px;
   margin-inline: auto;
+  height: 100%;
 }
 
 .BakeryMap_container {
-  height: 60vh;
+  flex: 1;
 }
