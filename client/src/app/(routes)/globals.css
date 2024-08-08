@@ -6,6 +6,10 @@
   box-sizing: border-box;
 }
 
+* {
+  --clr-accent: #eaa827;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -51,6 +55,20 @@ p {
   --font-size: 1rem;
   font-size: var(--font-size);
   line-height: calc(var(--font-size) * 1.28);
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  background-color: var(--clr-accent);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn .btn-secondary {
+  background: none;
+  border: var(--clr-accent) solid 3px;
 }
 
 .fade-transition {

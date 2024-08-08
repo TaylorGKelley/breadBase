@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function Bakery() {
+export default function Products() {
   return <div>page</div>;
 }

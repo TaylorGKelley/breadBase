@@ -1,8 +1,8 @@
 .main {
+  position: relative;
   /* Temporary styling */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  padding: 6rem;
 }

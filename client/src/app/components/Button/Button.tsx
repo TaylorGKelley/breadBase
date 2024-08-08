@@ -3,26 +3,18 @@
 import React from 'react';
 import styles from './Button.module.css';
 import useSelectedBakery from '@/app/store/selectedBakery';
+import { useRouter } from 'next/navigation';
+
+type ButtonProps = {
+  secondary?: boolean;
+  OnClick?: () => void;
+  children: React.ReactNode;
+};
 
 export default function Button({
+  secondary = false,
   OnClick,
-  Type = 1,
   children,
-}: {
-  OnClick?: () => void;
-  Type?: number;
-  children: React.ReactNode;
-}) {
-  const selectedBakery = useSelectedBakery();
-
-  const handleClick = () => {
-    if (Type === 2) {
-      selectedBakery.clearSelectedBakery();
-      return;
-    }
-
-    selectedBakery.setSelectedBakery(2, 'Royal Rolls Bakery');
-  };
-
-  return <button onClick={OnClick ?? handleClick}>{children}</button>;
+}: ButtonProps) {
+  return <button onClick={OnClick}>{children}</button>;
 }
