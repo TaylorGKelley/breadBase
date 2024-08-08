@@ -24,14 +24,14 @@ export default function BackgroundImageContainer({
       className={styles.ImageContainer}
       style={
         {
-          background: `url('${path}') ${backgroundPosition}`,
-          backgroundSize,
+          background: `url('${path}') ${backgroundPosition} no-repeat`,
+          backgroundSize: backgroundSize,
           '--tint-color': tintColor,
           '--blur-filter': blurFilter,
         } as React.CSSProperties
       }
     >
-      <div>{children}</div>
+      {children}
     </div>
   );
 }

@@ -16,7 +16,7 @@
   -webkit-backdrop-filter: blur(var(--blur-filter));
 }
 
-.ImageContainer > div {
+.ImageContainer > * {
   position: relative;
   z-index: 1;
 }

@@ -1,8 +1,54 @@
 .main {
   position: relative;
-  /* Temporary styling */
+}
+
+#Hero {
+  height: clamp(400px, 80vh, 750px);
+  width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: stretch;
   align-items: center;
+}
+
+.Hero_contentContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 100%;
+}
+
+.Hero_buttonContainer {
+  display: flex;
+  justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
+  color: white;
+}
+
+#Suggestions {
+  position: relative;
+  height: clamp(500px, 80vh 1000px);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 5rem 2rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+#NearbyBakeries {
+  height: clamp(500px, 80vh, 1000px);
+}
+
+.NearbyBakeries_container {
+  padding: 5rem 1rem;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+
+.BakeryMap_container {
+  height: 60vh;
 }
