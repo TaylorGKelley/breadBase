@@ -59,3 +59,14 @@
 #About {
   height: clamp(500px, 80vh, 1000px);
 }
+
+#About > div {
+  width: clamp(300px, 80vw, 1000px);
+  margin-inline: auto;
+  padding: 5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
