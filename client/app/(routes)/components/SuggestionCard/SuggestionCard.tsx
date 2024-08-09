@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './SuggestionCard.module.css';
-import BackgroundImageContainer from '@/app/components/BackgroundImageContainer/BackgroundImageContainer';
+import BackgroundImageContainer from '../../../components/BackgroundImageContainer/BackgroundImageContainer';
 
 type SuggestionCardProps = {
   title: string;

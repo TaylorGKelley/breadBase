@@ -1,10 +1,11 @@
 import { Metadata } from 'next';
 import styles from './page.module.css';
-import BackgroundImageContainer from '../components/BackgroundImageContainer/BackgroundImageContainer';
 import Link from 'next/link';
 import { metamorphous } from '../ui/fonts';
-import SuggestionCard from './components/SuggestionCard/SuggestionCard';
+import BackgroundImageContainer from '../components/BackgroundImageContainer/BackgroundImageContainer';
 import BakeryMap from '../components/BakeryMap/BakeryMap';
+import SuggestionCard from './components/SuggestionCard/SuggestionCard';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'BreadBase Home',
@@ -22,7 +23,7 @@ export default function Home() {
           blurFilter='1px'
         >
           <div className={styles.Hero_contentContainer}>
-            <h1 className={metamorphous.className}>BreadBase</h1>
+            <h1 className={metamorphous.className}>Bread Base</h1>
             <div className={styles.Hero_buttonContainer}>
               <Link
                 href='/Search/Product'
@@ -67,6 +68,33 @@ export default function Home() {
             </div>
           </div>
         </BackgroundImageContainer>
+      </section>
+      <section id={styles.About}>
+        <div>
+          <div>
+            <h2 className={metamorphous.className}>Who are we?</h2>
+            <p>
+              Welcome to Bread Base! The online bakery where you can order fresh
+              and delicious bread from around the world. Whether you crave a
+              classic baguette, a hearty rye, or a sweet cinnamon roll, we have
+              it all. You can choose from the bakers in your area, select items
+              from their menu, and place your online order to skip the lines.
+              Our bakers are passionate and skilled, and they use only the
+              finest ingredients to make your bread. You can also browse their
+              profiles and reviews, and their personal bakery home. Bread Base
+              is more than just a website, its a community of bread lovers. Join
+              us today and discover the joy of bread!
+            </p>
+          </div>
+          <div>
+            <Image
+              src='/images/SlicesOfWholeWheatBread.jpg'
+              width={400}
+              height={400}
+              alt='about'
+            />
+          </div>
+        </div>
       </section>
     </main>
   );

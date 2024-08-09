@@ -13,6 +13,7 @@ export default function RootLayout({
       <body
         className={poppins.className}
         suppressHydrationWarning
+        style={{ overflowX: 'hidden' }}
       >
         <Navbar />
         {children}

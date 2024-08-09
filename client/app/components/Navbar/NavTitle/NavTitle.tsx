@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import styles from './NavTitle.module.css';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import useSelectedBakery from '@/app/store/selectedBakery';
-import { metamorphous } from '@/app/ui/fonts';
+import useSelectedBakery from '../../../store/selectedBakery';
+import { metamorphous } from '../../../ui/fonts';
 
 export default function NavTitle() {
   const { id, title } = useSelectedBakery();

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "leaflet": "^1.9.4",
+    "leaflet.smooth_marker_bouncing": "^3.1.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
@@ -18,6 +19,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
