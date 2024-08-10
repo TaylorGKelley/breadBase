@@ -57,7 +57,6 @@
 }
 
 #About {
-  height: clamp(500px, 80vh, 1000px);
 }
 
 #About > div {
@@ -75,4 +74,5 @@
 #About > div > div {
   flex: 1;
   max-width: 450px;
+  min-width: 350px;
 }
