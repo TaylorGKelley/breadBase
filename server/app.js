@@ -1,5 +1,5 @@
 import express from 'express';
-import AppError from './utils/appError.js';
+import AppError from './utils/AppError.js';
 import errorController from './controllers/errorController.js';
 import recipeRouter from './routes/productRoutes.js';
 
