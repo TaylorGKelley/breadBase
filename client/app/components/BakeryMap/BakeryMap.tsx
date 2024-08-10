@@ -5,8 +5,10 @@ const Map = dynamic(() => import('./Map/Map'), { ssr: false });
 
 export default function BakeryMap() {
   return (
-    <div className={styles.BakeryMap}>
-      <Map />
-    </div>
+    <>
+      <div className={styles.BakeryMap}>
+        <Map />
+      </div>
+    </>
   );
 }

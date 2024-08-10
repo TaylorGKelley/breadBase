@@ -65,8 +65,14 @@
   margin-inline: auto;
   padding: 5rem 1rem;
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
   gap: 2rem;
   flex-wrap: wrap;
+}
+
+#About > div > div {
+  flex: 1;
+  max-width: 450px;
 }

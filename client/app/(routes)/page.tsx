@@ -64,7 +64,7 @@ export default function Home() {
           <div className={styles.NearbyBakeries_container}>
             <h2 className={metamorphous.className}>Bakers near you</h2>
             <div className={styles.BakeryMap_container}>
-              <BakeryMap />
+              {/* <BakeryMap /> */}
             </div>
           </div>
         </BackgroundImageContainer>
