@@ -7,7 +7,7 @@ import NavTitle from './NavTitle/NavTitle';
 export default function Navbar() {
   return (
     <header id={styles.Navbar}>
-      <div className='NavMain_wrapper'>
+      <div className={styles.NavMain_wrapper}>
         <div className={styles.NavMain}>
           <div className={styles.NavMain_findBakeryContainer}>
             <Link href='/Search/Bakery'>

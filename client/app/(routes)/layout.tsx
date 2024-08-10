@@ -1,6 +1,5 @@
 import './globals.css';
 import Navbar from '../components/Navbar/Navbar';
-import Footer from '../components/Footer/Footer';
 import { poppins } from '../ui/fonts';
 
 export default function RootLayout({
@@ -17,7 +16,6 @@ export default function RootLayout({
       >
         <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );

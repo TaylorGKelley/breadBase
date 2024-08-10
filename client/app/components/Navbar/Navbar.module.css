@@ -1,14 +1,13 @@
 #Navbar {
-  --clr-color: #ccc;
-  --clr-primary-background: #383a3f;
-  --clr-secondary-background: #313236;
+  --clr-nav-color: #ccc;
   --size-toggle-button-width: 33px;
 
-  height: max-content;
+  height: calc(92px + 56.6px);
+  background-color: var(--clr-primary-background);
 }
 
 #Navbar a {
-  color: var(--clr-color);
+  color: var(--clr-nav-color);
   text-decoration: none;
 }
 
@@ -17,6 +16,7 @@
   top: 0;
   left: 50%;
   translate: -50% 0;
+  z-index: 100;
 
   width: 100%;
   max-width: 2000px;

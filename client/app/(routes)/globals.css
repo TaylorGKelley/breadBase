@@ -9,7 +9,10 @@
 }
 
 * {
+  --clr-color: #fff;
   --clr-accent: #eaa827;
+  --clr-primary-background: #383a3f;
+  --clr-secondary-background: #313236;
 }
 
 body {
