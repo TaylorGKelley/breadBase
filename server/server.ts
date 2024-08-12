@@ -9,7 +9,7 @@ process.on('uncaughtException', (err) => {
 import dotenv from 'dotenv';
 dotenv.config({ path: './config.env' });
 
-import app from './app.js';
+import app from './app';
 
 const dbConnection = process.env?.DB_URI?.replace(
   '<password>',

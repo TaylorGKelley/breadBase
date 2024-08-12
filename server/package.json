@@ -1,13 +1,11 @@
 {
   "name": "bread_base_api",
   "version": "1.0.0",
-  "description": "Backend app for Bread Base application",
+  "description": "Backend app for breadBase application",
   "main": "server.ts",
   "type": "module",
   "scripts": {
-    "build": "npx tsc",
-    "start": "tsc -w & nodemon server.ts",
-    "debug": "ndb server.ts"
+    "start": "npx tsc & nodemon dist/server.js"
   },
   "author": "Taylor Kelley",
   "license": "ISC",
@@ -19,5 +17,8 @@
     "express": "^4.18.2",
     "mongoose": "^7.3.3",
     "typescript": "^5.5.4"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2"
   }
 }

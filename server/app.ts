@@ -1,7 +1,5 @@
-import express from 'express';
-import AppError from './utils/AppError.js';
-import errorController from './controllers/errorController.js';
-import { productRoutes, recipeRoutes } from './routes/index.js';
+import express, { ErrorRequestHandler } from 'express';
+import { productRoutes, recipeRoutes } from './routes';
 
 const app = express();
 app.use(express.json());
@@ -12,9 +10,7 @@ app.use(`${baseRoute}/recipes`, recipeRoutes);
 
 app.all('*', (req, res, next) => {
   console.log('404');
-  next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
+  next(new Error(`Can't find ${req.originalUrl} on this server`));
 });
-
-app.use(errorController);
 
 export default app;
