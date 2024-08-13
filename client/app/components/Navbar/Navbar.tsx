@@ -35,9 +35,9 @@ export default function Navbar() {
             <li>
               <Link href='/Search/Bakery'>Bakeries</Link>
             </li>
-            <li>
+            {/* <li>
               <Link href='/Search/Product'>Products</Link>
-            </li>
+            </li> */}
             <li>
               <Link href='/Search/Recipe'>Recipes</Link>
             </li>

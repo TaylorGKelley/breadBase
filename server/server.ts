@@ -11,16 +11,19 @@ dotenv.config({ path: './config.env' });
 
 import app from './app';
 
-const dbConnection = process.env?.DB_URI?.replace(
+const dbConnectionString = process.env?.DB_URI?.replace(
   '<password>',
   process.env.DB_PASSWORD ?? 'password',
 );
 
-if (dbConnection !== undefined) {
+if (dbConnectionString !== undefined) {
   mongoose
-    .connect(dbConnection)
+    .connect(dbConnectionString)
     .then(() => console.log('Database connected successfully'))
-    .catch((err) => console.log(`Database connection failed: ${err.message}`));
+    .catch((err) => {
+      console.error('Database Connection Failed...');
+      console.log(err.message);
+    });
 } else {
   console.log('No DB connection string provided. Please check the .env file.');
 }

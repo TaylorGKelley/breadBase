@@ -1,11 +1,10 @@
-import express, { ErrorRequestHandler } from 'express';
-import { productRoutes, recipeRoutes } from './routes';
+import express from 'express';
+import { recipeRoutes } from './routes';
 
 const app = express();
 app.use(express.json());
 
 const baseRoute = '/api/v1';
-app.use(`${baseRoute}/products`, productRoutes);
 app.use(`${baseRoute}/recipes`, recipeRoutes);
 
 app.all('*', (req, res, next) => {
