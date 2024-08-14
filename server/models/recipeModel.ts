@@ -1,6 +1,9 @@
 import { Schema, model, InferSchemaType } from 'mongoose';
+import RecipeDocument, {
+  RecipeReviewSubDocument,
+} from '../types/RecipeDocument';
 
-const reviewSchemaDefinition = new Schema({
+const reviewSchemaDefinition = new Schema<RecipeReviewSubDocument>({
   userName: {
     type: String,
     required: [true, 'Review needs a username'],
@@ -9,7 +12,7 @@ const reviewSchemaDefinition = new Schema({
   review: { type: String },
 });
 
-const recipeSchemaDefinition = {
+const schema = new Schema<RecipeDocument>({
   title: { type: String, required: [true, 'A recipe must have a title'] },
   bakery: {
     type: Schema.Types.ObjectId,
@@ -25,69 +28,43 @@ const recipeSchemaDefinition = {
       image: { type: Buffer },
     },
   ],
-  prepTime: {
-    type: {
-      hours: { type: Number },
-      minutes: { type: Number },
-    },
+  prepTimeMinutes: {
+    type: Number,
     required: [true, 'Recipe needs a prep time'],
   },
-  cookTime: {
-    type: {
-      hours: { type: Number },
-      minutes: { type: Number },
-    },
+  cookTimeMinutes: {
+    type: Number,
     required: [true, 'Recipe needs a cook time'],
   },
-  downTime: {
-    hours: { type: Number, default: 0 },
-    minutes: { type: Number, default: 0 },
-  },
-  servings: { type: Number, min: 1 },
+  downTimeMinutes: Number,
+  servings: { type: Number, min: 1, default: 1 },
   tags: [String],
-  ingredients: {
-    type: [
-      {
-        amount: {
-          type: String,
-          required: [true, 'Ingredient needs an amount'],
-        },
-        description: {
-          type: String,
-          required: [true, 'Ingredient needs a description'],
-        },
-        note: { type: String },
+  ingredients: [
+    {
+      amount: {
+        type: String,
+        required: [true, 'Ingredient needs an amount'],
       },
-    ],
-    required: [true, 'Recipe needs at least one ingredient'],
-  },
+      description: {
+        type: String,
+        required: [true, 'Ingredient needs a description'],
+      },
+      note: { type: String },
+    },
+  ],
   directions: {
     type: [String],
     required: [true, 'Recipe needs at least one direction'],
   },
   notes: [String],
-} as const;
+});
 
-const schema = new Schema(recipeSchemaDefinition);
-
-schema.pre(
-  ['find', 'findOne', 'findOneAndUpdate', 'findOneAndDelete'],
-  function (next) {
-    this.populate({ path: 'bakery', select: 'title' });
-
-    next();
-  },
-);
-
-schema.post('save', function (doc, next) {
-  doc.populate('bakery', 'title').then(() => {
-    next();
-  });
+schema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
+  this.populate({ path: 'bakery', select: 'title' });
 
   next();
 });
 
-const RecipeModel = model('Recipe', schema);
-export type RecipeModelType = InferSchemaType<typeof recipeSchemaDefinition>;
+const RecipeModel = model<RecipeDocument>('Recipe', schema);
 
 export default RecipeModel;

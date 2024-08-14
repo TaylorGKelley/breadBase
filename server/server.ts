@@ -25,7 +25,7 @@ if (dbConnectionString !== undefined) {
       console.log(err.message);
     });
 } else {
-  console.log('No DB connection string provided. Please check the .env file.');
+  console.warn('No DB connection string provided. Please check the .env file.');
 }
 
 const port = process.env.PORT || 5000;

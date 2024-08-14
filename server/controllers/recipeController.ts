@@ -42,7 +42,8 @@ export const getRecipeById = async (req: Request, res: Response) => {
 
 export const createRecipe = async (req: Request, res: Response) => {
   try {
-    const newRecipe = await Recipes.create(req.body);
+    const { _id: newRecipeId } = await Recipes.create(req.body);
+    const newRecipe = await Recipes.findById(newRecipeId);
 
     res.status(200).json({
       message: 'Recipe Created',

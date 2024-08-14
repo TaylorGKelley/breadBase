@@ -1,32 +1,40 @@
-import { InferSchemaType, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
+import BakeryDocument from '../types/BakeryDocument';
+import validator from 'validator';
+import productSchema from './productSchema';
 
-const schemaDefinition = {
-  title: { type: String, required: [true, 'Bakery needs a title'] },
-  saves: { type: Number, default: 0 },
-  about: String,
-  location: { type: 'Point', coordinates: [0, 0] },
-  address: {
-    type: String,
-    required: [true, 'Bakery needs a contact email'],
+const bakerySchema = new Schema<BakeryDocument>({
+  title: {
+    type: Schema.Types.String,
+    required: [true, 'Bakery needs a title'],
   },
-  contact: {
-    type: {
-      type: String,
-      enum: ['Phone', 'Email'],
-      required: true,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
-    required: [true, 'Bakery needs a contact'],
+  bakerySignIn: {
+    type: Schema.Types.ObjectId,
+    ref: 'BakerySignIn',
   },
-  products: [],
-} as const;
+  acceptsToGoOrders: Schema.Types.Boolean,
+  saves: { type: Schema.Types.Number, default: 0 },
+  about: Schema.Types.String,
+  address: Schema.Types.String,
+  suiteNumber: Schema.Types.Number,
+  state: Schema.Types.String,
+  city: Schema.Types.String,
+  zipCode: {
+    type: Schema.Types.Number,
+    validate: [
+      function (val: number) {
+        validator.isPostalCode(val.toString(), 'US');
+      },
+      'Please provide a valid Zip Code',
+    ],
+  },
+  contactPhone: {
+    type: Schema.Types.Number,
+    validate: [validator.isMobilePhone, 'Please provide a valid Phone Number'],
+  },
+  products: [productSchema],
+});
 
-const schema = new Schema(schemaDefinition);
-
-const BakeryModel = model('Bakery', schema);
-export type BakeryModelType = InferSchemaType<typeof schemaDefinition>;
+const BakeryModel = model<BakeryDocument>('Bakery', bakerySchema);
 
 export default BakeryModel;
