@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-type ProductSubDocument = mongoose.Document & {
+type Product = mongoose.Document & {
   name: string;
   price: number;
   description: string;
@@ -14,4 +14,4 @@ type ProductSubDocument = mongoose.Document & {
   };
 };
 
-export default ProductSubDocument;
+export default Product;

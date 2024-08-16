@@ -1,7 +1,7 @@
 import mongoose, { Types } from 'mongoose';
-import ProductSubDocument from './productSubDocument';
+import Product from './Product';
 
-type BakeryDocument = mongoose.Document & {
+type Bakery = mongoose.Document & {
   title: string;
   bakerySignIn: Types.ObjectId;
   acceptsToGoOrders: boolean;
@@ -14,7 +14,7 @@ type BakeryDocument = mongoose.Document & {
   city: string;
   zipCode: number;
   contactPhone: number;
-  products: ProductSubDocument[];
+  products: Product[];
 };
 
-export default BakeryDocument;
+export default Bakery;

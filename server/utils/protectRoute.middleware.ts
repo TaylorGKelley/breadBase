@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import Bakery from '../models/bakeryModel';
+import User from '../models/userModel';
 import jwt from 'jsonwebtoken';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
@@ -10,25 +10,28 @@ export default async (req: Request, res: Response, next: NextFunction) => {
   }
 
   if (process.env?.JWT_SECRET) {
-    const decoded: jwt.JwtPayload = (await jwt.verify(
-      token,
-      process.env?.JWT_SECRET,
-    )) as jwt.JwtPayload;
+    try {
+      const decoded: jwt.JwtPayload = jwt.verify(
+        token,
+        process.env?.JWT_SECRET,
+      ) as jwt.JwtPayload;
+      const currentUser = await User.findById((decoded as jwt.JwtPayload).id);
+      if (!currentUser) {
+        return res
+          .status(401)
+          .send('The user belonging to this token no longer exists.');
+      }
 
-    const currentBakery = await Bakery.findById(decoded.id);
-    if (!currentBakery) {
-      return res
-        .status(401)
-        .send('The user belonging to this token no longer exists.');
+      if (currentUser.changedPasswordAfter(decoded.iat)) {
+        return res
+          .status(401)
+          .send('User recently changed password. Please login again.');
+      }
+
+      req.user = currentUser;
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message });
     }
-
-    if (currentBakery.changedPasswordAfter(decoded.iat)) {
-      return res
-        .status(401)
-        .send('User recently changed password. Please login again.');
-    }
-
-    req.user = { _id: currentBakery._id, email: currentBakery.bakeryEmail };
 
     next();
   } else {

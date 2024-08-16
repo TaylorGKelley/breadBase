@@ -1,9 +1,7 @@
 import { Schema, model, InferSchemaType } from 'mongoose';
-import RecipeDocument, {
-  RecipeReviewSubDocument,
-} from '../types/RecipeDocument';
+import Recipe, { RecipeReview } from '../types/Recipe';
 
-const reviewSchemaDefinition = new Schema<RecipeReviewSubDocument>({
+const reviewSchemaDefinition = new Schema<RecipeReview>({
   userName: {
     type: String,
     required: [true, 'Review needs a username'],
@@ -12,7 +10,7 @@ const reviewSchemaDefinition = new Schema<RecipeReviewSubDocument>({
   review: { type: String },
 });
 
-const schema = new Schema<RecipeDocument>({
+const schema = new Schema<Recipe>({
   title: { type: String, required: [true, 'A recipe must have a title'] },
   bakery: {
     type: Schema.Types.ObjectId,
@@ -65,6 +63,6 @@ schema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {
   next();
 });
 
-const RecipeModel = model<RecipeDocument>('Recipe', schema);
+const RecipeModel = model<Recipe>('Recipe', schema);
 
 export default RecipeModel;

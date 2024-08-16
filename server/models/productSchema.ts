@@ -1,8 +1,8 @@
 import { Schema } from 'mongoose';
-import ProductSubDocument from '../types/productSubDocument';
+import Product from '../types/Product';
 import validator from 'validator';
 
-const productSchema = new Schema<ProductSubDocument>({
+const productSchema = new Schema<Product>({
   name: {
     types: Schema.Types.String,
     required: [true, 'Product requires a name'],

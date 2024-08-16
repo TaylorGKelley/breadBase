@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import BakeryDocument from '../types/BakeryDocument';
+import BakeryDocument from '../types/Bakery';
 import validator from 'validator';
 import productSchema from './productSchema';
 
