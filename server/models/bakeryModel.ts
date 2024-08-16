@@ -2,13 +2,32 @@ import { model, Schema } from 'mongoose';
 import Bakery from '../types/Bakery';
 import validator from 'validator';
 import productSchema from './productSchema';
+import { UserRole } from '../types/User';
 
 const bakerySchema = new Schema<Bakery>({
   title: {
     type: Schema.Types.String,
     required: [true, 'Bakery needs a title'],
   },
-  acceptsToGoOrders: Schema.Types.Boolean,
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Bakery must have an owner assigned to it'],
+    unique: [true, 'User cannot be an owner of more than one bakery'],
+  },
+  bakers: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+      role: {
+        type: Schema.Types.String,
+        enum: UserRole,
+      },
+    },
+  ],
+  acceptsToGoOrders: { type: Schema.Types.Boolean, default: false },
   saves: { type: Schema.Types.Number, default: 0 },
   about: Schema.Types.String,
   address: Schema.Types.String,
@@ -28,7 +47,7 @@ const bakerySchema = new Schema<Bakery>({
     type: Schema.Types.Number,
     validate: [validator.isMobilePhone, 'Please provide a valid Phone Number'],
   },
-  products: [productSchema],
+  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 });
 
 const BakeryModel = model<Bakery>('Bakery', bakerySchema);

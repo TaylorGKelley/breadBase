@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import Product from '../types/Product';
 import validator from 'validator';
 
@@ -26,4 +26,6 @@ const productSchema = new Schema<Product>({
   },
 });
 
-export default productSchema;
+const ProductModel = model<Product>('Product', productSchema);
+
+export default ProductModel;

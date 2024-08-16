@@ -28,7 +28,7 @@ const userSchema = new Schema<User>({
   role: {
     type: Schema.Types.String,
     enum: UserRole,
-    default: UserRole.userStandard,
+    default: UserRole.defaultUser,
   },
   associatedBakery: {
     type: Schema.Types.ObjectId,

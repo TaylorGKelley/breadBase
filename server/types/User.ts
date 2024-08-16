@@ -1,9 +1,10 @@
 import { Document, ObjectId } from 'mongoose';
 
 export enum UserRole {
-  userStandard = 'user_standard',
+  defaultUser = 'standard_user',
   bakeryView = 'bakery_view',
   bakeryManage = 'bakery_manage',
+  bakeryAdmin = 'bakery_admin',
   bakeryOwner = 'bakery_owner',
 }
 
@@ -14,7 +15,7 @@ type User = Document & {
   displayName?: string;
   email: string;
   role: UserRole;
-  associatedBakery: ObjectId; // https://mongoosejs.com/docs/typescript/populate.html
+  associatedBakery?: ObjectId; // https://mongoosejs.com/docs/typescript/populate.html
   password?: string;
   passwordConfirm?: string;
   passwordChangedAt?: Date;

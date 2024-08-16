@@ -1,9 +1,14 @@
-import { Document, Types } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 import Product from './Product';
+import { UserRole } from './User';
 
 type Bakery = Document & {
   title: string;
-  bakerySignIn: Types.ObjectId;
+  owner: ObjectId;
+  bakers: {
+    userId: ObjectId;
+    role: UserRole;
+  }[];
   acceptsToGoOrders: boolean;
   saves: number;
   about: string;
@@ -14,7 +19,7 @@ type Bakery = Document & {
   city: string;
   zipCode: number;
   contactPhone: number;
-  products: Product[];
+  products: ObjectId[];
 };
 
 export default Bakery;
