@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 
 export enum UserRole {
   userStandard = 'user_standard',
@@ -7,22 +7,26 @@ export enum UserRole {
   bakeryOwner = 'bakery_owner',
 }
 
-type User = mongoose.Document & {
+type User = Document & {
   googleId?: string;
   firstName: string;
   lastName: string;
-  name?: string;
+  displayName?: string;
   email: string;
   role: UserRole;
+  associatedBakery: ObjectId; // https://mongoosejs.com/docs/typescript/populate.html
   password?: string;
   passwordConfirm?: string;
   passwordChangedAt?: Date;
+  passwordResetToken?: string;
+  passwordResetTokenExpires?: Date;
   profilePhoto?: string;
   createdAt: Date;
   lastLogin: Date;
   accountActive: boolean;
   correctPassword: correctPassword;
   changedPasswordAfter: changedPasswordAfter;
+  createPasswordResetToken: createPasswordResetToken;
 };
 
 export type correctPassword = (
@@ -33,5 +37,7 @@ export type correctPassword = (
 export type changedPasswordAfter = (
   JWTTimestamp: number | undefined,
 ) => boolean;
+
+export type createPasswordResetToken = () => string;
 
 export default User;

@@ -1,16 +1,12 @@
 import { model, Schema } from 'mongoose';
-import BakeryDocument from '../types/Bakery';
+import Bakery from '../types/Bakery';
 import validator from 'validator';
 import productSchema from './productSchema';
 
-const bakerySchema = new Schema<BakeryDocument>({
+const bakerySchema = new Schema<Bakery>({
   title: {
     type: Schema.Types.String,
     required: [true, 'Bakery needs a title'],
-  },
-  bakerySignIn: {
-    type: Schema.Types.ObjectId,
-    ref: 'BakerySignIn',
   },
   acceptsToGoOrders: Schema.Types.Boolean,
   saves: { type: Schema.Types.Number, default: 0 },
@@ -35,6 +31,6 @@ const bakerySchema = new Schema<BakeryDocument>({
   products: [productSchema],
 });
 
-const BakeryModel = model<BakeryDocument>('Bakery', bakerySchema);
+const BakeryModel = model<Bakery>('Bakery', bakerySchema);
 
 export default BakeryModel;

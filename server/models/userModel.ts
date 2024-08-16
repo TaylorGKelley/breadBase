@@ -1,5 +1,6 @@
-import { model, Query, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import bcryptjs from 'bcryptjs';
+import crypto from 'crypto';
 import validator from 'validator';
 import User, { UserRole } from '../types/User';
 
@@ -15,7 +16,7 @@ const userSchema = new Schema<User>({
   lastName: {
     type: Schema.Types.String,
   },
-  name: {
+  displayName: {
     type: Schema.Types.String,
   },
   email: {
@@ -28,6 +29,10 @@ const userSchema = new Schema<User>({
     type: Schema.Types.String,
     enum: UserRole,
     default: UserRole.userStandard,
+  },
+  associatedBakery: {
+    type: Schema.Types.ObjectId,
+    ref: 'Bakery',
   },
   password: {
     type: Schema.Types.String,
@@ -42,6 +47,8 @@ const userSchema = new Schema<User>({
     },
   },
   passwordChangedAt: Schema.Types.Date,
+  passwordResetToken: Schema.Types.String,
+  passwordResetTokenExpires: Schema.Types.Date,
   profilePhoto: {
     type: Schema.Types.String,
   },
@@ -81,6 +88,22 @@ userSchema.methods.correctPassword = async function (
   return await bcryptjs.compare(providedPassword, authorPassword);
 };
 
+userSchema.methods.createPasswordResetToken = async function () {
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Temporary, until Emails are working
+  console.log({ resetToken });
+
+  this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
+
 userSchema.pre<User>('validate', function (next) {
   if (this.googleId === undefined && this.password === undefined)
     return next(new Error('User needs a password'));
@@ -89,7 +112,7 @@ userSchema.pre<User>('validate', function (next) {
 });
 
 userSchema.pre<User>('save', async function (next) {
-  if (!this.isModified('password') || !this.isNew) return next();
+  if (!this.isModified('password')) return next();
 
   if (this.password) {
     this.password = await bcryptjs.hash(this.password, 12);
@@ -97,6 +120,13 @@ userSchema.pre<User>('save', async function (next) {
     this.passwordConfirm = undefined;
   }
 
+  next();
+});
+
+userSchema.pre<User>('save', function (next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = new Date(Date.now() - 1000); // keeps it 1 second in the past so there are no bugs with the json web token being before the password was changed.
   next();
 });
 

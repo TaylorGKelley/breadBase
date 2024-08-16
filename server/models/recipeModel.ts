@@ -1,14 +1,6 @@
-import { Schema, model, InferSchemaType } from 'mongoose';
-import Recipe, { RecipeReview } from '../types/Recipe';
-
-const reviewSchemaDefinition = new Schema<RecipeReview>({
-  userName: {
-    type: String,
-    required: [true, 'Review needs a username'],
-  },
-  rating: { type: Number, required: [true, 'Review needs a rating'] },
-  review: { type: String },
-});
+import { Schema, model } from 'mongoose';
+import Recipe from '../types/Recipe';
+import ReviewSchema from './reviewModel';
 
 const schema = new Schema<Recipe>({
   title: { type: String, required: [true, 'A recipe must have a title'] },
@@ -17,7 +9,7 @@ const schema = new Schema<Recipe>({
     ref: 'Bakery',
     required: [true, 'You must be part of a bakery to share a recipe'],
   },
-  reviews: [reviewSchemaDefinition],
+  reviews: [ReviewSchema],
   imageBase: { type: Buffer, required: [true, 'Recipe needs an image'] },
   description: [
     {

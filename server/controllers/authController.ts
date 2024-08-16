@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
+import crypto from 'crypto';
 import { createSendToken } from '../utils/jwtFunctions';
 import User from '../models/userModel';
 
@@ -41,24 +42,29 @@ export const signIn = async (
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
-        name: user.name,
+        displayName: user.displayName,
         profilePhoto: user.profilePhoto,
       },
     },
   });
 };
 
-export const signOut = async (req: Request, res: Response) => {
+export const logOut = async (req: Request, res: Response) => {
   // res.status(200).clearCookie('jwt').json({
   //   status: 'signed out',
   //   message: 'User successfully signed out',
   // });
-  req.logout((err: any) => console.log('logged out'));
-  res.redirect('/');
+  req.user = undefined;
+  req.logout((err: any) => console.log('User logged out'));
+  res.clearCookie('jwt').json({
+    message: 'User successfully logged out',
+    data: { user: null },
+  });
 };
 
 export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password, profilePhoto } = req.body;
+  const { displayName, firstName, lastName, email, password, profilePhoto } =
+    req.body;
 
   if (req.body.password !== req.body.passwordConfirm || !req.body.password)
     return res.status(500).send('Passwords do not match');
@@ -73,7 +79,9 @@ export const registerUser = async (req: Request, res: Response) => {
     }
 
     const newUser = await User.create({
-      name,
+      displayName,
+      firstName,
+      lastName,
       email,
       password,
       profilePhoto,
@@ -85,8 +93,10 @@ export const registerUser = async (req: Request, res: Response) => {
       status: 'success',
       data: {
         user: {
+          displayName: newUser.displayName,
+          firstName: newUser.firstName,
+          lastName: newUser.lastName,
           email: newUser.email,
-          name: newUser.name,
           profilePhoto: newUser.profilePhoto,
         },
       },
@@ -97,6 +107,115 @@ export const registerUser = async (req: Request, res: Response) => {
       message: (error as Error).message,
     });
   }
+};
+
+export const forgotPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user || user.googleId) {
+    return res.status(404).json({
+      message: 'Invalid email address',
+    });
+  }
+
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  // IMPLEMENT EMAILER -- Email LINK to user with reset token
+  // FOR TESTING
+  res.sendStatus(201);
+  // FOR TESTING
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const token = req.params.token;
+
+    if (token) {
+      const hashedToken = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex');
+
+      const user = await User.findOne({
+        passwordResetToken: hashedToken,
+        passwordResetTokenExpires: { $gt: Date.now() },
+      });
+
+      if (!user) {
+        return res.status(400).json({
+          message: 'Token is invalid or has expired',
+        });
+      }
+
+      const { password, passwordConfirm } = req.body;
+
+      if (!password) {
+        return res.status(401).json({
+          message: 'Request does not contain new password',
+        });
+      }
+
+      user.password = password;
+      user.passwordConfirm = passwordConfirm;
+      user.passwordResetToken = undefined;
+      user.passwordResetTokenExpires = undefined;
+      await user.save({});
+
+      createSendToken(user._id, res);
+
+      res.status(201).json({
+        status: 'success',
+        data: {
+          user: {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            displayName: user.displayName,
+            profilePhoto: user.profilePhoto,
+          },
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: (error as Error).message,
+    });
+  }
+};
+
+export const updatePassword = async (req: Request, res: Response) => {
+  const user = await User.findById((req.user as any)?._id).select('+password');
+
+  if (!user) {
+    return res.status(404).send('User with that ID does not exist');
+  }
+
+  if (
+    !(await user?.correctPassword(
+      req.body.passwordCurrent,
+      user.password || '',
+    ))
+  ) {
+    return res.status(401).json({
+      message: 'Current password is incorrect',
+    });
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  createSendToken(user._id, res);
+
+  res.status(201).json({
+    message: 'Password successfully updated',
+  });
 };
 
 export const authenticateGoogle = async (req: Request, res: Response) => {

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Recipe from '../models/recipeModel';
+import Review from '../types/Review';
 
 export const getAllReviewsForRecipe = async (req: Request, res: Response) => {
   try {
@@ -59,7 +60,11 @@ export const createReviewForRecipe = async (req: Request, res: Response) => {
   try {
     const recipe = await Recipe.findById(req.params.recipeId);
 
-    if (!recipe?.reviews?.find((doc) => doc.userName === req.body?.userName)) {
+    if (
+      !recipe?.reviews?.find(
+        (review: Review) => review.userId === (req.user as any)?._id,
+      )
+    ) {
       recipe?.reviews?.push(req.body);
       const review = recipe?.reviews?.at(-1);
       await recipe?.save();

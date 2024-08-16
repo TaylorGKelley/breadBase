@@ -1,7 +1,7 @@
-import mongoose, { Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import Product from './Product';
 
-type Bakery = mongoose.Document & {
+type Bakery = Document & {
   title: string;
   bakerySignIn: Types.ObjectId;
   acceptsToGoOrders: boolean;

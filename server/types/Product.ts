@@ -1,10 +1,10 @@
-import mongoose, { Schema } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-type Product = mongoose.Document & {
+type Product = Document & {
   name: string;
   price: number;
   description: string;
-  images?: { isFavorite: boolean; image: Schema.Types.Buffer }[];
+  images?: { isFavorite: boolean; image: Types.Buffer }[];
   ingredients?: string[];
   nutrition?: {
     calories: string;

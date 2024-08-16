@@ -1,16 +1,11 @@
-import mongoose, { Types } from 'mongoose';
+import { Document, Types } from 'mongoose';
 import BakeryDocument from './Bakery';
+import Review from './Review';
 
-export type RecipeReview = mongoose.Document & {
-  userName: string;
-  rating: number;
-  review?: string;
-};
-
-type Recipe = mongoose.Document & {
+type Recipe = Document & {
   title: string;
   bakery: Types.ObjectId | BakeryDocument;
-  reviews: RecipeReview;
+  reviews: Types.DocumentArray<Review>;
   imageBase?: Types.Buffer;
   description: {
     heading: string;

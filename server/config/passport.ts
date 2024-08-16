@@ -32,7 +32,9 @@ passport.use(
           user = new UserModel({
             googleId: profile.id,
             email: profile.emails?.[0].value,
-            name: profile.displayName,
+            firstName: profile.name?.givenName,
+            lastName: profile.name?.familyName,
+            displayName: profile.displayName,
             profilePhoto: profile.photos?.[0].value,
           });
         } else {
