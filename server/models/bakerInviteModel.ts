@@ -20,7 +20,7 @@ const bakerInviteSchema = new Schema<BakerInvite>({
   },
   inviteCode: {
     type: Schema.Types.String,
-    required: true,
+    required: [true, 'Invite code is required'],
   },
   date: {
     type: Date,
@@ -33,10 +33,9 @@ bakerInviteSchema.methods.validInviteCode = function (inviteDate: Date) {
 };
 
 bakerInviteSchema.pre<BakerInvite>('save', function (next) {
-  const inviteCode = crypto.randomBytes(32).toString('hex');
   const hashedInviteCode = crypto
     .createHash('sha256')
-    .update(inviteCode)
+    .update(this.inviteCode)
     .digest('hex');
 
   this.inviteCode = hashedInviteCode;
