@@ -13,9 +13,10 @@ const bakerInviteSchema = new Schema<BakerInvite>({
     type: Schema.Types.String,
     required: true,
   },
-  type: {
+  role: {
     type: Schema.Types.String,
     enum: UserRole,
+    default: UserRole.bakeryView,
   },
   inviteCode: {
     type: Schema.Types.String,
@@ -27,26 +28,15 @@ const bakerInviteSchema = new Schema<BakerInvite>({
   },
 });
 
-bakerInviteSchema.methods.validInviteCode = function (
-  inviteCode: string,
-  hashedCode: string,
-  inviteDate: Date,
-) {
-  const hashedInviteCode = crypto
-    .createHash('sha256')
-    .update(inviteCode)
-    .digest('hex');
-
-  return (
-    hashedInviteCode === hashedCode &&
-    inviteDate.getTime() + 2 * 24 * 60 * 60 * 1000 < Date.now()
-  );
+bakerInviteSchema.methods.validInviteCode = function (inviteDate: Date) {
+  return inviteDate.getTime() + 2 * 24 * 60 * 60 * 1000 > Date.now();
 };
 
 bakerInviteSchema.pre<BakerInvite>('save', function (next) {
+  const inviteCode = crypto.randomBytes(32).toString('hex');
   const hashedInviteCode = crypto
     .createHash('sha256')
-    .update(this.inviteCode)
+    .update(inviteCode)
     .digest('hex');
 
   this.inviteCode = hashedInviteCode;

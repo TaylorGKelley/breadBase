@@ -6,6 +6,7 @@ export enum UserRole {
   bakeryManage = 'bakery_manage',
   bakeryAdmin = 'bakery_admin',
   bakeryOwner = 'bakery_owner',
+  siteAdmin = 'site_admin',
 }
 
 type User = Document & {
@@ -40,5 +41,12 @@ export type changedPasswordAfter = (
 ) => boolean;
 
 export type createPasswordResetToken = () => string;
+
+export type ProtectedUser = {
+  _id: ObjectId;
+  email: string;
+  role: UserRole;
+  associatedBakeryId?: ObjectId;
+};
 
 export default User;

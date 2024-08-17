@@ -4,10 +4,15 @@ import { UserRole } from './User';
 type BakerInvite = Document & {
   bakeryId: ObjectId;
   email: string;
-  type: UserRole;
+  role: UserRole;
   inviteCode: string;
   date: Date;
-  generateInviteCode: () => string;
+  generateInviteCode: generateInviteCode;
+  validInviteCode: validInviteCode;
 };
+
+type generateInviteCode = () => string;
+
+type validInviteCode = (inviteDate: Date) => boolean;
 
 export default BakerInvite;

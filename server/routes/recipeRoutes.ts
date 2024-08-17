@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { protectRoute } from '../utils/authorizeRoutes.middleware';
+import { protectRoute } from '../middleware/authorizeRoutes';
 import {
   createRecipe,
   getAllRecipes,

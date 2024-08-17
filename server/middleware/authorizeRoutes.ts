@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import User from '../models/userModel';
 import jwt from 'jsonwebtoken';
-import { UserRole } from '../types/User';
-import ProtectedUser from '../types/ProtectedUser';
+import { ProtectedUser, UserRole } from '../types/User';
 
 export const protectRoute = async (
   req: Request,
@@ -60,6 +59,9 @@ export const protectRoute = async (
 };
 
 export const allowedUsers = (...roles: string[]) => {
+  // Site admin is always allowed
+  roles.push(UserRole.siteAdmin);
+
   return (req: Request, res: Response, next: NextFunction) => {
     if (!roles.includes((req.user as ProtectedUser)?.role)) {
       return res.status(401).send('Not authorized to view this route');

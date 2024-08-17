@@ -7,16 +7,20 @@ import {
   forgotPassword,
   resetPassword,
   updatePassword,
+  checkUserIsAuthenticated,
 } from '../controllers/authController';
 import passport from 'passport';
-import { protectRoute } from '../utils/authorizeRoutes.middleware';
+import { protectRoute } from '../middleware/authorizeRoutes';
 
 const router = Router();
 
 // Create/SignIn/Logout User
+router.get('/checkAuth', protectRoute, checkUserIsAuthenticated);
 router.post('/signin', signIn);
 router.post('/logOut', logOut);
 router.post('/register', registerUser);
+
+// Google OAuth
 router.get(
   '/google/callback',
   passport.authenticate('google', {

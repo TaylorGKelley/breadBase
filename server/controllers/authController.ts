@@ -2,6 +2,16 @@ import { NextFunction, Request, Response } from 'express';
 import crypto from 'crypto';
 import { createSendToken } from '../utils/jwtFunctions';
 import User from '../models/userModel';
+import { ProtectedUser } from '../types/User';
+
+export const checkUserIsAuthenticated = (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'You are logged in',
+    data: {
+      user: req.user as ProtectedUser,
+    },
+  });
+};
 
 export const signIn = async (
   req: Request,
