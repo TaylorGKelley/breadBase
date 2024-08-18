@@ -1,6 +1,7 @@
 import { Document, ObjectId } from 'mongoose';
 import Product from './Product';
 import { UserRole } from './User';
+import Review from './Review';
 
 type Bakery = Document & {
   title: string;
@@ -20,6 +21,7 @@ type Bakery = Document & {
   zipCode: number;
   contactPhone: number;
   products: ObjectId[];
+  reviews: Review[];
 };
 
 export default Bakery;

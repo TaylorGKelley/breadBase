@@ -2,7 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import {
   authRoutes,
-  bakerInviteRoutes,
+  bakeryAccessRoutes,
   bakeryRoutes,
   recipeRoutes,
 } from './routes';
@@ -18,7 +18,7 @@ const baseRoute = '/api/v1';
 app.use(`${baseRoute}`, authRoutes);
 app.use(`${baseRoute}/recipe`, recipeRoutes);
 app.use(`${baseRoute}/bakery`, bakeryRoutes);
-app.use(`${baseRoute}/baker`, bakerInviteRoutes);
+app.use(`${baseRoute}/baker`, bakeryAccessRoutes);
 
 app.all('*', (req, res, next) => {
   console.log('404');

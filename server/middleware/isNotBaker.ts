@@ -1,6 +1,6 @@
 import { UserRole } from '../types/User';
 
-const isBaker = (req: any, res: any, next: any) => {
+const isNotBaker = (req: any, res: any, next: any) => {
   if (
     req.user?.role === UserRole.defaultUser ||
     !req.user?.associatedBakeryId
@@ -13,4 +13,4 @@ const isBaker = (req: any, res: any, next: any) => {
   }
 };
 
-export default isBaker;
+export default isNotBaker;

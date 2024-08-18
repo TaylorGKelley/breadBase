@@ -46,12 +46,9 @@ export const acceptBakerInvite = async (req: Request, res: Response) => {
       .update(inviteCode)
       .digest('hex');
 
-    console.log(hashedInviteCode);
-
     const inviteRecord = await BakerInvite.findOne({
       inviteCode: hashedInviteCode,
     });
-    console.log(inviteRecord);
 
     if (!inviteRecord)
       return res.status(404).send('Invite code does not exist');
@@ -60,7 +57,6 @@ export const acceptBakerInvite = async (req: Request, res: Response) => {
       return res.status(401).send('Invite code is expired');
 
     // Associate User with bakery
-    console.log('inviteValid and recieved');
     await addUserToBakery(
       (req.user as ProtectedUser)._id,
       inviteRecord.role,
@@ -110,7 +106,20 @@ export const leaveBakery = async (req: Request, res: Response) => {
 
 export const removeBaker = async (req: Request, res: Response) => {
   try {
-    const { associatedBakeryId: bakeryId } = req.user as ProtectedUser;
+    const bakeryId =
+      req.body.bakeryId || (req.user as ProtectedUser).associatedBakeryId;
+
+    const userToRemoveId = req.body.userId;
+
+    if (!bakeryId || !userToRemoveId)
+      return new Error(`Please include a ${!bakeryId ? 'userId' : 'bakeryId'}`);
+
+    await removeUserFromBakery(bakeryId, req, userToRemoveId);
+
+    res.status(200).json({
+      status: 'success',
+      message: 'User removed from bakery',
+    });
   } catch (error) {
     res.status(500).json({
       status: 'fail',

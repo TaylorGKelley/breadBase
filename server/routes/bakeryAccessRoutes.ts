@@ -5,8 +5,9 @@ import {
   acceptBakerInvite,
   inviteBaker,
   leaveBakery,
-} from '../controllers/bakerInviteController';
-import isBaker from '../middleware/isBaker';
+  removeBaker,
+} from '../controllers/bakeryAccessController';
+import isNotBaker from '../middleware/isNotBaker';
 
 const router = Router();
 
@@ -19,7 +20,7 @@ router.post(
 router.post(
   '/invite/accept/:inviteCode',
   protectRoute,
-  isBaker,
+  isNotBaker,
   acceptBakerInvite,
 );
 
@@ -33,5 +34,14 @@ router.post(
   ),
   leaveBakery,
 );
+
+router.post(
+  '/removeBaker',
+  protectRoute,
+  allowedUsers(UserRole.bakeryOwner, UserRole.siteAdmin, UserRole.bakeryAdmin),
+  removeBaker,
+);
+
+// Todo: Transfer bakery ownership route
 
 export default router;

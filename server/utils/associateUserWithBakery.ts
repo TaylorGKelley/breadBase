@@ -41,29 +41,34 @@ export const removeUserFromBakery = async (
   try {
     if (!userId) userId = (req.user as ProtectedUser)._id;
 
-    const updatedUser = (await User.findByIdAndUpdate(
-      userId,
-      {
-        associatedBakery: undefined,
-        role: UserRole.defaultUser,
-      },
-      {
-        new: true,
-        runValidators: true,
-      },
-    ).exec()) as ProtectedUser;
-
     const associatedBakery = await Bakery.findById(bakeryId);
-    const userIndex = associatedBakery?.bakers.findIndex(
-      (user) => user.userId === userId,
-    );
-    if (userIndex === -1 || userIndex === undefined) {
-      throw new Error('User not found in bakery');
-    }
-    associatedBakery?.bakers.splice(userIndex, 1);
-    await associatedBakery?.save();
+    if (associatedBakery) {
+      const userToRemove = associatedBakery?.bakers.filter(
+        (baker) => baker.userId.toString() !== userId?.toString(),
+      );
+      if (!userToRemove) {
+        throw new Error('User not found in bakery');
+      }
+      associatedBakery.bakers = userToRemove;
 
-    req.user = updatedUser;
+      await associatedBakery?.save();
+
+      const updatedUser = (await User.findByIdAndUpdate(
+        userId,
+        {
+          associatedBakery: null,
+          role: UserRole.defaultUser,
+        },
+        {
+          new: true,
+          runValidators: true,
+        },
+      ).exec()) as ProtectedUser;
+
+      req.user = updatedUser;
+    } else {
+      throw new Error('Bakery not found');
+    }
   } catch (error) {
     throw new Error((error as Error).message);
   }

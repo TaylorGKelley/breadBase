@@ -5,6 +5,7 @@ import validator from 'validator';
 const productSchema = new Schema<Product>({
   name: {
     types: Schema.Types.String,
+    unique: true,
     required: [true, 'Product requires a name'],
   },
   price: {
