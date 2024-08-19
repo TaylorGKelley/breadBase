@@ -1,11 +1,10 @@
 import { Document, Types } from 'mongoose';
-import BakeryDocument from './Bakery';
 import Review from './Review';
 
 type Recipe = Document & {
   title: string;
-  bakery: Types.ObjectId | BakeryDocument;
-  reviews: Types.DocumentArray<Review>;
+  bakery: Types.ObjectId;
+  publicRecipe: boolean;
   imageBase?: Types.Buffer;
   description: {
     heading: string;
@@ -24,6 +23,7 @@ type Recipe = Document & {
   }[];
   directions: [string];
   notes: [string];
+  reviews: Types.DocumentArray<Review>;
 };
 
 export default Recipe;

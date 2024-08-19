@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import { allowedUsers, protectRoute } from '../middleware/authorizeRoutes';
 import {
-  createRecipe,
-  getAllRecipes,
-  getRecipeById,
-  updateRecipe,
-  deleteRecipe,
-} from '../controllers/recipeController';
+  createProduct,
+  getAllProducts,
+  getProductById,
+  updateProduct,
+  deleteProduct,
+} from '../controllers/productController';
 import {
   createReview,
   deleteReview,
@@ -14,42 +14,42 @@ import {
   getReview,
   updateReview,
 } from '../controllers/reviewController';
-import RecipeModel from '../models/recipeModel';
+import ProductModel from '../models/productModel';
 import { UserRole } from '../types/User';
 
 const router = Router();
 
-// * Recipe routes
-router.route('/').get(getAllRecipes).post(protectRoute, createRecipe);
+// * Product routes
+router.route('/').get(getAllProducts).post(protectRoute, createProduct);
 
 router
   .route('/:id')
-  .get(getRecipeById)
-  .patch(updateRecipe)
-  .delete(deleteRecipe);
+  .get(getProductById)
+  .patch(updateProduct)
+  .delete(deleteProduct);
 
-// * Recipe Review routes
+// * Product Review routes
 router
   .route('/:id/review')
-  .get(getAllReviews(RecipeModel))
+  .get(getAllReviews(ProductModel))
   .post(
     protectRoute,
     allowedUsers(UserRole.defaultUser),
-    createReview(RecipeModel),
+    createReview(ProductModel),
   );
 
 router
   .route('/:id/review/:reviewId')
-  .get(getReview(RecipeModel))
+  .get(getReview(ProductModel))
   .patch(
     protectRoute,
     allowedUsers(UserRole.defaultUser),
-    updateReview(RecipeModel),
+    updateReview(ProductModel),
   )
   .delete(
     protectRoute,
     allowedUsers(UserRole.defaultUser),
-    deleteReview(RecipeModel),
+    deleteReview(ProductModel),
   );
 
 router.all('*', (req, res, next) =>

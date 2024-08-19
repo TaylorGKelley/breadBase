@@ -1,8 +1,10 @@
-import { Document, Types } from 'mongoose';
+import { Document, ObjectId, Types } from 'mongoose';
+import Review from './Review';
 
 type Product = Document & {
   name: string;
-  price: number;
+  bakery: ObjectId;
+  price: string;
   description: string;
   images?: { isFavorite: boolean; image: Types.Buffer }[];
   ingredients?: string[];
@@ -12,6 +14,7 @@ type Product = Document & {
     carbs: string;
     protiens: string;
   };
+  reviews: Types.DocumentArray<Review>;
 };
 
 export default Product;

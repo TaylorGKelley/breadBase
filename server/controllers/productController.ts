@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
-import Recipes from '../models/recipeModel';
+import Products from '../models/productModel';
 import { ProtectedUser } from '../types/User';
 
-export const getAllRecipes = async (req: Request, res: Response) => {
+export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const recipes = await Recipes.find();
+    const products = await Products.find();
 
     res.status(200).json({
       message: 'success',
       data: {
-        recipes,
+        products,
       },
     });
   } catch (error) {
@@ -19,18 +19,18 @@ export const getAllRecipes = async (req: Request, res: Response) => {
   }
 };
 
-export const getRecipeById = async (req: Request, res: Response) => {
+export const getProductById = async (req: Request, res: Response) => {
   try {
-    const recipe = await Recipes.findById(req.params.id);
+    const product = await Products.findById(req.params.id);
 
-    if (!recipe) {
-      throw new Error('Could not find recipe with that ID');
+    if (!product) {
+      throw new Error('Could not find product with that ID');
     }
 
     res.status(200).json({
       message: 'success',
       data: {
-        recipe,
+        product,
       },
     });
   } catch (error) {
@@ -40,17 +40,17 @@ export const getRecipeById = async (req: Request, res: Response) => {
   }
 };
 
-export const createRecipe = async (req: Request, res: Response) => {
+export const createProduct = async (req: Request, res: Response) => {
   try {
-    const newRecipe = await Recipes.create({
+    const newProduct = await Products.create({
       ...req.body,
       bakery: (req.user as ProtectedUser).associatedBakeryId,
     });
 
     res.status(200).json({
-      message: 'Recipe Created',
+      message: 'Product Created',
       data: {
-        recipe: newRecipe,
+        product: newProduct,
       },
     });
   } catch (error) {
@@ -61,9 +61,9 @@ export const createRecipe = async (req: Request, res: Response) => {
   }
 };
 
-export const updateRecipe = async (req: Request, res: Response) => {
+export const updateProduct = async (req: Request, res: Response) => {
   try {
-    const updatedRecipe = await Recipes.findByIdAndUpdate(
+    const updatedProduct = await Products.findByIdAndUpdate(
       req.params.id,
       { ...req.body, bakery: (req.user as ProtectedUser).associatedBakeryId },
       {
@@ -73,9 +73,9 @@ export const updateRecipe = async (req: Request, res: Response) => {
     );
 
     res.status(200).json({
-      status: 'Recipe updated',
+      status: 'Product updated',
       data: {
-        recipe: updatedRecipe,
+        product: updatedProduct,
       },
     });
   } catch (error) {
@@ -86,16 +86,16 @@ export const updateRecipe = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteRecipe = async (req: Request, res: Response) => {
+export const deleteProduct = async (req: Request, res: Response) => {
   try {
-    const recipe = await Recipes.findByIdAndDelete(req.params.id);
+    const product = await Products.findByIdAndDelete(req.params.id);
 
-    if (!recipe) {
-      throw new Error('Could not find recipe using the provided ID.');
+    if (!product) {
+      throw new Error('Could not find product using the provided ID.');
     }
 
     res.status(200).json({
-      status: 'Recipe deleted',
+      status: 'Product deleted',
       data: null,
     });
   } catch (error) {

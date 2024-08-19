@@ -8,6 +8,7 @@ import {
 } from './routes';
 import passport from 'passport';
 import './config/passport';
+import productRoutes from './routes/productRoutes';
 
 const app = express();
 app.use(express.json());
@@ -16,9 +17,10 @@ app.use(passport.initialize());
 
 const baseRoute = '/api/v1';
 app.use(`${baseRoute}`, authRoutes);
-app.use(`${baseRoute}/recipe`, recipeRoutes);
-app.use(`${baseRoute}/bakery`, bakeryRoutes);
 app.use(`${baseRoute}/baker`, bakeryAccessRoutes);
+app.use(`${baseRoute}/bakery`, bakeryRoutes);
+app.use(`${baseRoute}/recipe`, recipeRoutes);
+app.use(`${baseRoute}/product`, productRoutes);
 
 app.all('*', (req, res, next) => {
   console.log('404');

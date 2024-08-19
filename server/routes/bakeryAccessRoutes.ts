@@ -6,6 +6,7 @@ import {
   inviteBaker,
   leaveBakery,
   removeBaker,
+  transferOwnership,
 } from '../controllers/bakeryAccessController';
 import isNotBaker from '../middleware/isNotBaker';
 
@@ -24,7 +25,7 @@ router.post(
   acceptBakerInvite,
 );
 
-router.post(
+router.delete(
   '/leave',
   protectRoute,
   allowedUsers(
@@ -35,13 +36,18 @@ router.post(
   leaveBakery,
 );
 
-router.post(
+router.delete(
   '/removeBaker',
   protectRoute,
   allowedUsers(UserRole.bakeryOwner, UserRole.siteAdmin, UserRole.bakeryAdmin),
   removeBaker,
 );
 
-// Todo: Transfer bakery ownership route
+router.patch(
+  '/transferOwnership',
+  protectRoute,
+  allowedUsers(UserRole.bakeryOwner, UserRole.siteAdmin),
+  transferOwnership,
+);
 
 export default router;

@@ -8,7 +8,9 @@ const ReviewSchema = new Schema<Review>({
     required: [true, 'Review needs an associated user'],
   },
   rating: { type: Number, required: [true, 'Review needs a rating'] },
-  review: { type: String },
+  reviewTitle: { type: String, required: [true, 'Review needs a title'] },
+  review: String,
+  edited: { type: Boolean, default: false },
 });
 
 export default ReviewSchema;

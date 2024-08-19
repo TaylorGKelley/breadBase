@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 import Bakery from '../types/Bakery';
 import validator from 'validator';
 import { UserRole } from '../types/User';
-import ReviewSchema from './reviewModel';
+import ReviewSchema from './reviewSchema';
 
 const bakerySchema = new Schema<Bakery>({
   title: {
@@ -47,7 +47,7 @@ const bakerySchema = new Schema<Bakery>({
     type: Schema.Types.Number,
     validate: [validator.isMobilePhone, 'Please provide a valid Phone Number'],
   },
-  products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+  deleted: { type: Schema.Types.Boolean, default: false },
   reviews: [ReviewSchema],
 });
 
