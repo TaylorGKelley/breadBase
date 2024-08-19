@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "29c4a60f-aad9-408d-8f21-332d67399a9e",
+		"_postman_id": "7699df52-9163-465e-a2a3-39b4ae25c3f2",
 		"name": "breadBase",
 		"description": "This template contains a boilerplate for documentation that you can quickly customize and reuse.\n\n### How to use this template:\n\n- Replace the content given brackets (()) with your API's details.\n- Tips are formatted in `codespan` - feel free to read and remove them.\n    \n\n---\n\n`Start with a brief overview of what your API offers.`\n\nThe ((product name)) provides many API products, tools, and resources that enable you to ((add product value here)).\n\n`You can also list the APIs you offer, link to the relevant pages, or do both in this section.`\n\n## **Getting started guide**\n\n`List the steps or points required to start using your APIs. Make sure to cover everything required to reach success with your API as quickly as possible.`\n\nTo start using the ((add APIs here)), you need to -\n\n`The points given below are from The Postman API's documentation. You can reference it to write your own getting started guide.`\n\n- You must use a valid API Key to send requests to the API endpoints. You can get your API key from Postman's [integrations dashboard](https://go.postman.co/settings/me/api-keys).\n- The API has [rate and usage limits](https://postman.postman.co/workspace/Collection-Templates~6311738d-2e70-441f-ae12-78caf078c5b7/collection/22517504-e9c28f47-1253-44af-a2f3-20dce4da1f18?ctx=documentation#rate-and-usage-limits).\n- The API only responds to HTTPS-secured communications. Any requests sent via HTTP return an HTTP 301 redirect to the corresponding HTTPS resources.\n- The API returns request responses in JSON format. When an API request returns an error, it is sent in the JSON response as an error key.\n    \n\n## Authentication\n\n`Add details on the authorization keys/tokens required, steps that cover how to get them, and the relevant error codes.`\n\nThe ((product name)) API uses ((add your API's authorization type)) for authentication.\n\n`The details given below are from the Postman API's documentation. You can reference it to write your own authentication section.`\n\nPostman uses API keys for authentication. You can generate a Postman API key in the [API keys](https://postman.postman.co/settings/me/api-keys) section of your Postman account settings.\n\nYou must include an API key in each request to the Postman API with the X-Api-Key request header.\n\n### Authentication error response\n\nIf an API key is missing, malformed, or invalid, you will receive an HTTP 401 Unauthorized response code.\n\n## Rate and usage limits\n\n`Use this section to cover your APIs' terms of use. Include API limits, constraints, and relevant error codes, so consumers understand the permitted API usage and practices.`\n\n`The example given below is from The Postman API's documentation. Use it as a reference to write your APIs' terms of use.`\n\nAPI access rate limits apply at a per-API key basis in unit time. The limit is 300 requests per minute. Also, depending on your plan, you may have usage limits. If you exceed either limit, your request will return an HTTP 429 Too Many Requests status code.\n\nEach API response returns the following set of headers to help you identify your use status:\n\n| Header | Description |\n| --- | --- |\n| `X-RateLimit-Limit` | The maximum number of requests that the consumer is permitted to make per minute. |\n| `X-RateLimit-Remaining` | The number of requests remaining in the current rate limit window. |\n| `X-RateLimit-Reset` | The time at which the current rate limit window resets in UTC epoch seconds. |\n\n### 503 response\n\nAn HTTP `503` response from our servers indicates there is an unexpected spike in API access traffic. The server is usually operational within the next five minutes. If the outage persists or you receive any other form of an HTTP `5XX` error, [contact support](https://support.postman.com/hc/en-us/requests/new/).\n\n### **Need some help?**\n\n`Add links that customers can refer to whenever they need help.`\n\nIn case you have questions, go through our tutorials ((link to your video or help documentation here)). Or visit our FAQ page ((link to the relevant page)).\n\nOr you can check out our community forum, there’s a good chance our community has an answer for you. Visit our developer forum ((link to developer forum)) to review topics, ask questions, and learn from others.\n\n`You can also document or add links to libraries, code examples, and other resources needed to make a request.`",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "28636855"
+		"_exporter_id": "25132083"
 	},
 	"item": [
 		{
@@ -1276,14 +1276,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/recipes",
+							"raw": "{{URL}}/api/v1/recipe",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"recipes"
+								"recipe"
 							],
 							"query": [
 								{
@@ -1461,14 +1461,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/v1/recipes/66bb8d92625fa864dd4d1d11",
+							"raw": "{{URL}}/api/v1/recipe/66bb8d92625fa864dd4d1d11",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"recipes",
+								"recipe",
 								"66bb8d92625fa864dd4d1d11"
 							]
 						},
@@ -1638,14 +1638,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/recipes",
+							"raw": "{{URL}}/api/v1/recipe",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"recipes"
+								"recipe"
 							]
 						},
 						"description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
@@ -1892,14 +1892,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/api/v1/recipes/66bb7db25356534fc314603b",
+							"raw": "{{URL}}/api/v1/recipe/66bb7db25356534fc314603b",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"recipes",
+								"recipe",
 								"66bb7db25356534fc314603b"
 							]
 						},
@@ -2041,14 +2041,14 @@
 							"raw": "{\n    \"title\": \"French Baguette\"\n}"
 						},
 						"url": {
-							"raw": "{{URL}}/api/v1/recipes/66bb8d92625fa864dd4d1d11",
+							"raw": "{{URL}}/api/v1/recipe/66bb8d92625fa864dd4d1d11",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"recipes",
+								"recipe",
 								"66bb8d92625fa864dd4d1d11"
 							]
 						},
@@ -2379,14 +2379,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/api/v1/recipes",
+									"raw": "{{URL}}/api/v1/recipe",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"api",
 										"v1",
-										"recipes"
+										"recipe"
 									]
 								}
 							},
@@ -2435,7 +2435,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"name\": \"Taylor Kelley\",\r\n    \"email\": \"twarkelley1@gmail.com\"\r\n    // \"password\": \"HardToGuess\",\r\n    // \"passwordConfirm\": \"HardToGuess\"\r\n}",
+											"raw": "{\r\n    \"displayName\": \"just a regular ole user\",\r\n    \"firstName\": \"john\",\r\n    \"lastName\": \"doe\",\r\n    \"email\": \"taylorgkelley@outlook.com\",\r\n    \"password\": \"Password\",\r\n    \"passwordConfirm\": \"Password\"\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2490,6 +2490,25 @@
 												"api",
 												"v1",
 												"logout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check if User is Authenticated",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/api/v1/checkAuth",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"checkAuth"
 											]
 										}
 									},
@@ -2590,16 +2609,16 @@
 					]
 				},
 				{
-					"name": "Bakery Management",
+					"name": "Bakery Invite Management",
 					"item": [
 						{
-							"name": "Create a Bakery (auth)",
+							"name": "Create Bakery Invite",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"title\": \"Royal Rolls Bakery\",\r\n    \"about\": \"lorem ipsum\"\r\n}",
+									"raw": "{\r\n    // \"bakeryId\": \"66c0f1dd381f7a8849ddaf90\",\r\n    \"email\": \"taylorgkelley@gmail.com\",\r\n    \"role\": \"bakery_admin\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2607,46 +2626,57 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/api/v1/bakery",
+									"raw": "{{URL}}/api/v1/baker/invite",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"api",
 										"v1",
-										"bakery"
+										"baker",
+										"invite"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Create Bakery Invite",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
+							"name": "Accept Bakery Invite",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"email\": \"twarkelley1@gmail.com\",\r\n    \"role\": \"bakery_admin\"\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{URL}}/api/v1/bakery/invite",
+									"raw": "{{URL}}/api/v1/baker/invite/accept/55d543fd230489c938a4ccc698a25497307cc85f7cd897f25d5f4503a1fb3601",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"api",
 										"v1",
-										"bakery",
-										"invite"
+										"baker",
+										"invite",
+										"accept",
+										"55d543fd230489c938a4ccc698a25497307cc85f7cd897f25d5f4503a1fb3601"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Leave current bakery",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/api/v1/baker/leave",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"baker",
+										"leave"
 									]
 								}
 							},
@@ -2676,17 +2706,72 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Bakery Management",
+			"item": [
+				{
+					"name": "Create a Bakery (auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Royal Rolls Bakery\",\r\n    \"about\": \"lorem ipsum\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bakery",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bakery"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User from Bakery (Admin auth)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"66c2171aa3f16f06f22f1043\",\n    \"bakeryId\": \"66c21755a3f16f06f22f1049\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/baker/removeBaker",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"baker",
+								"removeBaker"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"auth": {
-		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{JWT}}",
-				"type": "string"
-			}
-		]
+		"type": "inherit"
 	},
 	"event": [
 		{
