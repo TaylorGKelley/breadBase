@@ -9,6 +9,10 @@ const schema = new Schema<Recipe>({
     ref: 'Bakery',
     required: [true, 'You must be part of a bakery to share a recipe'],
   },
+  publicRecipe: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
   imageBase: { type: Buffer, required: [true, 'Recipe needs an image'] },
   description: [
     {

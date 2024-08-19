@@ -4,7 +4,7 @@ import Review from './Review';
 type Product = Document & {
   name: string;
   bakery: ObjectId;
-  price: number;
+  price: string;
   description: string;
   images?: { isFavorite: boolean; image: Types.Buffer }[];
   ingredients?: string[];

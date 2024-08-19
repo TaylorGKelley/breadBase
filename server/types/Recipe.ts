@@ -4,6 +4,7 @@ import Review from './Review';
 type Recipe = Document & {
   title: string;
   bakery: Types.ObjectId;
+  publicRecipe: boolean;
   imageBase?: Types.Buffer;
   description: {
     heading: string;
