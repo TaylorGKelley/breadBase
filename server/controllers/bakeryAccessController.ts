@@ -6,6 +6,8 @@ import {
   addUserToBakery,
   removeUserFromBakery,
 } from '../utils/associateUserWithBakery';
+import User from '../models/userModel';
+import Bakery from '../models/bakeryModel';
 
 export const inviteBaker = async (req: Request, res: Response) => {
   try {
@@ -58,10 +60,10 @@ export const acceptBakerInvite = async (req: Request, res: Response) => {
 
     // Associate User with bakery
     await addUserToBakery(
-      (req.user as ProtectedUser)._id,
       inviteRecord.role,
       inviteRecord.bakeryId,
       req,
+      (req.user as ProtectedUser)._id,
     );
 
     // Remove invite
@@ -120,6 +122,61 @@ export const removeBaker = async (req: Request, res: Response) => {
       status: 'success',
       message: 'User removed from bakery',
     });
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      message: (error as Error).message,
+    });
+  }
+};
+
+export const transferOwnership = async (req: Request, res: Response) => {
+  try {
+    const { transferOwnershipToUserId } = req.body;
+    const { _id: currentOwnerId, associatedBakeryId: bakeryId } =
+      (req.user as ProtectedUser).role === UserRole.siteAdmin
+        ? req.body
+        : (req.user as ProtectedUser);
+
+    if (!(await User.findById(transferOwnershipToUserId))) {
+      return res.status(404).json({
+        status: 'fail',
+        message: 'Could not find a user with that Id',
+      });
+    }
+
+    if (bakeryId) {
+      await removeUserFromBakery(bakeryId, req, transferOwnershipToUserId);
+
+      const updatedBakery = await Bakery.findByIdAndUpdate(bakeryId, {
+        owner: transferOwnershipToUserId,
+      });
+
+      await User.findByIdAndUpdate(transferOwnershipToUserId, {
+        associatedBakery: bakeryId,
+        role: UserRole.bakeryOwner,
+      });
+
+      await addUserToBakery(
+        UserRole.bakeryAdmin,
+        bakeryId,
+        req,
+        currentOwnerId,
+      );
+
+      res.status(200).json({
+        status: 'success',
+        message: `Ownership has been successfully transferred to ${req.user}`,
+        data: {
+          updatedBakery,
+        },
+      });
+    } else {
+      res.status(404).json({
+        status: 'fail',
+        message: 'Please provide a bakery id',
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: 'fail',

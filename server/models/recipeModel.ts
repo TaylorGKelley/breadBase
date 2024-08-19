@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 import Recipe from '../types/Recipe';
-import ReviewSchema from './reviewModel';
+import ReviewSchema from './reviewSchema';
 
 const schema = new Schema<Recipe>({
   title: { type: String, required: [true, 'A recipe must have a title'] },
@@ -9,7 +9,6 @@ const schema = new Schema<Recipe>({
     ref: 'Bakery',
     required: [true, 'You must be part of a bakery to share a recipe'],
   },
-  reviews: [ReviewSchema],
   imageBase: { type: Buffer, required: [true, 'Recipe needs an image'] },
   description: [
     {
@@ -47,6 +46,7 @@ const schema = new Schema<Recipe>({
     required: [true, 'Recipe needs at least one direction'],
   },
   notes: [String],
+  reviews: [ReviewSchema],
 });
 
 schema.pre(['find', 'findOne', 'findOneAndUpdate'], function (next) {

@@ -1,5 +1,4 @@
-import { Document, ObjectId } from 'mongoose';
-import Product from './Product';
+import { Document, Types, ObjectId } from 'mongoose';
 import { UserRole } from './User';
 import Review from './Review';
 
@@ -20,8 +19,8 @@ type Bakery = Document & {
   city: string;
   zipCode: number;
   contactPhone: number;
-  products: ObjectId[];
-  reviews: Review[];
+  deleted: boolean;
+  reviews: Types.DocumentArray<Review>;
 };
 
 export default Bakery;

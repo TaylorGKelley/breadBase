@@ -5,11 +5,13 @@ import Bakery from '../models/bakeryModel';
 import { ProtectedUser, UserRole } from '../types/User';
 
 export const addUserToBakery = async (
-  userId: ObjectId,
   role: UserRole,
   bakeryId: ObjectId,
   req: Request,
+  userId?: ObjectId,
 ) => {
+  if (!userId) userId = (req.user as ProtectedUser)._id;
+
   const userRole = role ? role : UserRole.bakeryView;
 
   const updatedUser = (await User.findByIdAndUpdate(
@@ -30,7 +32,7 @@ export const addUserToBakery = async (
     await associatedBakery?.save();
   }
 
-  req.user = updatedUser;
+  if (userId === (req.user as ProtectedUser)._id) req.user = updatedUser;
 };
 
 export const removeUserFromBakery = async (
@@ -65,7 +67,7 @@ export const removeUserFromBakery = async (
         },
       ).exec()) as ProtectedUser;
 
-      req.user = updatedUser;
+      if (userId === (req.user as ProtectedUser)._id) req.user = updatedUser;
     } else {
       throw new Error('Bakery not found');
     }
