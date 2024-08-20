@@ -1,4 +1,4 @@
-import { createStore } from 'zustand';
+import { create } from 'zustand';
 
 type User = {
   id: string;
@@ -15,16 +15,22 @@ type AuthState = {
   isAuthenticated: boolean;
   loading: boolean;
   error: string | null;
+  register: (email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  googleAuth: () => Promise<void>;
   checkAuth: () => Promise<void>;
 };
 
-export const useAuthStore = createStore<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
   loading: true,
   error: null,
+  register: async (email, password) => {
+    set({ loading: true, error: null });
+    // TODO: Implement registration
+  },
   login: async (email, password) => {
     set({ loading: true, error: null });
     try {
@@ -52,6 +58,9 @@ export const useAuthStore = createStore<AuthState>((set) => ({
     }).then(() => {
       set({ user: null, isAuthenticated: false });
     });
+  },
+  googleAuth: async () => {
+    // TODO: Implement Google Auth
   },
   checkAuth: async () => {
     set({ loading: true, error: null });

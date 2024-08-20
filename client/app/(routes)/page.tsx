@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { GetServerSideProps, GetServerSidePropsResult, Metadata } from 'next';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { metamorphous } from '../ui/fonts';
@@ -7,6 +7,25 @@ import BakeryMap from '../components/BakeryMap/BakeryMap';
 import SuggestionCard from './components/SuggestionCard/SuggestionCard';
 import Image from 'next/image';
 import Footer from '../components/Footer/Footer';
+import { authCheck } from '../utils/authCheck';
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const authResult = await authCheck(ctx);
+  return authResult as GetServerSidePropsResult<AuthenticatedPageProps>;
+};
+
+type AuthenticatedPageProps = {
+  user: {
+    _id: string;
+    firstName: string;
+    lastName: string;
+    displayName: string;
+    email: string;
+    role: string;
+    profilePhoto: string;
+    accountActive: boolean;
+  };
+};
 
 export const metadata: Metadata = {
   title: 'BreadBase Home',
