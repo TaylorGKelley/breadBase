@@ -4,23 +4,22 @@ import React from 'react';
 
 export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    'use server';
     e.preventDefault();
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
-    const response = await fetch(`${process.env.API_URI}/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    // const response = await fetch(`${process.env.API_URI}/signin`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email,
+    //     password,
+    //   }),
+    // });
 
-    if (response.ok) {
-    }
+    // if (response.ok) {
+    // }
   };
 
   return (
