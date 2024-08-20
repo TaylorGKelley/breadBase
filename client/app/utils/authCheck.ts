@@ -28,12 +28,14 @@ export async function authCheck(
 
   try {
     // Verify the JWT
-    const response = await fetch(`${process.env.API_URI}/api/v1/checkAuth`, {
+    const response = await fetch(`${process.env.API_URI}/checkAuth`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    console.log(process.env.API_URI);
 
     if (response.ok) {
       const user = await response.json();

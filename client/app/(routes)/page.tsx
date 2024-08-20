@@ -36,6 +36,8 @@ export const metadata: Metadata = {
 };
 
 export default function Home({ user }: AuthenticatedPageProps) {
+  console.log(user);
+
   return (
     <>
       <main className={styles.main}>
