@@ -11,7 +11,10 @@ import { authCheck } from '../utils/authCheck';
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const authResult = await authCheck(ctx);
-  return authResult as GetServerSidePropsResult<AuthenticatedPageProps>;
+  return {
+    props: authResult.props || {},
+    redirect: authResult.redirect || null,
+  };
 };
 
 type AuthenticatedPageProps = {
@@ -32,7 +35,7 @@ export const metadata: Metadata = {
   description: 'Home page for breadBase',
 };
 
-export default function Home() {
+export default function Home({ user }: AuthenticatedPageProps) {
   return (
     <>
       <main className={styles.main}>
