@@ -7,7 +7,6 @@ import BakeryMap from '../components/BakeryMap/BakeryMap';
 import SuggestionCard from './components/SuggestionCard/SuggestionCard';
 import Image from 'next/image';
 import Footer from '../components/Footer/Footer';
-import { checkAuth } from '../utils/checkAuth';
 
 export const metadata: Metadata = {
   title: 'BreadBase Home',
@@ -15,8 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  const user = checkAuth();
-
   return (
     <>
       <main className={styles.main}>

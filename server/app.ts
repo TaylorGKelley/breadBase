@@ -14,11 +14,11 @@ import csurf from 'csurf';
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  csurf({
-    cookie: true,
-  }),
-);
+// app.use(
+//   csurf({
+//     cookie: true,
+//   }),
+// );
 app.use(passport.initialize());
 
 const baseRoute = '/api/v1';
