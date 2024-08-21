@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 const login = async (
@@ -12,6 +13,7 @@ const login = async (
       `${process.env.API_URL || 'http://localhost:5001'}/api/v1/signin`,
       {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -19,6 +21,9 @@ const login = async (
       },
     );
     const user = await response.json();
+
+    const cookie = cookies().getAll();
+    console.log(cookie);
 
     if (!response.ok) {
       return undefined;
@@ -39,6 +44,7 @@ export const handleLogin = async (e: FormData) => {
 
   const user = await login(email, password);
   if (user) {
-    redirect('/Account');
+    console.log('login success');
+    return redirect('/Account');
   }
 };

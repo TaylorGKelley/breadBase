@@ -66,7 +66,12 @@ export const logOut = async (req: Request, res: Response) => {
   // });
   req.user = undefined;
   req.logout((err: any) => console.log('User logged out'));
-  res.clearCookie('jwt', { path: '/' }).json({
+  res.cookie('jwt', '', {
+    maxAge: 0,
+    httpOnly: true,
+    path: '/',
+  });
+  res.json({
     message: 'User successfully logged out',
     data: { user: null },
   });

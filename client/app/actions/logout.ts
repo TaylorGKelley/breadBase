@@ -1,9 +1,11 @@
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export const handleLogout = async () => {
   'use server';
 
   const isLoggedOut = await logout();
+  cookies().delete('jwt');
 
   console.log('logging out ', isLoggedOut);
 
