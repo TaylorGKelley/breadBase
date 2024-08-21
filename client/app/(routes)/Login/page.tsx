@@ -1,7 +1,7 @@
 import React from 'react';
 import { handleLogin } from '../../actions/login';
 
-export default function Login() {
+function Login() {
   return (
     <div style={{ color: 'black' }}>
       <h4>Login</h4>
@@ -19,3 +19,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default Login;

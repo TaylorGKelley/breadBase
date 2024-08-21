@@ -22,7 +22,7 @@ export default function Navbar() {
             <Link href='/MyCart'>
               <Cart />
             </Link>
-            <Link href='/MyAccount'>
+            <Link href='/Account'>
               <User />
             </Link>
           </div>
