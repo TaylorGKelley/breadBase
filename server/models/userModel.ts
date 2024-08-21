@@ -25,6 +25,7 @@ const userSchema = new Schema<User>({
     required: [true, 'User must have an email associated with the account'],
     validator: [validator.isEmail, 'Invalid email address'],
   },
+  isBakerySignUp: Schema.Types.Boolean,
   role: {
     type: Schema.Types.String,
     enum: UserRole,

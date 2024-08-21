@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function signup() {
+export default function SignUp() {
   const handleSignUp = async (e: FormData) => {
     'use server';
     const email = e.get('email');

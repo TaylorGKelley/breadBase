@@ -15,6 +15,7 @@ type User = Document & {
   lastName: string;
   displayName?: string;
   email: string;
+  isBakerySignUp: boolean;
   role: UserRole;
   associatedBakery?: ObjectId; // https://mongoosejs.com/docs/typescript/populate.html
   password?: string;

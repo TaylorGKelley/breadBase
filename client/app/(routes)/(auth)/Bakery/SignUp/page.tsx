@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function page() {
+export default function SignUp() {
   return <div>page</div>;
 }
