@@ -1,5 +1,5 @@
 import React from 'react';
-import { handleLogin } from '../../../actions/login';
+import { handleLogin } from '../../actions/login';
 
 function Login() {
   return (

@@ -1,10 +1,10 @@
 import { Metadata } from 'next';
 import styles from './page.module.css';
 import Link from 'next/link';
-import { metamorphous } from '../../ui/fonts';
+import { metamorphous } from '../ui/fonts';
 import BackgroundImageContainer from '../components/BackgroundImageContainer/BackgroundImageContainer';
 import BakeryMap from '../components/BakeryMap/BakeryMap';
-import SuggestionCard from './components/SuggestionCard/SuggestionCard';
+import SuggestionCard from '../components/SuggestionCard';
 import Image from 'next/image';
 import Footer from '../components/Footer/Footer';
 

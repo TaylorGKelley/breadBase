@@ -1,5 +1,5 @@
 import './globals.css';
-import Navbar from '../components/Navbar/Navbar';
+import Navbar from '../../src/components/Navbar/Navbar';
 import { poppins } from '../ui/fonts';
 
 export default function RootLayout({

@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import styles from './NavTitle.module.css';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useSelectedBakery from '../../../store/selectedBakery';
@@ -19,21 +18,21 @@ export default function NavTitle() {
         className='fade-transition'
       >
         {isBakerySelected ? (
-          <div className={styles.NavTitle_titleContainer}>
-            <p className={styles.NavTitle_selectedHeader}>Selected:</p>
+          <div>
+            <p className='text-gray-300'>Selected:</p>
             <Link href={`/BakeryHome/${id}`}>
               <h5
-                className={`${metamorphous.className} ${styles.NavTitle_title}`}
+                className={`${metamorphous.className} text-white text-nowrap`}
               >
                 {title}
               </h5>
             </Link>
           </div>
         ) : (
-          <div className={styles.NavTitle_titleContainer}>
+          <div>
             <Link href='/'>
               <h4
-                className={`${metamorphous.className} ${styles.NavTitle_title}`}
+                className={`${metamorphous.className} text-white text-nowrap`}
               >
                 BreadBase
               </h4>
