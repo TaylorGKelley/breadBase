@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './Button.module.css';
-import useSelectedBakery from '../../store/selectedBakery';
+import useSelectedBakery from '../../../store/selectedBakery';
 import { useRouter } from 'next/navigation';
 
 type ButtonProps = {

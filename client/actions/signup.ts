@@ -1,16 +1,15 @@
 import { cookies } from 'next/headers';
 import processSetCookie from '../utils/processSetCookie';
 
-const signup = async (
-  firstLastName: FormDataEntryValue,
+export const signup = async (
+  firstName: FormDataEntryValue,
+  lastName: FormDataEntryValue,
   email: FormDataEntryValue,
   password: FormDataEntryValue,
 ) => {
   'use server';
 
   try {
-    const [firstName, lastName] = firstLastName.toString().split(' ');
-
     // Handle signup
     const response = await fetch(
       `${process.env.API_URL || 'http://localhost:5001'}/api/v1/signup`,
@@ -20,7 +19,13 @@ const signup = async (
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ firstLastName, email, password }),
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          displayName: `${firstName} ${lastName}`,
+          email,
+          password,
+        }),
       },
     );
 

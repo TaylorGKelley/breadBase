@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Footer.module.css';
 import Link from 'next/link';
-import { metamorphous } from '../../ui/fonts';
+import { metamorphous } from '../../../ui/fonts';
 
 export default function Footer() {
   return (
