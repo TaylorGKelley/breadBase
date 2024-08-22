@@ -1,22 +1,6 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-export const handleLogout = async () => {
-  'use server';
-
-  const response = await logout();
-  if (!response) {
-    return {
-      status: 500,
-      message: 'Failed to log out',
-      error: 'Logout Failed',
-    };
-  } else {
-    cookies().delete('jwt');
-    redirect('/');
-  }
-};
-
 const logout = async () => {
   try {
     const response = await fetch(
@@ -32,5 +16,20 @@ const logout = async () => {
     return response;
   } catch (error) {
     return undefined;
+  }
+};
+export const handleLogout = async () => {
+  'use server';
+
+  const response = await logout();
+  if (!response) {
+    return {
+      status: 500,
+      message: 'Failed to log out',
+      error: 'Logout Failed',
+    };
+  } else {
+    cookies().delete('jwt');
+    redirect('/');
   }
 };
