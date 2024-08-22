@@ -1,13 +1,14 @@
-const processSetCookie = (
-  setCookieHeader: string,
-): {
+type CookieObjects = {
   name: string;
   value: string;
   path: string;
   expires: Date;
   httpOnly: boolean;
-} => {
+}[];
+
+const processSetCookie = (setCookieHeader: string): CookieObjects => {
   const cookieArray = setCookieHeader.split(','); // Assuming multiple cookies are separated by commas
+  const cookieObjects: CookieObjects = [];
   cookieArray.forEach((cookie) => {
     const [nameValue, ...attributes] = cookie
       .split(';')
@@ -21,14 +22,16 @@ const processSetCookie = (
       if (attribute.startsWith('Expires')) expires = new Date(value);
       if (attribute.startsWith('HttpOnly')) httpOnly = true;
     });
-    return {
+    cookieObjects.push({
       name,
       value,
       path,
       expires,
       httpOnly,
-    };
+    });
   });
+
+  return cookieObjects;
 };
 
 export default processSetCookie;

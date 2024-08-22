@@ -30,11 +30,11 @@ const signup = async (
       const cookieStore = cookies();
 
       const { name, value, path, expires, httpOnly } =
-        processSetCookie(setCookieHeader);
+        processSetCookie(setCookieHeader)[0];
 
       cookieStore.set(name.trim(), value.trim(), {
-        path: path,
-        expires: expires,
+        path,
+        expires,
         httpOnly,
       });
     }
