@@ -20,16 +20,30 @@ const login = async (
         body: JSON.stringify({ email, password }),
       },
     );
-    const user = await response.json();
-
-    const cookie = cookies().getAll();
-    console.log(cookie);
+    const setCookieHeader = response.headers.get('set-cookie');
+    if (setCookieHeader) {
+      // Parse and set the cookies
+      const cookieStore = cookies();
+      const cookieArray = setCookieHeader.split(','); // Assuming multiple cookies are separated by commas
+      cookieArray.forEach((cookie) => {
+        const [nameValue, ...attributes] = cookie.split(';');
+        const [name, value] = nameValue.split('=');
+        cookieStore.set(name.trim(), value.trim(), {
+          // Add any additional cookie attributes here
+          path: '/',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'strict',
+          ...attributes,
+        });
+      });
+    }
 
     if (!response.ok) {
       return undefined;
     }
 
-    return user;
+    return response;
   } catch (error) {
     return undefined;
   }
@@ -42,9 +56,9 @@ export const handleLogin = async (e: FormData) => {
   const password = e.get('password');
   if (!email || !password) return 'No Email or Password';
 
-  const user = await login(email, password);
-  if (user) {
-    console.log('login success');
-    return redirect('/Account');
-  }
+  const response = await login(email, password);
+  if (response?.status !== 201) return console.log('try again');
+
+  console.log('login success');
+  redirect('/Account');
 };
