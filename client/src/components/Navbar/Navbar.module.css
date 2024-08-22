@@ -11,17 +11,6 @@
   text-decoration: none;
 }
 
-.NavMain_wrapper {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  translate: -50% 0;
-  z-index: 100;
-
-  width: 100%;
-  max-width: 2000px;
-}
-
 .NavMain {
   background-color: var(--clr-primary-background);
   display: flex;

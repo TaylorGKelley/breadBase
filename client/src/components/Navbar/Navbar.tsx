@@ -10,8 +10,8 @@ export default function Navbar() {
       id={styles.Navbar}
       className='min-h-10 bg-gray-700'
     >
-      <div className={styles.NavMain_wrapper}>
-        <div className={styles.NavMain}>
+      <div className='fixed top-0 left-1/2 -translate-x-1/2 z-10 w-full'>
+        <div className=' max-w-screen-2xl mx-auto bg-gray-800 flex justify-between py-4 px-12'>
           <div className={styles.NavMain_findBakeryContainer}>
             <Link href='/Search/Bakery'>
               <Location width='1rem' />
