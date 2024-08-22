@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <header
       id={styles.Navbar}
-      className='h-5/6'
+      className='min-h-10 bg-gray-700'
     >
       <div className={styles.NavMain_wrapper}>
         <div className={styles.NavMain}>
