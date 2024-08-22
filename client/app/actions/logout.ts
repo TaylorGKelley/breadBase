@@ -4,12 +4,17 @@ import { redirect } from 'next/navigation';
 export const handleLogout = async () => {
   'use server';
 
-  const isLoggedOut = await logout();
-  cookies().delete('jwt');
-
-  console.log('logging out ', isLoggedOut);
-
-  if (isLoggedOut) redirect('/');
+  const response = await logout();
+  if (!response) {
+    return {
+      status: 500,
+      message: 'Failed to log out',
+      error: 'Logout Failed',
+    };
+  } else {
+    cookies().delete('jwt');
+    redirect('/');
+  }
 };
 
 const logout = async () => {
@@ -22,11 +27,10 @@ const logout = async () => {
       },
     );
 
-    if (!response.ok) throw new Error('Logout failed');
+    if (!response.ok) throw new Error('Failed to log out');
 
-    return true;
+    return response;
   } catch (error) {
-    console.log((error as Error).message);
-    return false;
+    return undefined;
   }
 };

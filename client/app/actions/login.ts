@@ -20,22 +20,23 @@ const login = async (
         body: JSON.stringify({ email, password }),
       },
     );
+
     const setCookieHeader = response.headers.get('set-cookie');
     if (setCookieHeader) {
       // Parse and set the cookies
       const cookieStore = cookies();
       const cookieArray = setCookieHeader.split(','); // Assuming multiple cookies are separated by commas
       cookieArray.forEach((cookie) => {
-        const [nameValue, ...attributes] = cookie.split(';');
+        const [nameValue] = cookie.split(';');
         const [name, value] = nameValue.split('=');
-        cookieStore.set(name.trim(), value.trim(), {
-          // Add any additional cookie attributes here
-          path: '/',
-          httpOnly: true,
-          secure: true,
-          sameSite: 'strict',
-          ...attributes,
-        });
+        if (name && value)
+          cookieStore.set(name.trim(), value.trim(), {
+            // Add any additional cookie attributes here
+            path: '/',
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+          });
       });
     }
 
@@ -45,6 +46,7 @@ const login = async (
 
     return response;
   } catch (error) {
+    console.error(error);
     return undefined;
   }
 };
@@ -54,11 +56,21 @@ export const handleLogin = async (e: FormData) => {
 
   const email = e.get('email');
   const password = e.get('password');
-  if (!email || !password) return 'No Email or Password';
+  if (!email || !password)
+    return {
+      status: 404,
+      message: `Please provide an ${!email ? 'email' : 'password'}`,
+      error: 'Login Failed',
+    };
 
   const response = await login(email, password);
-  if (response?.status !== 201) return console.log('try again');
+  if (response && response?.status !== 201)
+    return {
+      status: response?.status,
+      message: response?.statusText,
+      error: 'Login Failed',
+    };
 
-  console.log('login success');
+  // Redirect to Account page if successful
   redirect('/Account');
 };
