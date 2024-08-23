@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <main className={styles.main}>
+      <main>
         <section id={styles.Hero}>
           {/* hero */}
           <BackgroundImageContainer

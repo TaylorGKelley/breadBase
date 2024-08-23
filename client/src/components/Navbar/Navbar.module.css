@@ -12,10 +12,7 @@
 }
 
 .NavMain {
-  background-color: var(--clr-primary-background);
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 3rem;
+  @apply flex justify-between bg-gray-700 px-12 py-4;
 }
 
 .NavDropdown {

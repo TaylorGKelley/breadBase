@@ -2,34 +2,14 @@
 
 import HidePasswordIcon from '@/components/icons/HidePasswordIcon';
 import ShowPasswordIcon from '@/components/icons/ShowPasswordIcon';
-import React, { useState } from 'react';
+import Link from 'next/link';
+import React, { InputHTMLAttributes, useState } from 'react';
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  type:
-    | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week';
+type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
-  additionalClass?: string;
+  labelClassName?: string;
+  linkClassName?: string;
+  displayForgotPassword?: boolean;
 };
 
 function Input({
@@ -38,7 +18,10 @@ function Input({
   label,
   name,
   placeholder,
-  additionalClass,
+  labelClassName,
+  className,
+  linkClassName,
+  displayForgotPassword = false,
   ...attributes
 }: InputProps) {
   const isPasswordInput = type === 'password';
@@ -49,29 +32,41 @@ function Input({
   };
 
   return (
-    <div className='flex flex-col overflow-x-hidden'>
+    <div className='flex w-fit flex-col overflow-hidden'>
       <label
         htmlFor={id}
-        className='text-nowrap text-ellipsis overflow-hidden'
+        className={`focus-within:text-yellow my-1 w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
       >
         {label}
       </label>
-      <input
-        type={!isPasswordInput ? type : isPasswordVisible ? 'text' : 'password'}
-        id={id}
-        name={name ? name : id} // If name isn't specified, use the id
-        placeholder={placeholder}
-        className={`${additionalClass} block w-96 rounded-full px-6 py-2 text-sm bg-transparent border border-gray-200`}
-        {...attributes}
-      />
-      {isPasswordInput ? (
-        <button
-          type='button'
-          onClick={togglePasswordVisibility}
-          className='p-2 hover:backdrop-brightness-95 transition-all'
+      <div className='relative'>
+        <input
+          type={
+            !isPasswordInput ? type : isPasswordVisible ? 'text' : 'password'
+          }
+          id={id}
+          name={name ? name : id} // If name isn't specified, use the id
+          placeholder={placeholder}
+          className={`focus:border-yellow block w-96 rounded-full border border-gray-200 bg-transparent px-6 py-2 text-sm outline-none placeholder:opacity-75 ${className}`}
+          {...attributes}
+        />
+        {isPasswordInput ? (
+          <button
+            type='button'
+            onClick={togglePasswordVisibility}
+            className='absolute right-0 top-1/2 flex h-full w-10 -translate-y-1/2 items-center justify-center rounded-full outline-none transition-all focus:brightness-75'
+          >
+            {!isPasswordVisible ? <ShowPasswordIcon /> : <HidePasswordIcon />}
+          </button>
+        ) : null}
+      </div>
+      {isPasswordInput && displayForgotPassword ? (
+        <Link
+          href='/ForgotPassword'
+          className={`ml-4 mt-2 inline-block w-fit text-xs text-gray-300 underline ${linkClassName}`}
         >
-          {!isPasswordVisible ? <ShowPasswordIcon /> : <HidePasswordIcon />}
-        </button>
+          Forgot Password
+        </Link>
       ) : null}
     </div>
   );

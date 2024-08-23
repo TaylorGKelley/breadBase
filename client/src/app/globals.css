@@ -12,26 +12,15 @@
   -webkit-box-sizing: border-box;
 }
 
-* {
-  --clr-color: #fff;
-  --clr-accent: #eaa827;
-  --clr-primary-background: #383a3f;
-  --clr-secondary-background: #313236;
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  color: white;
-}
-
-main {
-  flex-grow: 1;
-  background-color: #26272b;
-}
-
 @layer components {
+  body {
+    @apply flex min-h-dvh flex-col text-white;
+  }
+
+  main {
+    @apply relative flex-grow bg-gray-900;
+  }
+
   h1 {
     @apply text-4xl;
   }

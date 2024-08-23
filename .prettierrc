@@ -3,5 +3,6 @@
   "jsxSingleQuote": true,
   "tabWidth": 2,
   "trailingComma": "all",
-  "singleAttributePerLine": true
+  "singleAttributePerLine": true,
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
