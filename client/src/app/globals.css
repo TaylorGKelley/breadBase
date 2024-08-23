@@ -31,40 +31,30 @@ main {
   background-color: #26272b;
 }
 
-h1 {
-  --font-size: 6rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
-}
+@layer components {
+  h1 {
+    @apply text-4xl;
+  }
 
-h2 {
-  --font-size: 4rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
-}
+  h2 {
+    @apply text-3xl;
+  }
 
-h3 {
-  --font-size: 3rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
-}
+  h3 {
+    @apply text-2xl;
+  }
 
-h4 {
-  --font-size: 2.25rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
-}
+  h4 {
+    @apply text-xl;
+  }
 
-h5 {
-  --font-size: 1.5rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
-}
+  h5 {
+    @apply text-lg;
+  }
 
-p {
-  --font-size: 1rem;
-  font-size: var(--font-size);
-  line-height: calc(var(--font-size) * 1.28);
+  p {
+    @apply text-base;
+  }
 }
 
 .btn {

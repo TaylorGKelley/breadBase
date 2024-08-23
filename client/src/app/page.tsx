@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { metamorphous } from '../ui/fonts';
-import BackgroundImageContainer from '../components/BackgroundImageContainer/BackgroundImageContainer';
+import BackgroundImageContainer from '../components/BgImageContainer';
 import BakeryMap from '../components/BakeryMap/BakeryMap';
 import SuggestionCard from '../components/SuggestionCard';
 import Image from 'next/image';

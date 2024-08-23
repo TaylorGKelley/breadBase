@@ -1,18 +1,23 @@
 import React from 'react';
 import { handleLogin } from '../../actions/login';
+import Input from '@/components/UI/Input';
 
 function Login() {
   return (
     <div style={{ color: 'black' }}>
       <h4>Login</h4>
       <form action={handleLogin}>
-        <input
-          type='email'
-          name='email'
+        <Input
+          type='text'
+          id='email'
+          // TODO: Fix the Overflow ISsue for text
+          label='emaillooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong'
+          placeholder='john.doe@example.com'
         />
-        <input
+        <Input
           type='password'
-          name='password'
+          id='password'
+          label='password'
         />
         <button type='submit'>Login</button>
       </form>
