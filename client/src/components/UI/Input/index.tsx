@@ -2,8 +2,8 @@
 
 import HidePasswordIcon from '@/components/icons/HidePasswordIcon';
 import ShowPasswordIcon from '@/components/icons/ShowPasswordIcon';
-import Link from 'next/link';
 import React, { InputHTMLAttributes, useState } from 'react';
+import ForgotPasswordLink from './ForgotPasswordLink';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -32,7 +32,7 @@ function Input({
   };
 
   return (
-    <div className='flex w-fit flex-col overflow-hidden'>
+    <div className='flex w-fit flex-col overflow-x-hidden overflow-y-visible'>
       <label
         htmlFor={id}
         className={`focus-within:text-yellow my-1 w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
@@ -60,14 +60,7 @@ function Input({
           </button>
         ) : null}
       </div>
-      {isPasswordInput && displayForgotPassword ? (
-        <Link
-          href='/ForgotPassword'
-          className={`ml-4 mt-2 inline-block w-fit text-xs text-gray-300 underline ${linkClassName}`}
-        >
-          Forgot Password
-        </Link>
-      ) : null}
+      {isPasswordInput && displayForgotPassword ? <ForgotPasswordLink /> : null}
     </div>
   );
 }

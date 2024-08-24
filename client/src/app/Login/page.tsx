@@ -3,12 +3,15 @@ import { handleLogin } from '../../actions/login';
 import Input from '@/components/UI/Input';
 import { metamorphous } from '@/ui/fonts';
 import FormButton from '@/components/UI/FormButton';
+import DividerLine from '@/components/UI/DividerLine';
+import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
+import Link from 'next/link';
 
 function Login() {
   return (
-    <main className='flex flex-row'>
+    <main className='grid grid-flow-row grid-cols-2 justify-items-center gap-6'>
       {/* TODO: How should this form be positioned?? */}
-      <section className='mx-auto my-20 flex h-full w-fit flex-col items-center justify-start md:mx-14 lg:m-28 xl:m-36'>
+      <section className='-mt-6 flex h-full w-fit flex-col items-center justify-center'>
         <h4 className={`${metamorphous.className} text-center`}>Login</h4>
         <form
           action={handleLogin}
@@ -27,7 +30,25 @@ function Login() {
             placeholder='●●●●●●●●'
             displayForgotPassword
           />
-          <FormButton>Sign in</FormButton>
+          <div className='flex flex-col gap-3'>
+            <FormButton className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
+              Sign in
+            </FormButton>
+            <DividerLine>or</DividerLine>
+            <FormButton
+              type='button'
+              className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125'
+            >
+              <GoogleMonoIcon className='fill-gray-400' />
+              Sign in with Google
+            </FormButton>
+            <Link
+              href='/SignUp'
+              className='text-center text-xs text-gray-400 underline'
+            >
+              Not a user? Sign up now!
+            </Link>
+          </div>
         </form>
       </section>
     </main>

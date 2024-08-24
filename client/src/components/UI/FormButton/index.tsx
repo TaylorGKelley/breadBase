@@ -17,7 +17,8 @@ function FormButton({
   return (
     <button
       type={type}
-      className={`border-yellow text-yellow focus:bg-yellow hover:bg-yellow block w-96 rounded-full border bg-transparent px-6 py-2 text-sm outline-none transition-colors duration-300 hover:text-white focus:text-white ${className}`}
+      className={`flex h-10 w-96 items-center justify-center gap-3 text-nowrap rounded-full border bg-transparent px-6 text-sm outline-none transition-colors duration-300 ${className}`}
+      {...attributes}
     >
       {children}
     </button>
