@@ -9,13 +9,12 @@ import Link from 'next/link';
 
 function Login() {
   return (
-    <main className='grid grid-flow-row grid-cols-2 justify-items-center gap-6'>
-      {/* TODO: How should this form be positioned?? */}
-      <section className='-mt-6 flex h-full w-fit flex-col items-center justify-center'>
+    <main className='grid grid-flow-row grid-cols-2 justify-items-center gap-6 max-md:grid-cols-1'>
+      <section className='-mt-6 flex h-full w-full flex-col items-center justify-center px-4'>
         <h4 className={`${metamorphous.className} text-center`}>Login</h4>
         <form
           action={handleLogin}
-          className='flex flex-col gap-5 md:gap-8'
+          className='flex w-full max-w-96 flex-col gap-5 md:gap-8'
         >
           <Input
             type='text'

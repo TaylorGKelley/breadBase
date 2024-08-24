@@ -1,9 +1,6 @@
 'use client';
 
 import React from 'react';
-import styles from './Button.module.css';
-import useSelectedBakery from '../../../store/selectedBakery';
-import { useRouter } from 'next/navigation';
 
 type ButtonProps = {
   secondary?: boolean;
@@ -16,5 +13,12 @@ export default function Button({
   OnClick,
   children,
 }: ButtonProps) {
-  return <button onClick={OnClick}>{children}</button>;
+  return (
+    <button
+      onClick={OnClick}
+      className='border-yellow text-yellow inline-block rounded-full p-8'
+    >
+      {children}
+    </button>
+  );
 }

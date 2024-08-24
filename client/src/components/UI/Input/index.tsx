@@ -32,7 +32,7 @@ function Input({
   };
 
   return (
-    <div className='flex w-fit flex-col overflow-x-hidden overflow-y-visible'>
+    <div className='flex w-auto flex-col overflow-x-hidden overflow-y-visible'>
       <label
         htmlFor={id}
         className={`focus-within:text-yellow my-1 w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
@@ -47,7 +47,7 @@ function Input({
           id={id}
           name={name ? name : id} // If name isn't specified, use the id
           placeholder={placeholder}
-          className={`focus:border-yellow block w-96 rounded-full border border-gray-200 bg-transparent px-6 py-2 text-sm outline-none placeholder:opacity-75 ${className}`}
+          className={`focus:border-yellow inline-block w-full rounded-full border border-gray-200 bg-transparent px-6 py-2 text-sm outline-none placeholder:opacity-75 ${className}`}
           {...attributes}
         />
         {isPasswordInput ? (

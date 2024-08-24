@@ -5,16 +5,26 @@ import { metamorphous } from '../../ui/fonts';
 
 export default function Footer() {
   return (
-    <footer id={styles.Footer}>
-      <div>
-        <div className={styles.Footer_title}>
-          <h2 className={metamorphous.className}>BreadBase</h2>
-          <p>BreadBase &copy; 2024</p>
+    <footer className='bg-gray-800 px-8 py-20'>
+      <div className='mx-auto flex w-full max-w-screen-lg items-center justify-between gap-4'>
+        <div className='flex flex-col'>
+          <h2 className={`${metamorphous.className}`}>BreadBase</h2>
+          <p className='italic'>BreadBase &copy; 2024</p>
         </div>
-        <div className={styles.Footer_links}>
-          <Link href='/Search/Bakery'>Find a Bakery</Link>
+        <div className='flex gap-6'>
+          <Link
+            href='/Search/Bakery'
+            className='hover:underline'
+          >
+            Find a Bakery
+          </Link>
           <p>{' / '}</p>
-          <Link href='/Bakery/SignUp'>Register a Bakery</Link>
+          <Link
+            href='/Bakery/SignUp'
+            className='hover:underline'
+          >
+            Register a Bakery
+          </Link>
         </div>
       </div>
     </footer>
