@@ -54,7 +54,7 @@ function Input({
           <button
             type='button'
             onClick={togglePasswordVisibility}
-            className='absolute right-0 top-1/2 flex h-full w-10 -translate-y-1/2 items-center justify-center rounded-full outline-none transition-all focus:brightness-75'
+            className='absolute right-0 top-1/2 flex h-full w-12 -translate-y-1/2 items-center justify-center rounded-full pr-2 outline-none transition-all focus:brightness-75'
           >
             {!isPasswordVisible ? <ShowPasswordIcon /> : <HidePasswordIcon />}
           </button>

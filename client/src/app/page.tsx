@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import styles from './page.module.css';
 import Link from 'next/link';
 import { metamorphous } from '../ui/fonts';
-import BackgroundImageContainer from '../components/BgImageContainer';
+import BackgroundImageContainer from '../components/BackgroundImageContainer';
 import BakeryMap from '../components/BakeryMap/BakeryMap';
 import SuggestionCard from '../components/SuggestionCard';
 import Image from 'next/image';
@@ -20,9 +20,9 @@ export default function Home() {
         <section id={styles.Hero}>
           {/* hero */}
           <BackgroundImageContainer
-            path='/images/HandsHoldingBreadLoaf.jpg'
-            tintColor='#13040480'
-            blurFilter='1px'
+            src='/images/HandsHoldingBreadLoaf.jpg'
+            alt='Hands Holding Bread Background Image'
+            className='before:bg-gray-400 before:opacity-40 before:backdrop-blur-xl'
           >
             <div className={styles.Hero_contentContainer}>
               <h1 className={metamorphous.className}>Bread Base</h1>
@@ -59,9 +59,9 @@ export default function Home() {
         </section>
         <section id={styles.NearbyBakeries}>
           <BackgroundImageContainer
-            path='/images/PileOfBread.jpg'
-            tintColor='#03030690'
-            blurFilter='27px'
+            src='/images/PileOfBread.jpg'
+            alt='Pile of Bread Background Image'
+            className='before:bg-gray-400 before:opacity-40 before:backdrop-blur-xl'
           >
             <div className={styles.NearbyBakeries_container}>
               <h2 className={metamorphous.className}>Bakers near you</h2>

@@ -1,5 +1,5 @@
 import './globals.css';
-import Navbar from '../../src/components/Navbar/Navbar';
+import Navbar from '../components/Navbar';
 import { poppins } from '../ui/fonts';
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
         suppressHydrationWarning
         style={{ overflowX: 'hidden' }}
       >
-        <Navbar />
+        <Navbar simple />
         {children}
       </body>
     </html>

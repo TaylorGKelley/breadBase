@@ -12,6 +12,13 @@ export default {
         },
         yellow: '#eaa827',
       },
+      // screens: {
+      //   hxs: { raw: '(min-height: 350px)' },
+      //   hsm: { raw: '(min-height: 500px)' },
+      //   hmd: { raw: '(min-height: 750px)' },
+      //   hlg: { raw: '(min-height: 900px)' },
+      //   hxl: { raw: '(min-height: 1200px)' },
+      // },
       fontSize: {
         base: '1rem',
         lg: '1.5rem',

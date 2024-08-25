@@ -3,10 +3,10 @@ import Link from 'next/link';
 import { Cart, Location, User } from '../icons/Icons';
 import NavTitle from './NavTitle/NavTitle';
 
-export default function Navbar() {
-  return (
+export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
+  return !simple ? (
     <header className='h-36 bg-gray-700'>
-      <div className='fixed left-1/2 top-0 z-10 w-full -translate-x-1/2'>
+      <div className='fixed left-1/2 top-0 z-50 w-full -translate-x-1/2'>
         <div className='mx-auto flex max-w-screen-2xl justify-between bg-gray-800 px-12 py-4'>
           <div className='flex flex-1 items-center'>
             <Link
@@ -51,6 +51,33 @@ export default function Navbar() {
             </li>
           </ul>
         </nav>
+      </div>
+    </header>
+  ) : (
+    <header className='fixed left-1/2 top-0 z-50 flex w-full -translate-x-1/2 flex-row items-center'>
+      <div className='flex-1'>
+        <div className='relative h-7 w-8'>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div className='relative flex h-16 w-max flex-col justify-center text-center'>
+        <NavTitle />
+      </div>
+      <div className='flex flex-1 items-center justify-end gap-8'>
+        <Link
+          href='/MyCart'
+          className='transition-all duration-300 hover:brightness-90'
+        >
+          <Cart />
+        </Link>
+        <Link
+          href='/Account'
+          className='transition-all duration-300 hover:brightness-90'
+        >
+          <User />
+        </Link>
       </div>
     </header>
   );
