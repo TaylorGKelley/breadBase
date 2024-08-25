@@ -1,0 +1,36 @@
+.menu-open {
+  @apply relative block h-[26px] w-[36px] cursor-pointer;
+}
+
+.menu-open span {
+  @apply absolute block h-[2px] w-full bg-white;
+  transition: all 0.3s cubic-bezier(0.68, -0.45, 0.265, 1.45);
+}
+
+.menu-open span:first-child {
+  @apply top-0;
+  transform-origin: left center;
+  /* transform-origin: center center; */
+}
+
+.menu-open span:nth-child(2) {
+  @apply top-1/2 -translate-y-1/2;
+}
+
+.menu-open span:last-child {
+  @apply bottom-0;
+  transform-origin: left center;
+  /* transform-origin: center center; */
+}
+
+.menu-open.open span:first-child {
+  @apply -translate-y-1/2 translate-x-[15%] rotate-45;
+}
+
+.menu-open.open span:nth-child(2) {
+  @apply w-0 scale-0 opacity-0;
+}
+
+.menu-open.open span:last-child {
+  @apply translate-x-[15%] translate-y-1/2 -rotate-45;
+}

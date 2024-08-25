@@ -1,9 +1,14 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
+import './styles.css';
 import { Cart, Location, User } from '../icons/Icons';
 import NavTitle from './NavTitle/NavTitle';
 
 export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return !simple ? (
     <header className='h-36 bg-gray-700'>
       <div className='fixed left-1/2 top-0 z-50 w-full -translate-x-1/2'>
@@ -54,9 +59,12 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
       </div>
     </header>
   ) : (
-    <header className='fixed left-1/2 top-0 z-50 flex w-full -translate-x-1/2 flex-row items-center'>
+    <header className='fixed left-1/2 top-0 z-50 flex w-full -translate-x-1/2 flex-row items-center px-4 md:px-8'>
       <div className='flex-1'>
-        <div className='relative h-7 w-8'>
+        <div
+          className={`menu-open ${isMenuOpen ? 'open' : ''}`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
           <span></span>
           <span></span>
           <span></span>
