@@ -22,7 +22,7 @@ export default function NavTitle() {
             <p className='text-gray-300'>Selected:</p>
             <Link href={`/BakeryHome/${id}`}>
               <h5
-                className={`${metamorphous.className} text-white text-nowrap`}
+                className={`${metamorphous.className} text-nowrap text-white`}
               >
                 {title}
               </h5>
@@ -32,7 +32,7 @@ export default function NavTitle() {
           <div>
             <Link href='/'>
               <h4
-                className={`${metamorphous.className} text-white text-nowrap`}
+                className={`${metamorphous.className} text-nowrap text-white`}
               >
                 BreadBase
               </h4>

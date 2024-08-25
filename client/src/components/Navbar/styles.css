@@ -1,5 +1,5 @@
 .menu-open {
-  @apply relative block h-[26px] w-[36px] cursor-pointer;
+  @apply relative z-50 block h-[26px] w-[36px] cursor-pointer;
 }
 
 .menu-open span {

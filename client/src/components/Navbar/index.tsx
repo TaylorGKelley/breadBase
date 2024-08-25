@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import './styles.css';
 import { Cart, Location, User } from '../icons/Icons';
-import NavTitle from './NavTitle/NavTitle';
+import NavTitle from './NavTitle';
 
 export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -59,7 +59,7 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
       </div>
     </header>
   ) : (
-    <header className='fixed left-1/2 top-0 z-50 flex w-full -translate-x-1/2 flex-row items-center px-4 md:px-8'>
+    <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center px-4 md:px-8'>
       <div className='flex-1'>
         <div
           className={`menu-open ${isMenuOpen ? 'open' : ''}`}
@@ -87,6 +87,37 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
           <User />
         </Link>
       </div>
+      <nav
+        className='absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center gap-6 bg-gray-900 px-10 py-20'
+        hidden={!isMenuOpen}
+      >
+        <ul>
+          <li>
+            <Link
+              href='/'
+              className='relative text-xl text-white'
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              href='/'
+              className='relative text-xl text-white'
+            >
+              Bakeries
+            </Link>
+          </li>
+          <li>
+            <Link
+              href='/'
+              className='relative text-xl text-white'
+            >
+              Recipes
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </header>
   );
 }
