@@ -88,8 +88,7 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
         </Link>
       </div>
       <nav
-        className='absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center gap-6 bg-gray-900 px-10 py-20'
-        hidden={!isMenuOpen}
+        className={`absolute left-0 top-0 flex h-screen w-full flex-col items-center justify-center gap-6 bg-gray-900 px-10 py-20 ${isMenuOpen ? 'open' : ''}`}
       >
         <ul>
           <li>
