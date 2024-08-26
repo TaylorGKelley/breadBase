@@ -36,16 +36,15 @@
 }
 
 nav {
-  transform-origin: top left;
-  @apply scale-0 rounded-full transition-transform;
+  @apply h-screen w-0 transition-[width] duration-[400ms];
 }
 
 nav.open {
-  @apply -translate-x-1/4 -translate-y-1/4 scale-150 duration-500;
+  @apply w-16;
 }
 
 nav ul {
-  @apply opacity-0 transition-opacity delay-300;
+  @apply opacity-0 transition-opacity delay-150;
 }
 
 nav.open ul {
