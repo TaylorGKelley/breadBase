@@ -8,6 +8,7 @@ export const checkUserIsAuthenticated = (req: Request, res: Response) => {
   res.status(200).json({
     status: 'You are logged in',
     data: {
+      isAuthenticated: true,
       user: req.user as ProtectedUser,
     },
   });

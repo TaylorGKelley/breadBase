@@ -10,11 +10,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={poppins.className}
+        className={`overflow-x-hidden ${poppins.className}`}
         suppressHydrationWarning
-        style={{ overflowX: 'hidden' }}
       >
-        <Navbar simple />
+        <Navbar />
         {children}
       </body>
     </html>

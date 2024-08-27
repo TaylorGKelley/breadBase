@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import useSelectedBakery from '../../../store/selectedBakery';
+import useSelectedBakery from '../../../store/useSelectedBakery';
 import { metamorphous } from '../../../ui/fonts';
 
 export default function NavTitle() {

@@ -20,12 +20,7 @@ export default function SignUp() {
   };
 
   return (
-    <div
-      style={{
-        color: 'black',
-        margin: '2rem auto',
-      }}
-    >
+    <main>
       <h3 className={metamorphous.className}>Signup</h3>
       <form
         action={handleSignUp}
@@ -58,6 +53,6 @@ export default function SignUp() {
         />
         <button type='submit'>Login</button>
       </form>
-    </div>
+    </main>
   );
 }

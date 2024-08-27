@@ -17,7 +17,7 @@ const useSelectedBakery = create<BakeryStore>()(
       clearSelectedBakery: () => set({ id: 0, title: '' }),
     }),
     {
-      name: 'global',
+      name: 'selectedBakery',
       storage: createJSONStorage(() => localStorage),
     },
   ),

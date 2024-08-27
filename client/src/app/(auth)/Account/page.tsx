@@ -3,19 +3,16 @@ import { handleLogout } from '../../../actions/logout';
 
 export default function Account() {
   return (
-    <div className='text-slate-950 mx-auto'>
+    <main className='flex flex-col items-center justify-center'>
       <h3>My Account!</h3>
-      <form
-        action={handleLogout}
-        className='flex flex-col items-center mt-4'
-      >
+      <form action={handleLogout}>
         <button
           type='submit'
-          className='px-10 py-5 bg-yellow text-slate-50 font-semibold rounded-3xl'
+          className='bg-yellow rounded-3xl px-10 py-5 font-semibold text-slate-50'
         >
           Logout
         </button>
       </form>
-    </div>
+    </main>
   );
 }
