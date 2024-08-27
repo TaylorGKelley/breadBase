@@ -1,13 +1,46 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import './styles.css';
 import { Cart, Location, User } from '../icons/Icons';
 import NavTitle from './NavTitle';
+import { useRouter } from 'next/navigation';
+
+const links = [
+  {
+    displayText: 'Home',
+    url: '/',
+  },
+  {
+    displayText: 'Bakeries',
+    url: '/Search/Bakery',
+  },
+  {
+    displayText: 'Recipes',
+    url: '/Search/Recipes',
+  },
+];
 
 export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsMenuOpen(false);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+    };
+  }, [router.events]);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
 
   return !simple ? (
     <header className='h-36 bg-gray-700'>
@@ -22,10 +55,10 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
               <p>Find a Bakery</p>
             </Link>
           </div>
-          <div className='relative flex h-16 w-max flex-col justify-center text-center'>
+          <div className='relative z-50 flex h-16 w-max flex-col justify-center text-center'>
             <NavTitle />
           </div>
-          <div className='flex flex-1 items-center justify-end gap-8'>
+          <div className='z-50 flex flex-1 items-center justify-end gap-8'>
             <Link
               href='/MyCart'
               className='transition-all duration-300 hover:brightness-90'
@@ -60,20 +93,20 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
     </header>
   ) : (
     <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center px-4 md:px-8'>
-      <div className='flex-1'>
+      <div className='z-50 flex-1'>
         <div
           className={`menu-open ${isMenuOpen ? 'open' : ''}`}
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          onClick={handleMenuToggle}
         >
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
-      <div className='relative flex h-16 w-max flex-col justify-center text-center'>
+      <div className='relative z-50 flex h-16 w-max flex-col justify-center text-center'>
         <NavTitle />
       </div>
-      <div className='flex flex-1 items-center justify-end gap-8'>
+      <div className='z-50 flex flex-1 items-center justify-end gap-8'>
         <Link
           href='/MyCart'
           className='transition-all duration-300 hover:brightness-90'
@@ -88,33 +121,19 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
         </Link>
       </div>
       <nav
-        className={`absolute left-0 top-0 flex flex-col items-center justify-center gap-6 bg-gray-900 px-10 py-20 ${isMenuOpen ? 'open' : ''}`}
+        className={`absolute left-0 top-0 flex h-screen w-screen items-center justify-center gap-6 bg-gray-950 py-20 ${isMenuOpen ? 'open' : ''}`}
       >
-        <ul>
-          <li>
-            <Link
-              href='/'
-              className='relative text-xl text-white'
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href='/'
-              className='relative text-xl text-white'
-            >
-              Bakeries
-            </Link>
-          </li>
-          <li>
-            <Link
-              href='/'
-              className='relative text-xl text-white'
-            >
-              Recipes
-            </Link>
-          </li>
+        <ul className='flex flex-col gap-6 text-center'>
+          {links.map((link) => (
+            <li>
+              <Link
+                href={link.url}
+                className='relative text-xl font-extralight text-white transition-[font-weight] duration-[40ms] hover:font-normal lg:text-3xl'
+              >
+                {link.displayText}
+              </Link>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

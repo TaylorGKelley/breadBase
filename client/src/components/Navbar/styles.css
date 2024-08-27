@@ -36,15 +36,17 @@
 }
 
 nav {
-  @apply h-screen w-0 transition-[width] duration-[400ms];
+  transform-origin: left center;
+
+  @apply pointer-events-none opacity-0 transition-opacity duration-500;
 }
 
 nav.open {
-  @apply w-16;
+  @apply pointer-events-auto opacity-100;
 }
 
 nav ul {
-  @apply opacity-0 transition-opacity delay-150;
+  @apply opacity-0 transition-opacity;
 }
 
 nav.open ul {
