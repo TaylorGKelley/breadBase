@@ -5,7 +5,7 @@ import Link from 'next/link';
 import './styles.css';
 import { Cart, Location, User } from '../icons/Icons';
 import NavTitle from './NavTitle';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const links = [
   {
@@ -24,19 +24,11 @@ const links = [
 
 export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    const handleRouteChange = () => {
-      setIsMenuOpen(false);
-    };
-
-    router.events.on('routeChangeStart', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange);
-    };
-  }, [router.events]);
+    setIsMenuOpen(false);
+  }, [pathname]);
 
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
@@ -109,7 +101,7 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
       <div className='z-50 flex flex-1 items-center justify-end gap-8'>
         <Link
           href='/MyCart'
-          className='transition-all duration-300 hover:brightness-90'
+          className='hidden transition-all duration-300 hover:brightness-90 sm:block'
         >
           <Cart />
         </Link>
@@ -121,19 +113,21 @@ export default function Navbar({ simple }: Readonly<{ simple: boolean }>) {
         </Link>
       </div>
       <nav
-        className={`absolute left-0 top-0 flex h-screen w-screen items-center justify-center gap-6 bg-gray-950 py-20 ${isMenuOpen ? 'open' : ''}`}
+        className={`absolute left-0 top-0 flex h-auto min-h-screen w-screen items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${isMenuOpen ? 'open' : 'closed'}`}
       >
-        <ul className='flex flex-col gap-6 text-center'>
-          {links.map((link) => (
+        <ul className='flex flex-col gap-6 text-center transition-opacity'>
+          {links.map((link, i) => (
             <li>
               <Link
+                key={i}
                 href={link.url}
-                className='relative text-xl font-extralight text-white transition-[font-weight] duration-[40ms] hover:font-normal lg:text-3xl'
+                className={`relative text-xl font-extralight text-white transition-[font-weight] duration-[40ms] hover:font-normal lg:text-3xl`}
               >
                 {link.displayText}
               </Link>
             </li>
           ))}
+          <li></li>
         </ul>
       </nav>
     </header>

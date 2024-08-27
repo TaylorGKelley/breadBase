@@ -45,10 +45,10 @@ nav.open {
   @apply pointer-events-auto opacity-100;
 }
 
-nav ul {
-  @apply opacity-0 transition-opacity;
+nav > ul {
+  @apply opacity-0;
 }
 
-nav.open ul {
+nav.open > ul {
   @apply opacity-100;
 }
