@@ -1,6 +1,7 @@
 import './globals.css';
 import Navbar from '../components/Navbar';
 import { poppins } from '../ui/fonts';
+import GetAuthState from '@/wrappers/GetAuthState';
 
 export default function RootLayout({
   children,
@@ -13,8 +14,10 @@ export default function RootLayout({
         className={`overflow-x-hidden ${poppins.className}`}
         suppressHydrationWarning
       >
-        <Navbar />
-        {children}
+        <GetAuthState>
+          <Navbar />
+          {children}
+        </GetAuthState>
       </body>
     </html>
   );

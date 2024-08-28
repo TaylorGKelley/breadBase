@@ -12,9 +12,8 @@ type User = {
   lastName: string;
   displayName?: string;
   email: string;
-  associatedBakery?: string;
   profilePhoto?: string;
-  accountActive: boolean;
+  associatedBakery?: string;
 };
 
 export default User;

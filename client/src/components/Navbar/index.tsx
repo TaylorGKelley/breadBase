@@ -8,32 +8,7 @@ import NavDropdownMenu from './NavDropdownMenu';
 import useAuthStore from '@/store/useAuthStore';
 
 export default function Navbar() {
-  const { isAuthenticated, signInUser, logoutUser } = useAuthStore();
-
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.API_URI || 'http://localhost:5001'}/api/v1/checkAuth`,
-          {
-            method: 'GET',
-            mode: 'no-cors',
-            credentials: 'include',
-          },
-        );
-        const data = await response.json();
-
-        console.log(data);
-        if (response.status === 200 && data.isAuthenticated) {
-          signInUser(data.user);
-        }
-      } catch (error) {
-        // console.log((error as Error).message);
-      }
-    };
-
-    if (!isAuthenticated) checkAuthStatus();
-  }, []);
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center px-4 md:px-8'>

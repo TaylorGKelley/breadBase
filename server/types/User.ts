@@ -45,8 +45,12 @@ export type createPasswordResetToken = () => string;
 
 export type ProtectedUser = {
   _id: ObjectId;
+  firstName: string;
+  lastName: string;
+  displayName?: string;
   email: string;
   role: UserRole;
+  profilePhoto?: string;
   associatedBakeryId?: ObjectId;
 };
 

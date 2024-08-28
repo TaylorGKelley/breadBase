@@ -9,18 +9,22 @@ import {
 import passport from 'passport';
 import './config/passport';
 import productRoutes from './routes/productRoutes';
+import cors from 'cors';
 import csurf from 'csurf';
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+   origin: true,// (https://breadbase.com/) client url
+ }))
 app.use(cookieParser());
 // app.use(
-//   csurf({
-//     cookie: true,
-//   }),
-// );
-app.use(passport.initialize());
-
+  //   csurf({
+    //     cookie: true,
+    //   }),
+    // );
+    app.use(passport.initialize());
+    
 const baseRoute = '/api/v1';
 app.use(`${baseRoute}`, authRoutes);
 app.use(`${baseRoute}/baker`, bakeryAccessRoutes);
