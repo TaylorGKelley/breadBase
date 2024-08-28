@@ -17,7 +17,9 @@ function Login() {
     >
       <main className='grid h-full grid-flow-row grid-cols-1 justify-items-center gap-5 bg-transparent py-5 md:grid-cols-2'>
         <section className='hmd:-mt-6 mt-0 flex h-full w-full flex-col items-center justify-center px-4'>
-          <h3 className={`${metamorphous.className} text-center`}>Login</h3>
+          <h3 className={`${metamorphous.className} mb-3 text-center`}>
+            Login
+          </h3>
           <form
             action={handleLogin}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500 md:gap-8'

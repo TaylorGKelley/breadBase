@@ -18,11 +18,10 @@ export default function Home() {
     <>
       <main>
         <section id={styles.Hero}>
-          {/* hero */}
           <BackgroundImageContainer
             src='/images/HandsHoldingBreadLoaf.jpg'
             alt='Hands Holding Bread Background Image'
-            className='before:bg-gray-400 before:opacity-40 before:backdrop-blur-xl'
+            className='before:bg-[#130404] before:opacity-[0.54] before:backdrop-blur-xl'
           >
             <div className={styles.Hero_contentContainer}>
               <h1 className={metamorphous.className}>Bread Base</h1>

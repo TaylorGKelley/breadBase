@@ -2,8 +2,7 @@ import { create } from 'zustand';
 import User from '@/types/User';
 
 type AuthStore = {
-  isAuthenticated: boolean;
-  user: User | null;
+  currentUser?: User | null;
   signInUser: (user: User) => void;
   logoutUser: () => void;
 };
@@ -11,11 +10,11 @@ type AuthStore = {
 const useAuthStore = create<AuthStore>((set) => ({
   isAuthenticated: false,
   user: null,
-  signInUser: (user) => {
-    set(() => ({ isAuthenticated: true, user }));
+  signInUser: (currentUser) => {
+    set(() => ({ currentUser }));
   },
   logoutUser: () => {
-    set(() => ({ isAuthenticated: false, user: null }));
+    set(() => ({ currentUser: null }));
   },
 }));
 

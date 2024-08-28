@@ -9,7 +9,7 @@ type GetAuthStateProps = {
 };
 
 function GetAuthState({ children }: GetAuthStateProps) {
-  const { isAuthenticated, signInUser, logoutUser } = useAuthStore();
+  const { currentUser, signInUser, logoutUser } = useAuthStore();
 
   useEffect(() => {
     const fetchCheckAuth = async () => {
@@ -18,30 +18,28 @@ function GetAuthState({ children }: GetAuthStateProps) {
           `${process.env.URL_API || 'http://localhost:5001'}/api/v1/checkAuth`,
           {
             method: 'GET',
-            credentials: 'same-origin',
+            credentials: 'include',
           },
         );
         const data = await response.json();
-        console.log(data);
+
         if (response.status === 200) {
-          const userData = JSON.parse(await response.json()) as User;
-          signInUser(userData);
-          console.log(userData);
+          signInUser(data.data.user as User);
         } else {
           throw new Error('Failed to Authenticate User');
         }
       } catch (error) {
+        console.error(error);
         logoutUser();
       }
     };
 
-    if (!isAuthenticated) {
+    if (!currentUser) {
       fetchCheckAuth();
-      console.log(isAuthenticated);
     }
   }, []);
 
-  return <>{children}</>;
+  return <>{currentUser !== undefined && children}</>; // * Preventing the page load before Auth State has been fetched, so flashing of the icons in the Navbar don't occur
 }
 
 export default GetAuthState;

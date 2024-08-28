@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`overflow-x-hidden ${poppins.className}`}
+        className={`overflow-x-hidden bg-gray-900 ${poppins.className}`}
         suppressHydrationWarning
       >
         <GetAuthState>
