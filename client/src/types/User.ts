@@ -8,6 +8,7 @@ enum UserRole {
 }
 
 type User = {
+  _id: string;
   firstName: string;
   lastName: string;
   displayName?: string;

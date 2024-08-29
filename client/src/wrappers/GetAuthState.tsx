@@ -2,6 +2,7 @@
 
 import useAuthStore from '@/store/useAuthStore';
 import User from '@/types/User';
+import { usePathname } from 'next/navigation';
 import React, { useEffect } from 'react';
 
 type GetAuthStateProps = {
@@ -9,7 +10,8 @@ type GetAuthStateProps = {
 };
 
 function GetAuthState({ children }: GetAuthStateProps) {
-  const { currentUser, signInUser, logoutUser } = useAuthStore();
+  const pathname = usePathname();
+  const { user, loginUser, logoutUser, updateLastUrl } = useAuthStore();
 
   useEffect(() => {
     const fetchCheckAuth = async () => {
@@ -24,7 +26,7 @@ function GetAuthState({ children }: GetAuthStateProps) {
         const data = await response.json();
 
         if (response.status === 200) {
-          signInUser(data.data.user as User);
+          loginUser(data.data.user as User);
         } else {
           throw new Error('Failed to Authenticate User');
         }
@@ -34,12 +36,14 @@ function GetAuthState({ children }: GetAuthStateProps) {
       }
     };
 
-    if (!currentUser) {
+    updateLastUrl(pathname);
+
+    if (!user) {
       fetchCheckAuth();
     }
-  }, []);
+  }, [pathname]);
 
-  return <>{currentUser !== undefined && children}</>; // * Preventing the page load before Auth State has been fetched, so flashing of the icons in the Navbar don't occur
+  return <>{user !== undefined && children}</>; // * Preventing the page load before Auth State has been fetched, so flashing of the icons in the Navbar don't occur
 }
 
 export default GetAuthState;

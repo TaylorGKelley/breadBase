@@ -2,19 +2,29 @@ import { create } from 'zustand';
 import User from '@/types/User';
 
 type AuthStore = {
-  currentUser?: User | null;
-  signInUser: (user: User) => void;
+  user?: User | null;
+  previousPathname: string;
+  currentPathname: string;
+  loginUser: (user: User) => void;
   logoutUser: () => void;
+  updateLastUrl: (currentPathname: string) => void;
 };
 
 const useAuthStore = create<AuthStore>((set) => ({
-  isAuthenticated: false,
   user: null,
-  signInUser: (currentUser) => {
-    set(() => ({ currentUser }));
+  previousPathname: '/',
+  currentPathname: '/',
+  loginUser: (user) => {
+    set(() => ({ user }));
   },
   logoutUser: () => {
-    set(() => ({ currentUser: null }));
+    set(() => ({ user: null }));
+  },
+  updateLastUrl: (currentPathname) => {
+    set((state) => ({
+      previousPathname: state.currentPathname,
+      currentPathname,
+    }));
   },
 }));
 

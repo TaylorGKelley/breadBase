@@ -45,12 +45,14 @@ export default function SignUp() {
                 id='firstName'
                 label='First Name:'
                 placeholder='John'
+                required
               />
               <Input
                 type='text'
                 id='lastName'
                 label='Last Name:'
                 placeholder='Doe'
+                required
               />
             </div>
             <Input
@@ -58,18 +60,21 @@ export default function SignUp() {
               id='email'
               label='Email:'
               placeholder='john.doe@example.com'
+              required
             />
             <Input
               type='password'
               id='password'
               label='Password:'
               placeholder='●●●●●●●●'
+              required
             />
             <Input
               type='password'
               id='passwordConfirm'
               label='Password Confirm:'
               placeholder='●●●●●●●●'
+              required
             />
             <div className='flex flex-col gap-3'>
               <FormButton className='border-yellow text-yellow hover:bg-yellow hover:text-white'>

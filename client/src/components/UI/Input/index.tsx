@@ -7,6 +7,7 @@ import ForgotPasswordLink from './ForgotPasswordLink';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
+  error?: string;
   labelClassName?: string;
   linkClassName?: string;
   displayForgotPassword?: boolean;
@@ -18,6 +19,8 @@ function Input({
   label,
   name,
   placeholder,
+  required,
+  error,
   labelClassName,
   className,
   linkClassName,
@@ -37,7 +40,9 @@ function Input({
         htmlFor={id}
         className={`focus-within:text-yellow my-1 w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
       >
-        {label}
+        {`${required ? '*' : ''} ${label}`}
+
+        {error && <span className='text-red-400'>{`  ${error}`}</span>}
       </label>
       <div className='relative'>
         <input
@@ -48,6 +53,7 @@ function Input({
           name={name ? name : id} // If name isn't specified, use the id
           placeholder={placeholder}
           className={`focus:border-yellow inline-block w-full rounded-full border border-gray-200 bg-transparent px-6 py-2 text-sm outline-none placeholder:opacity-75 ${className}`}
+          required={required}
           {...attributes}
         />
         {isPasswordInput ? (

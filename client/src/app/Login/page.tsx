@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import { handleLogin } from '../../actions/login';
 import Input from '@/components/UI/Input';
 import { metamorphous } from '@/ui/fonts';
 import FormButton from '@/components/UI/FormButton';
@@ -7,8 +8,32 @@ import DividerLine from '@/components/UI/DividerLine';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
+import { useFormState } from 'react-dom';
+import LoginFormState from '@/types/LoginFormState';
+import login from '@/actions/login';
+import useAuthStore from '@/store/useAuthStore';
+import { useRouter } from 'next/navigation';
 
 function Login() {
+  const router = useRouter();
+  const { loginUser, previousPathname } = useAuthStore();
+
+  const [formState, dispatch] = useFormState<LoginFormState, FormData>(
+    async (previousState: LoginFormState, formData: FormData) => {
+      const formState: LoginFormState = await login(formData);
+      if (formState.success) {
+        if (formState?.user) loginUser(formState.user);
+        console.log(previousPathname);
+        router.push(previousPathname);
+      }
+
+      return formState;
+    },
+    {
+      email: '',
+    } as LoginFormState,
+  );
+
   return (
     <BackgroundImageContainer
       src='/images/Bread.png'
@@ -21,7 +46,7 @@ function Login() {
             Login
           </h3>
           <form
-            action={handleLogin}
+            action={dispatch}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500 md:gap-8'
           >
             <Input
@@ -29,13 +54,18 @@ function Login() {
               id='email'
               label='Email:'
               placeholder='john.doe@example.com'
+              required
+              defaultValue={formState.email}
+              error={formState.errors?.email}
             />
             <Input
               type='password'
               id='password'
               label='Password:'
               placeholder='●●●●●●●●'
+              required
               displayForgotPassword
+              error={formState.errors?.password}
             />
             <div className='flex flex-col gap-3'>
               <FormButton className='border-yellow text-yellow hover:bg-yellow hover:text-white'>

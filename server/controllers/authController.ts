@@ -49,13 +49,7 @@ export const signIn = async (
   res.status(201).json({
     status: 'success',
     data: {
-      user: {
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        displayName: user.displayName,
-        profilePhoto: user.profilePhoto,
-      },
+      user: user as ProtectedUser,
     },
   });
 };

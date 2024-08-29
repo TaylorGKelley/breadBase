@@ -1,11 +1,25 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+'use server';
 
-const login = async (
-  email: FormDataEntryValue,
-  password: FormDataEntryValue,
-) => {
-  'use server';
+import LoginFormState from '@/types/LoginFormState';
+import User from '@/types/User';
+import { cookies } from 'next/headers';
+
+export default async (formData: FormData): Promise<LoginFormState> => {
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+
+  // Validate email and password fields
+  if (!email || email === '' || !password || password === '')
+    return {
+      success: false,
+      email,
+      errors: {
+        email: !email ? 'Please provide a valid email address' : undefined,
+        password: !password
+          ? 'Please provide a valid email address'
+          : undefined,
+      },
+    };
 
   try {
     // Handle login
@@ -40,37 +54,27 @@ const login = async (
       });
     }
 
-    if (!response.ok) {
-      return undefined;
-    }
+    if (!response.ok || response?.status !== 201)
+      return {
+        success: false,
+        email,
+        errors: {
+          message: 'Login failed, please try a different email or password',
+        },
+      };
 
-    return response;
+    const data = (await response.json())?.data?.user as User;
+
+    return {
+      success: true,
+      email,
+      user: data,
+    };
   } catch (error) {
     console.error(error);
-    return undefined;
+    return {
+      success: false,
+      email,
+    };
   }
-};
-
-export const handleLogin = async (e: FormData) => {
-  'use server';
-
-  const email = e.get('email');
-  const password = e.get('password');
-  if (!email || !password)
-    return {
-      status: 404,
-      message: `Please provide an ${!email ? 'email' : 'password'}`,
-      error: 'Login Failed',
-    };
-
-  const response = await login(email, password);
-  if (response && response?.status !== 201)
-    return {
-      status: response?.status,
-      message: response?.statusText,
-      error: 'Login Failed',
-    };
-
-  // Redirect to Account page if successful
-  redirect('/Account');
 };
