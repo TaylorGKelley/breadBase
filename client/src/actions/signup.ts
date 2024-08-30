@@ -1,13 +1,46 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import processSetCookie from '../utils/processSetCookie';
+import { SignUpFormState as SignUpFormResponse } from '@/types/AuthFormState';
+import User from '@/types/User';
 
 export const signup = async (
-  firstName: FormDataEntryValue,
-  lastName: FormDataEntryValue,
-  email: FormDataEntryValue,
-  password: FormDataEntryValue,
-) => {
-  'use server';
+  formData: FormData,
+): Promise<SignUpFormResponse> => {
+  const firstName = formData.get('firstName')?.toString();
+  const lastName = formData.get('lastName')?.toString();
+  const email = formData.get('email')?.toString();
+  const password = formData.get('password')?.toString();
+  const passwordConfirm = formData.get('passwordConfirm')?.toString();
+
+  if (
+    !firstName ||
+    firstName === '' ||
+    !lastName ||
+    lastName === '' ||
+    !email ||
+    email === '' ||
+    !password ||
+    password === '' ||
+    !passwordConfirm ||
+    passwordConfirm === ''
+  )
+    return {
+      success: false,
+      firstName: firstName || '',
+      lastName: lastName || '',
+      email: email || '',
+      errors: {
+        firstName: !firstName ? 'A first name is required' : undefined,
+        lastName: !lastName ? 'A last name is required' : undefined,
+        email: !email ? 'An email address is required' : undefined,
+        password: !password ? 'A password is required' : undefined,
+        passwordConfirm: !passwordConfirm
+          ? 'A password is required'
+          : undefined,
+      },
+    };
 
   try {
     // Handle signup
@@ -25,6 +58,7 @@ export const signup = async (
           displayName: `${firstName} ${lastName}`,
           email,
           password,
+          passwordConfirm,
         }),
       },
     );
@@ -43,8 +77,45 @@ export const signup = async (
         httpOnly,
       });
     }
-    return response;
+
+    // Return User data or error if sign up failed
+    if (!response.ok || response?.status !== 201) {
+      const error = await response.json();
+      return {
+        success: false,
+        firstName,
+        lastName,
+        email,
+        errors: {
+          message: error.message,
+        },
+      };
+    }
+
+    const data = (await response.json())?.data?.user as User;
+
+    return {
+      success: true,
+      firstName,
+      lastName,
+      email,
+      user: data,
+    };
   } catch (error) {
-    return undefined;
+    return {
+      success: false,
+      firstName,
+      lastName,
+      email,
+    };
   }
+};
+
+const handleSignUp = async (e: FormData) => {
+  'use server';
+
+  // Handle signup
+  const response = await signup(e);
+
+  return 'success';
 };

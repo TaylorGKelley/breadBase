@@ -28,6 +28,7 @@ function GetAuthState({ children }: GetAuthStateProps) {
         if (response.status === 200) {
           loginUser(data.data.user as User);
         } else {
+          logoutUser();
           throw new Error('Failed to Authenticate User');
         }
       } catch (error) {

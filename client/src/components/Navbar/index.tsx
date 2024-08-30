@@ -8,7 +8,7 @@ import NavDropdownMenu from './NavDropdownMenu';
 import useAuthStore from '@/store/useAuthStore';
 
 export default function Navbar() {
-  const { currentUser } = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
     <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center px-4 py-2 md:px-8'>
@@ -19,7 +19,7 @@ export default function Navbar() {
         <NavTitle />
       </div>
       <div className='z-50 flex flex-1 items-center justify-end'>
-        {currentUser !== null ? (
+        {user !== null ? (
           <div className='flex items-center gap-8'>
             <Link
               href='/MyCart'

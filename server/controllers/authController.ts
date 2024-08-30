@@ -72,7 +72,7 @@ export const logOut = async (req: Request, res: Response) => {
   });
 };
 
-export const registerUser = async (req: Request, res: Response) => {
+export const signup = async (req: Request, res: Response) => {
   const { displayName, firstName, lastName, email, password, profilePhoto } =
     req.body;
 

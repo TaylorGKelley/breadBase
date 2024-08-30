@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   authenticateGoogle,
-  registerUser,
+  signup,
   signIn,
   logOut,
   forgotPassword,
@@ -18,7 +18,7 @@ const router = Router();
 router.get('/checkAuth', protectRoute, checkUserIsAuthenticated);
 router.post('/signin', signIn);
 router.post('/logOut', logOut);
-router.post('/register', registerUser);
+router.post('/signup', signup);
 
 // Google OAuth
 router.get(

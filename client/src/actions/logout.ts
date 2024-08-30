@@ -1,3 +1,5 @@
+'use server';
+
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -19,8 +21,6 @@ const logout = async () => {
   }
 };
 export const handleLogout = async () => {
-  'use server';
-
   const response = await logout();
   if (!response) {
     return {

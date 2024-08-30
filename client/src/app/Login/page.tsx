@@ -9,7 +9,7 @@ import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { useFormState } from 'react-dom';
-import LoginFormState from '@/types/LoginFormState';
+import AuthFormState from '@/types/AuthFormState';
 import login from '@/actions/login';
 import useAuthStore from '@/store/useAuthStore';
 import { useRouter } from 'next/navigation';
@@ -18,9 +18,9 @@ function Login() {
   const router = useRouter();
   const { loginUser, previousPathname } = useAuthStore();
 
-  const [formState, dispatch] = useFormState<LoginFormState, FormData>(
-    async (previousState: LoginFormState, formData: FormData) => {
-      const formState: LoginFormState = await login(formData);
+  const [formState, dispatch] = useFormState<AuthFormState, FormData>(
+    async (previousState: AuthFormState, formData: FormData) => {
+      const formState: AuthFormState = await login(formData);
       if (formState.success) {
         if (formState?.user) loginUser(formState.user);
         console.log(previousPathname);
@@ -31,7 +31,7 @@ function Login() {
     },
     {
       email: '',
-    } as LoginFormState,
+    } as AuthFormState,
   );
 
   return (

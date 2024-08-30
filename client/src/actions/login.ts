@@ -1,23 +1,21 @@
 'use server';
 
-import LoginFormState from '@/types/LoginFormState';
+import { LoginFormState as LoginFormResponse } from '@/types/AuthFormState';
 import User from '@/types/User';
 import { cookies } from 'next/headers';
 
-export default async (formData: FormData): Promise<LoginFormState> => {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
+export default async (formData: FormData): Promise<LoginFormResponse> => {
+  const email = formData.get('email')?.toString();
+  const password = formData.get('password')?.toString();
 
   // Validate email and password fields
   if (!email || email === '' || !password || password === '')
     return {
       success: false,
-      email,
+      email: email || '',
       errors: {
         email: !email ? 'Please provide a valid email address' : undefined,
-        password: !password
-          ? 'Please provide a valid email address'
-          : undefined,
+        password: !password ? 'Please provide a password' : undefined,
       },
     };
 

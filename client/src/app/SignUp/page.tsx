@@ -8,22 +8,6 @@ import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import DividerLine from '@/components/UI/DividerLine';
 
 export default function SignUp() {
-  const handleSignUp = async (e: FormData) => {
-    'use server';
-    const firstName = e.get('firstName');
-    const lastName = e.get('lastName');
-    const email = e.get('email');
-    const password = e.get('password');
-
-    if (!firstName || !lastName || !email || !password)
-      return 'Required fields are invalid';
-
-    // Handle signup
-    const response = await signup(firstName, lastName, email, password);
-
-    return 'success';
-  };
-
   return (
     <BackgroundImageContainer
       src='/images/Bread.png'
