@@ -4,13 +4,13 @@ type FormErrors = {
   message?: string;
 };
 
-type FormState = {
+type AuthFormState = {
   success: boolean;
   errors?: FormErrors;
   user?: User;
 };
 
-export type SignUpFormState = FormState & {
+export type SignUpFormState = AuthFormState & {
   firstName: string;
   lastName: string;
   email: string;
@@ -23,7 +23,7 @@ export type SignUpFormState = FormState & {
   };
 };
 
-export type LoginFormState = FormState & {
+export type LoginFormState = AuthFormState & {
   email: string;
   errors?: FormErrors & {
     email?: string;

@@ -5,9 +5,7 @@ import processSetCookie from '../utils/processSetCookie';
 import { SignUpFormState as SignUpFormResponse } from '@/types/AuthFormState';
 import User from '@/types/User';
 
-export const signup = async (
-  formData: FormData,
-): Promise<SignUpFormResponse> => {
+export default async (formData: FormData): Promise<SignUpFormResponse> => {
   const firstName = formData.get('firstName')?.toString();
   const lastName = formData.get('lastName')?.toString();
   const email = formData.get('email')?.toString();
@@ -79,7 +77,17 @@ export const signup = async (
     }
 
     // Return User data or error if sign up failed
-    if (!response.ok || response?.status !== 201) {
+    if (!response.ok || response?.status === 401) {
+      return {
+        success: false,
+        firstName,
+        lastName,
+        email,
+        errors: {
+          passwordConfirm: 'Passwords do not match',
+        },
+      };
+    } else if (!response.ok || response?.status !== 201) {
       const error = await response.json();
       return {
         success: false,
@@ -107,15 +115,9 @@ export const signup = async (
       firstName,
       lastName,
       email,
+      errors: {
+        message: (error as Error).message,
+      },
     };
   }
-};
-
-const handleSignUp = async (e: FormData) => {
-  'use server';
-
-  // Handle signup
-  const response = await signup(e);
-
-  return 'success';
 };

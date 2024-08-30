@@ -2,8 +2,14 @@
 
 import HidePasswordIcon from '@/components/icons/HidePasswordIcon';
 import ShowPasswordIcon from '@/components/icons/ShowPasswordIcon';
-import React, { InputHTMLAttributes, useState } from 'react';
+import React, {
+  FormEvent,
+  InputHTMLAttributes,
+  useEffect,
+  useState,
+} from 'react';
 import ForgotPasswordLink from './ForgotPasswordLink';
+import { useFormStatus } from 'react-dom';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -29,9 +35,21 @@ function Input({
 }: InputProps) {
   const isPasswordInput = type === 'password';
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [displayError, setDisplayError] = useState<string | undefined>(error);
+  const { pending } = useFormStatus();
+
+  // Why doesn't use effect detect a property change when it should be re-renderred?
+  // useEffect(() => {
+  //   setDisplayError(error);
+  //   console.log(displayError);
+  // }, [error]);
 
   const togglePasswordVisibility = () => {
     if (isPasswordInput) setIsPasswordVisible(!isPasswordVisible);
+  };
+
+  const handleInputChange = (e: FormEvent<HTMLInputElement>) => {
+    setDisplayError(undefined);
   };
 
   return (
@@ -42,13 +60,16 @@ function Input({
       >
         {`${required ? '*' : ''} ${label}`}
 
-        {error && <span className='text-red-400'>{`  ${error}`}</span>}
+        {displayError && (
+          <span className='inline text-red-400'>{`  ${displayError}`}</span>
+        )}
       </label>
       <div className='relative'>
         <input
           type={
             !isPasswordInput ? type : isPasswordVisible ? 'text' : 'password'
           }
+          onChange={handleInputChange}
           id={id}
           name={name ? name : id} // If name isn't specified, use the id
           placeholder={placeholder}

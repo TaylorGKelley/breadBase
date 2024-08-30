@@ -3,11 +3,9 @@
 import useAuthStore from '@/store/useAuthStore';
 import User from '@/types/User';
 import { usePathname } from 'next/navigation';
-import React, { useEffect } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 
-type GetAuthStateProps = {
-  children?: React.ReactNode;
-};
+type GetAuthStateProps = PropsWithChildren<{}>;
 
 function GetAuthState({ children }: GetAuthStateProps) {
   const pathname = usePathname();

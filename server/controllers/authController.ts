@@ -73,16 +73,19 @@ export const logOut = async (req: Request, res: Response) => {
 };
 
 export const signup = async (req: Request, res: Response) => {
-  const { displayName, firstName, lastName, email, password, profilePhoto } =
+  const { displayName, firstName, lastName, email, password, passwordConfirm } =
     req.body;
 
   if (req.body.password !== req.body.passwordConfirm || !req.body.password)
-    return res.status(500).send('Passwords do not match');
+    return res.status(400).json({
+      status: 'fail',
+      message: 'Passwords do not match'
+    });
 
   try {
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({
+      return res.status(403).json({
         status: 'failed to create user',
         message: 'User already exists',
       });
@@ -94,7 +97,7 @@ export const signup = async (req: Request, res: Response) => {
       lastName,
       email,
       password,
-      profilePhoto,
+      passwordConfirm
     });
 
     createSendToken(newUser._id, res);
@@ -102,13 +105,7 @@ export const signup = async (req: Request, res: Response) => {
     res.status(201).json({
       status: 'success',
       data: {
-        user: {
-          displayName: newUser.displayName,
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          email: newUser.email,
-          profilePhoto: newUser.profilePhoto,
-        },
+        user: newUser as ProtectedUser,
       },
     });
   } catch (error) {

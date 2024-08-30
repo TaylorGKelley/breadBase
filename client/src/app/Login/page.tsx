@@ -1,38 +1,26 @@
 'use client';
 
-import React from 'react';
-import Input from '@/components/UI/Input';
+import React, { useEffect, useState } from 'react';
+import Input from '@/components/UI/Forms/Input';
 import { metamorphous } from '@/ui/fonts';
-import FormButton from '@/components/UI/FormButton';
-import DividerLine from '@/components/UI/DividerLine';
+import Button from '@/components/UI/Forms/Button';
+import DividerLine from '@/components/UI/Forms/DividerLine';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import { useFormState } from 'react-dom';
-import AuthFormState from '@/types/AuthFormState';
+import { LoginFormState } from '@/types/AuthFormState';
 import login from '@/actions/login';
-import useAuthStore from '@/store/useAuthStore';
-import { useRouter } from 'next/navigation';
+import AuthForm from '@/components/UI/Forms/AuthForm';
 
 function Login() {
-  const router = useRouter();
-  const { loginUser, previousPathname } = useAuthStore();
+  const [formState, setFormState] = useState<LoginFormState>({
+    success: false,
+    email: '',
+  });
 
-  const [formState, dispatch] = useFormState<AuthFormState, FormData>(
-    async (previousState: AuthFormState, formData: FormData) => {
-      const formState: AuthFormState = await login(formData);
-      if (formState.success) {
-        if (formState?.user) loginUser(formState.user);
-        console.log(previousPathname);
-        router.push(previousPathname);
-      }
-
-      return formState;
-    },
-    {
-      email: '',
-    } as AuthFormState,
-  );
+  useEffect(() => {
+    console.log(formState);
+  }, [formState]);
 
   return (
     <BackgroundImageContainer
@@ -45,10 +33,14 @@ function Login() {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Login
           </h3>
-          <form
-            action={dispatch}
+          <AuthForm<LoginFormState>
+            action={login}
+            setFormState={setFormState}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500 md:gap-8'
           >
+            <p className='text-xs text-red-400'>
+              {formState.errors?.message || ' '}
+            </p>
             <Input
               type='email'
               id='email'
@@ -68,17 +60,17 @@ function Login() {
               error={formState.errors?.password}
             />
             <div className='flex flex-col gap-3'>
-              <FormButton className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
+              <Button className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
                 Sign in
-              </FormButton>
+              </Button>
               <DividerLine>or</DividerLine>
-              <FormButton
+              <Button
                 type='button'
                 className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125'
               >
                 <GoogleMonoIcon className='fill-gray-400' />
                 Sign in with Google
-              </FormButton>
+              </Button>
               <Link
                 href='/SignUp'
                 className='text-center text-xs text-gray-400 underline'
@@ -86,7 +78,7 @@ function Login() {
                 Not a user? Sign up now!
               </Link>
             </div>
-          </form>
+          </AuthForm>
         </section>
       </main>
     </BackgroundImageContainer>

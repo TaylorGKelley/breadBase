@@ -8,7 +8,7 @@ type FormButtonProps = PropsWithChildren<
   ButtonHTMLAttributes<HTMLButtonElement>
 > & {};
 
-function FormButton({
+function Button({
   children,
   type = 'submit',
   className,
@@ -25,4 +25,4 @@ function FormButton({
   );
 }
 
-export default FormButton;
+export default Button;
