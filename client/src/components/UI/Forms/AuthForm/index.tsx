@@ -1,13 +1,14 @@
 'use client';
 
 import useAuthStore from '@/store/useAuthStore';
+import { AuthWithAttempts } from '@/types/AuthFormState';
 import { usePathname, useRouter } from 'next/navigation';
-import React, { FormHTMLAttributes, useEffect } from 'react';
+import React, { FormHTMLAttributes, SetStateAction } from 'react';
 import { useFormState } from 'react-dom';
 
 type AuthFormProps<T> = FormHTMLAttributes<HTMLFormElement> & {
   action: (formData: FormData) => Promise<T>;
-  setFormState: (formState: T) => void;
+  setFormState: (arg: SetStateAction<T>) => void;
 };
 
 function AuthForm<T>({
@@ -30,8 +31,8 @@ function AuthForm<T>({
         else router.push(previousPathname);
       }
 
-      setFormState(formState);
-      console.log(formState);
+      setFormState({ ...formState });
+
       return formState;
     },
     {} as Awaited<T>,

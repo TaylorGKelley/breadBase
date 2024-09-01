@@ -28,15 +28,15 @@ function Login() {
       alt='Background Image'
       className='before:bg-black/[70%] before:backdrop-blur-sm before:transition-all before:duration-500 before:lg:backdrop-blur-0'
     >
-      <main className='grid h-full grid-flow-row grid-cols-1 justify-items-center gap-5 bg-transparent py-5 md:grid-cols-2'>
-        <section className='hmd:-mt-6 mt-0 flex h-full w-full flex-col items-center justify-center px-4'>
+      <main className='grid h-screen grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent py-5 md:grid-cols-2'>
+        <section className='hmd:-mt-6 mt-18 mb-6 flex w-full flex-col items-center justify-center px-4'>
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Login
           </h3>
           <AuthForm<LoginFormState>
             action={login}
             setFormState={setFormState}
-            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500 md:gap-8'
+            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
             <p className='text-xs text-red-400'>
               {formState.errors?.message || ' '}

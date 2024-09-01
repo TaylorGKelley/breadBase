@@ -77,7 +77,8 @@ export default async (formData: FormData): Promise<SignUpFormResponse> => {
     }
 
     // Return User data or error if sign up failed
-    if (!response.ok || response?.status === 401) {
+    console.log(response.ok, response.status);
+    if (response.status === 401) {
       return {
         success: false,
         firstName,

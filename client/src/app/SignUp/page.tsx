@@ -9,7 +9,8 @@ import Button from '@/components/UI/Forms/Button';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import DividerLine from '@/components/UI/Forms/DividerLine';
 import AuthForm from '@/components/UI/Forms/AuthForm';
-import { SignUpFormState } from '@/types/AuthFormState';
+import { AuthWithAttempts, SignUpFormState } from '@/types/AuthFormState';
+import Link from 'next/link';
 
 export default function SignUp() {
   const [formState, setFormState] = useState<SignUpFormState>({
@@ -25,26 +26,26 @@ export default function SignUp() {
       alt='Background Image'
       className='before:bg-black/[70%] before:backdrop-blur-sm before:transition-all before:duration-500 before:lg:backdrop-blur-0'
     >
-      <main className='grid h-full grid-flow-row grid-cols-1 justify-items-center gap-5 bg-transparent py-5 md:grid-cols-2'>
-        <section className='hmd:-mt-6 mt-0 flex h-full w-full flex-col items-center justify-center px-4'>
+      <main className='grid h-screen grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent md:grid-cols-2'>
+        <section className='hmd:-mt-6 mb-6 mt-20 flex w-full flex-col items-center justify-center px-4'>
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Sign Up
           </h3>
+          <p className='text-xs text-red-400'>
+            {formState.errors?.message || ' '}
+          </p>
           <AuthForm<SignUpFormState>
             action={signup}
             setFormState={setFormState}
-            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500 md:gap-8'
+            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
-            <p className='text-xs text-red-400'>
-              {formState.errors?.message || ' '}
-            </p>
             <div className='flex items-center gap-4 *:flex-grow'>
               <Input
                 type='text'
                 id='firstName'
                 label='First Name:'
                 placeholder='John'
-                required
+                // required
                 defaultValue={formState.firstName}
                 error={formState.errors?.firstName}
               />
@@ -53,7 +54,7 @@ export default function SignUp() {
                 id='lastName'
                 label='Last Name:'
                 placeholder='Doe'
-                required
+                // required
                 defaultValue={formState.lastName}
                 error={formState.errors?.lastName}
               />
@@ -63,7 +64,7 @@ export default function SignUp() {
               id='email'
               label='Email:'
               placeholder='john.doe@example.com'
-              required
+              // required
               defaultValue={formState.email}
               error={formState.errors?.email}
             />
@@ -72,8 +73,8 @@ export default function SignUp() {
               id='password'
               label='Password:'
               placeholder='●●●●●●●●'
-              required
-              minLength={8}
+              // required
+              // minLength={8}
               error={formState.errors?.password}
             />
             <Input
@@ -81,13 +82,13 @@ export default function SignUp() {
               id='passwordConfirm'
               label='Password Confirm:'
               placeholder='●●●●●●●●'
-              required
-              minLength={8}
+              // required
+              // minLength={8}
               error={formState.errors?.passwordConfirm}
             />
             <div className='flex flex-col gap-3'>
               <Button className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
-                Sign in
+                Sign up
               </Button>
               <DividerLine>or</DividerLine>
               <Button
@@ -97,6 +98,12 @@ export default function SignUp() {
                 <GoogleMonoIcon className='fill-gray-400' />
                 Sign in with Google
               </Button>
+              <Link
+                href='/Login'
+                className='text-center text-xs text-gray-400 underline'
+              >
+                Already a user? Login here!
+              </Link>
             </div>
           </AuthForm>
         </section>

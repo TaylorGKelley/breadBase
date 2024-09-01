@@ -19,37 +19,45 @@ export default function Navbar() {
         <NavTitle />
       </div>
       <div className='z-50 flex flex-1 items-center justify-end'>
-        {user !== null ? (
-          <div className='flex items-center gap-8'>
-            <Link
-              href='/MyCart'
-              className='hidden transition-all duration-300 hover:brightness-90 sm:block'
-            >
-              <Cart />
-            </Link>
-            <Link
-              href='/Account'
-              className='transition-all duration-300 hover:brightness-90'
-            >
-              <User />
-            </Link>
-          </div>
-        ) : (
-          <div className='flex items-center gap-4'>
-            <Link
-              href='/Login'
-              className='px-4 py-2'
-            >
-              Login
-            </Link>
-            <Link
-              href='/SignUp'
-              className='border-yellow text-yellow rounded-full border-2 px-6 py-2'
-            >
-              Sign Up
-            </Link>
-          </div>
-        )}
+        <div className='items-center gap-8'>
+          {user !== null ? (
+            <>
+              <Link
+                href='/MyCart'
+                className='hidden transition-all duration-300 hover:brightness-90 sm:block'
+              >
+                <Cart />
+              </Link>
+              <Link
+                href='/Account'
+                className='transition-all duration-300 hover:brightness-90'
+              >
+                <User />
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href='/Login'
+                className='hidden px-4 py-2 md:inline-block'
+              >
+                Login
+              </Link>
+              <Link
+                href='/SignUp'
+                className='border-yellow text-yellow hidden rounded-full border-2 px-6 py-2 md:inline-block'
+              >
+                Sign Up
+              </Link>
+              <Link
+                href='/Login'
+                className='transition-all duration-300 hover:brightness-90 md:hidden'
+              >
+                <User />
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </header>
   );

@@ -10,6 +10,8 @@ type AuthFormState = {
   user?: User;
 };
 
+export type AuthWithAttempts<T> = T & { attempts: number };
+
 export type SignUpFormState = AuthFormState & {
   firstName: string;
   lastName: string;
