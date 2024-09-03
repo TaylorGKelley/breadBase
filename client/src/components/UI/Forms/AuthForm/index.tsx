@@ -8,12 +8,16 @@ import { useFormState } from 'react-dom';
 
 type AuthFormProps<T> = FormHTMLAttributes<HTMLFormElement> & {
   action: (formData: FormData) => Promise<T>;
+  preferRedirect?: string;
   setFormState: (arg: SetStateAction<T>) => void;
 };
+
+const noRedirectRoutes = ['/SignUp', '/Login'];
 
 function AuthForm<T>({
   children,
   action,
+  preferRedirect,
   setFormState,
   ...attributes
 }: AuthFormProps<T>) {
@@ -26,9 +30,12 @@ function AuthForm<T>({
       const formState = (await action(formData)) as T;
       if ((formState as any).success) {
         if ((formState as any)?.user) loginUser((formState as any).user);
-        if (previousPathname === '/SignUp' || previousPathname === pathname)
+        if (
+          noRedirectRoutes.includes(previousPathname) ||
+          previousPathname === pathname
+        )
           router.push('/');
-        else router.push(previousPathname);
+        else router.push(preferRedirect || previousPathname);
       }
 
       setFormState({ ...formState });

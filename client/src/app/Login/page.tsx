@@ -60,13 +60,13 @@ function Login() {
               error={formState.errors?.password}
             />
             <div className='flex flex-col gap-3'>
-              <Button className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
+              <Button className='border-yellow text-yellow hover:bg-yellow disabled:hover:text-yellow hover:text-white disabled:hover:bg-transparent'>
                 Sign in
               </Button>
               <DividerLine>or</DividerLine>
               <Button
                 type='button'
-                className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125'
+                className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125 disabled:hover:brightness-100'
               >
                 <GoogleMonoIcon className='fill-gray-400' />
                 Sign in with Google

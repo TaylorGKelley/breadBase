@@ -2,7 +2,10 @@
 
 import { cookies } from 'next/headers';
 import processSetCookie from '../utils/processSetCookie';
-import { SignUpFormState as SignUpFormResponse } from '@/types/AuthFormState';
+import {
+  ExtraInfoSignUpFormState,
+  SignUpFormState as SignUpFormResponse,
+} from '@/types/AuthFormState';
 import User from '@/types/User';
 
 export default async (formData: FormData): Promise<SignUpFormResponse> => {
@@ -121,4 +124,10 @@ export default async (formData: FormData): Promise<SignUpFormResponse> => {
       },
     };
   }
+};
+
+export const extraInfo = async (
+  formData: FormData,
+): Promise<ExtraInfoSignUpFormState> => {
+  return { success: true } as ExtraInfoSignUpFormState;
 };

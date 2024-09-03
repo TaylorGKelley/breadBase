@@ -25,6 +25,23 @@ export type SignUpFormState = AuthFormState & {
   };
 };
 
+export type ExtraInfoSignUpFormState = AuthFormState & {
+  phoneNumber: string;
+  address: string;
+  apptNumber: number;
+  state: string;
+  county: string;
+  zipCode: number;
+  errors?: FormErrors & {
+    phoneNumber?: string;
+    address?: string;
+    apptNumber?: string;
+    state?: string;
+    county?: string;
+    zipCode?: string;
+  };
+};
+
 export type LoginFormState = AuthFormState & {
   email: string;
   errors?: FormErrors & {

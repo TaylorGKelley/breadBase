@@ -19,7 +19,7 @@ function AccountInfo() {
   }, []);
 
   return (
-    <div className='items-center gap-8'>
+    <div className='flex items-center gap-8'>
       {user !== null ? (
         <>
           {isScreenNarrow && (

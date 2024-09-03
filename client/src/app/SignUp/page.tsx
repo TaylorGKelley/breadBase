@@ -37,6 +37,7 @@ export default function SignUp() {
           <AuthForm<SignUpFormState>
             action={signup}
             setFormState={setFormState}
+            preferRedirect='/SignUp/ExtraInfo'
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
             <div className='flex items-center gap-4 *:flex-grow'>
@@ -45,7 +46,7 @@ export default function SignUp() {
                 id='firstName'
                 label='First Name:'
                 placeholder='John'
-                // required
+                required
                 defaultValue={formState.firstName}
                 error={formState.errors?.firstName}
               />
@@ -54,7 +55,7 @@ export default function SignUp() {
                 id='lastName'
                 label='Last Name:'
                 placeholder='Doe'
-                // required
+                required
                 defaultValue={formState.lastName}
                 error={formState.errors?.lastName}
               />
@@ -64,7 +65,7 @@ export default function SignUp() {
               id='email'
               label='Email:'
               placeholder='john.doe@example.com'
-              // required
+              required
               defaultValue={formState.email}
               error={formState.errors?.email}
             />
@@ -73,8 +74,8 @@ export default function SignUp() {
               id='password'
               label='Password:'
               placeholder='●●●●●●●●'
-              // required
-              // minLength={8}
+              required
+              minLength={8}
               error={formState.errors?.password}
             />
             <Input
@@ -82,18 +83,18 @@ export default function SignUp() {
               id='passwordConfirm'
               label='Password Confirm:'
               placeholder='●●●●●●●●'
-              // required
-              // minLength={8}
+              required
+              minLength={8}
               error={formState.errors?.passwordConfirm}
             />
             <div className='flex flex-col gap-3'>
-              <Button className='border-yellow text-yellow hover:bg-yellow hover:text-white'>
+              <Button className='border-yellow text-yellow hover:bg-yellow disabled:hover:text-yellow hover:text-white disabled:hover:bg-transparent'>
                 Sign up
               </Button>
               <DividerLine>or</DividerLine>
               <Button
                 type='button'
-                className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125'
+                className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125 disabled:hover:brightness-100'
               >
                 <GoogleMonoIcon className='fill-gray-400' />
                 Sign in with Google
