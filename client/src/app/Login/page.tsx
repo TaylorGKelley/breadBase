@@ -28,19 +28,17 @@ function Login() {
       alt='Background Image'
       className='before:bg-black/[70%] before:backdrop-blur-sm before:transition-all before:duration-500 before:lg:backdrop-blur-0'
     >
-      <main className='grid h-screen grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent py-5 md:grid-cols-2'>
-        <section className='hmd:-mt-6 mt-18 mb-6 flex w-full flex-col items-center justify-center px-4'>
-          <h3 className={`${metamorphous.className} mb-3 text-center`}>
-            Login
-          </h3>
+      <main className='grid h-screen min-h-fit grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent pb-8 pt-20 md:grid-cols-2'>
+        <section className='hmd:-mt-6 mb-6 flex w-full flex-col items-center justify-center px-4'>
+          <h3 className={`${metamorphous.className} text-center`}>Login</h3>
           <AuthForm<LoginFormState>
             action={login}
             setFormState={setFormState}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
-            <p className='text-xs text-red-400'>
-              {formState.errors?.message || ' '}
-            </p>
+            {formState.errors && (
+              <p className='text-xs text-red-400'>{formState.errors.message}</p>
+            )}
             <Input
               type='email'
               id='email'

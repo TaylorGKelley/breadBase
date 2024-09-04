@@ -45,7 +45,7 @@ export default function SignUp() {
                 id='firstName'
                 label='First Name:'
                 placeholder='John'
-                // required
+                required
                 defaultValue={formState.firstName}
                 error={formState.errors?.firstName}
               />
@@ -54,7 +54,7 @@ export default function SignUp() {
                 id='lastName'
                 label='Last Name:'
                 placeholder='Doe'
-                // required
+                required
                 defaultValue={formState.lastName}
                 error={formState.errors?.lastName}
               />
@@ -64,7 +64,7 @@ export default function SignUp() {
               id='email'
               label='Email:'
               placeholder='john.doe@example.com'
-              // required
+              required
               defaultValue={formState.email}
               error={formState.errors?.email}
             />
@@ -73,8 +73,8 @@ export default function SignUp() {
               id='password'
               label='Password:'
               placeholder='●●●●●●●●'
-              // required
-              // minLength={8}
+              required
+              minLength={8}
               error={formState.errors?.password}
             />
             <Input
@@ -82,8 +82,8 @@ export default function SignUp() {
               id='passwordConfirm'
               label='Password Confirm:'
               placeholder='●●●●●●●●'
-              // required
-              // minLength={8}
+              required
+              minLength={8}
               error={formState.errors?.passwordConfirm}
             />
             <div className='flex flex-col gap-3'>

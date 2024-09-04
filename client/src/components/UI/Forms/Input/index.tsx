@@ -5,6 +5,7 @@ import ShowPasswordIcon from '@/components/icons/ShowPasswordIcon';
 import React, { FormEvent, InputHTMLAttributes, useState } from 'react';
 import ForgotPasswordLink from './ForgotPasswordLink';
 import { useFormStatus } from 'react-dom';
+import InputError from './InputError';
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -49,14 +50,13 @@ function Input({
     <div className='flex w-auto flex-col overflow-x-hidden overflow-y-visible'>
       <label
         htmlFor={id}
-        className={`focus-within:text-yellow my-1 w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
+        className={`focus-within:text-yellow my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
       >
         {`${required ? '*' : ''} ${label}`}
-
-        {showError && error && (
-          <span className='inline text-red-400'>{`  ${error}`}</span>
-        )}
       </label>
+      {showError && error && (
+        <span className='inline text-nowrap text-xs text-red-400'>{`  ${error}`}</span>
+      )}
       <div className='relative'>
         <input
           type={
@@ -71,17 +71,21 @@ function Input({
           required={required}
           {...attributes}
         />
-        {isPasswordInput ? (
-          <button
-            type='button'
-            onClick={togglePasswordVisibility}
-            className='absolute right-0 top-1/2 flex h-full w-12 -translate-y-1/2 items-center justify-center rounded-full pr-2 outline-none transition-all focus:brightness-75'
-          >
-            {!isPasswordVisible ? <ShowPasswordIcon /> : <HidePasswordIcon />}
-          </button>
-        ) : null}
+        {!error ? (
+          isPasswordInput && (
+            <button
+              type='button'
+              onClick={togglePasswordVisibility}
+              className='absolute right-0 top-1/2 flex h-full w-12 -translate-y-1/2 items-center justify-center rounded-full pr-2 outline-none transition-all focus:brightness-75'
+            >
+              {!isPasswordVisible ? <ShowPasswordIcon /> : <HidePasswordIcon />}
+            </button>
+          )
+        ) : (
+          <InputError error={error} />
+        )}
       </div>
-      {isPasswordInput && displayForgotPassword ? <ForgotPasswordLink /> : null}
+      {isPasswordInput && displayForgotPassword && <ForgotPasswordLink />}
     </div>
   );
 }

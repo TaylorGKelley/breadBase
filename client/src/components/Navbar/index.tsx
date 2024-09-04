@@ -9,7 +9,7 @@ export default function Navbar() {
       <div className='z-50 flex-1'>
         <NavDropdownMenu />
       </div>
-      <div className='relative z-50 flex h-16 w-max flex-col justify-center text-center'>
+      <div className='xs:flex relative z-50 hidden h-16 w-max flex-col justify-center text-center'>
         <NavTitle />
       </div>
       <div className='z-50 flex flex-1 items-center justify-end'>
