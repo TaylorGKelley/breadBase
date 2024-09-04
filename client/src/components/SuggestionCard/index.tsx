@@ -6,6 +6,7 @@ type SuggestionCardProps = {
 };
 
 function SuggestionCard({ title, imagePath }: SuggestionCardProps) {
+  // Todo: Work on these cards for the home page
   return <div>SuggestionCard</div>;
 }
 
