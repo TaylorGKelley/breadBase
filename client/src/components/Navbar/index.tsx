@@ -5,7 +5,7 @@ import AccountInfo from './AccountInfo';
 
 export default function Navbar() {
   return (
-    <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center px-4 py-2 md:px-8'>
+    <header className='fixed left-1/2 top-0 z-40 flex w-full -translate-x-1/2 flex-row items-center bg-transparent px-4 py-2 before:absolute before:inset-0 before:z-30 before:backdrop-blur-lg before:[mask-image:linear-gradient(to_bottom,_black,_transparent)] md:px-8'>
       <div className='z-50 flex-1'>
         <NavDropdownMenu />
       </div>
