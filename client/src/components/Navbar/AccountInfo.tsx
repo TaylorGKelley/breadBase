@@ -6,7 +6,11 @@ import useAuthStore from '@/store/useAuthStore';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
-function AccountInfo() {
+type AccountInfoProps = {
+  closeMenu: () => void;
+};
+
+function AccountInfo({ closeMenu }: AccountInfoProps) {
   const { user } = useAuthStore();
   const [isScreenNarrow, setIsScreenNarrow] = useState(false);
 
@@ -25,6 +29,7 @@ function AccountInfo() {
           {isScreenNarrow && (
             <Link
               href='/MyCart'
+              onClick={closeMenu}
               className='transition-all duration-300 hover:brightness-90'
             >
               <Cart />
@@ -32,6 +37,7 @@ function AccountInfo() {
           )}
           <Link
             href='/Account'
+            onClick={closeMenu}
             className='transition-all duration-300 hover:brightness-90'
           >
             <User />
@@ -41,6 +47,7 @@ function AccountInfo() {
         <>
           <Link
             href='/Login'
+            onClick={closeMenu}
             className='px-4 py-2'
           >
             {!isScreenNarrow ? 'Login' : <User />}
@@ -48,6 +55,7 @@ function AccountInfo() {
           {!isScreenNarrow && (
             <Link
               href='/SignUp'
+              onClick={closeMenu}
               className='border-yellow text-yellow rounded-full border-2 px-6 py-2'
             >
               Sign Up

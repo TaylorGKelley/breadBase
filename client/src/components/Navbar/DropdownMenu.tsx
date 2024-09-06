@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import './DropdownMenu.css';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const links = [
   {
@@ -19,14 +20,25 @@ const links = [
   },
 ];
 
-function NavDropdownMenu() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+type NavDropdownMenuProps = {
+  menuOpenState: [boolean, Dispatch<SetStateAction<boolean>>];
+};
+
+function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
+  const pathname = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = menuOpenState;
 
   const handleLinkClick = () => {
     setTimeout(() => {
       setIsMenuOpen(false);
     }, 150);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 150);
+  }, [pathname]);
 
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev);
