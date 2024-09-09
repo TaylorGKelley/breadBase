@@ -12,11 +12,11 @@ const links = [
   },
   {
     displayText: 'Bakeries',
-    url: '/Search/Bakery',
+    url: '/Bakery/Search',
   },
   {
     displayText: 'Recipes',
-    url: '/Search/Recipes',
+    url: '/Recipe/Search',
   },
 ];
 

@@ -13,7 +13,6 @@ function Search() {
         <h2>Search</h2>
         <SearchBar />
       </main>
-      ;
     </BackgroundImageContainer>
   );
 }
