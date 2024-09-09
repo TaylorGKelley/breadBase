@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultColor } from './Icons';
+import { defaultColor } from '.';
 
 export default function Cart({
   width = '2rem',

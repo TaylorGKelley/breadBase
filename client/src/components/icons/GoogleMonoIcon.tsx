@@ -1,5 +1,5 @@
 import React, { SVGProps } from 'react';
-import { defaultColor } from './Icons';
+import { defaultColor } from '.';
 
 function GoogleMonoIcon({
   width = '1.25rem',

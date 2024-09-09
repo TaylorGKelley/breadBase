@@ -1,5 +1,5 @@
 import React from 'react';
-import { defaultColor } from './Icons';
+import { defaultColor } from '.';
 
 export default function User({
   width = '2rem',

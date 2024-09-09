@@ -1,5 +1,5 @@
 import React, { SVGProps } from 'react';
-import { defaultColor } from './Icons';
+import { defaultColor } from '.';
 
 function ShowPasswordIcon({
   fill = defaultColor,
