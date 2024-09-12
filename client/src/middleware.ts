@@ -2,12 +2,18 @@ import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-const protectedRoutes = ['/Account'];
+const protectedRoutes = new Map<string, string>([
+  ['/Account', '/Login'],
+  ['/Bakery/Dashboard', '/Login?redirect=/Bakery/Dashboard'],
+  ['/Bakery/Create', '/Login?redirect=/Bakery/Create'],
+]);
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
+  console.log('middleware ran');
   try {
-    if (protectedRoutes.includes(req.nextUrl.clone().pathname)) {
+    // Check if user is accessing an (auth) protected route
+    if (protectedRoutes.has(url.pathname.split('?').at(0) as string)) {
       const tokenCookie = cookies().get('jwt')?.value || '';
 
       const authResponse = await fetch(
@@ -21,8 +27,15 @@ export async function middleware(req: NextRequest) {
         },
       );
 
+      console.log(authResponse.status);
+
       if (authResponse.status !== 200) {
-        url.pathname = '/Login';
+        const [redirectTo, params] = protectedRoutes
+          .get(url.pathname)
+          ?.split('?') || ['/Login', ''];
+
+        url.pathname = redirectTo;
+        url.search = params;
         return NextResponse.redirect(url);
       }
     }
@@ -34,5 +47,9 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/Account/:path*'],
+  matcher: [
+    '/Account/:path*',
+    '/Bakery/Create/:path*',
+    '/Bakery/Dashboard/:path*',
+  ],
 };

@@ -57,7 +57,7 @@ function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
       <nav
         className={`fixed left-0 top-0 flex h-[101dvh] w-full items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${isMenuOpen ? 'open' : 'closed'}`}
       >
-        <ul className='flex flex-col gap-4 text-center text-white transition-all duration-500 hover:text-gray-400 hover:*:text-white hover:*:transition-colors md:px-8 lg:px-12'>
+        <ul className='flex flex-col gap-4 text-center text-white transition-all duration-500 hover:text-gray-400 hover:*:transition-colors md:px-8 lg:px-12 hover:[&>li]:text-white'>
           {links.map((link, i) => (
             <li key={i}>
               <Link
@@ -69,7 +69,7 @@ function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
               </Link>
             </li>
           ))}
-          <li className='mx-auto mt-4 flex w-fit items-center gap-4'>
+          <div className='mx-auto mt-4 flex w-fit items-center gap-4 hover:text-gray-400 hover:*:text-white'>
             <Link
               href='/Login'
               className='flex-grow'
@@ -77,7 +77,15 @@ function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
             >
               Log in
             </Link>
-          </li>
+            <span>{' / '}</span>
+            <Link
+              href='/Bakery/Create'
+              className='flex-grow'
+              onClick={handleLinkClick}
+            >
+              Create Bakery
+            </Link>
+          </div>
         </ul>
       </nav>
     </>

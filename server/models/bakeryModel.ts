@@ -17,7 +17,7 @@ const bakerySchema = new Schema<Bakery>({
   },
   bakers: [
     {
-      userId: {
+      user: {
         type: Schema.Types.ObjectId,
         ref: 'User',
       },

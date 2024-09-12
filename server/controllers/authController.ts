@@ -2,13 +2,14 @@ import { NextFunction, Request, Response } from 'express';
 import crypto from 'crypto';
 import { createSendToken } from '../utils/jwtFunctions';
 import User from '../models/userModel';
-import { ProtectedUser } from '../types/User';
+import { UserRole, type ProtectedUser } from '../types/User';
 
 export const checkUserIsAuthenticated = (req: Request, res: Response) => {
   res.status(200).json({
     status: 'You are logged in',
     data: {
       isAuthenticated: true,
+      isBaker: (req.user as ProtectedUser).associatedBakeryId ? true : false,
       user: req.user as ProtectedUser,
     },
   });
@@ -27,12 +28,14 @@ export const signIn = async (
 
   const user = await User.findOne({ email }).select('+password');
 
+  console.log(user?.role === UserRole.siteAdmin)
+
   if (user?.googleId) {
-    res.status(401).json({
+    return res.status(401).json({
       message: 'Please try logging in with google',
     });
   } else if (!password) {
-    res.status(401).json({
+    return res.status(401).json({
       message: 'Please provide a password',
     });
   }

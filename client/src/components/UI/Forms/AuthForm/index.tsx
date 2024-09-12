@@ -32,10 +32,16 @@ function AuthForm<T>({
         if ((formState as any)?.user) loginUser((formState as any).user);
         if (
           noRedirectRoutes.includes(previousPathname) ||
-          previousPathname === pathname
-        )
+          noRedirectRoutes.includes(preferRedirect || '') ||
+          previousPathname === pathname ||
+          preferRedirect === pathname
+        ) {
+          console.log(preferRedirect);
           router.push('/');
-        else router.push(preferRedirect || previousPathname);
+        } else {
+          console.log('Router push', preferRedirect);
+          router.push(preferRedirect || previousPathname);
+        }
       }
 
       setFormState({ ...formState });

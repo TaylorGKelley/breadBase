@@ -7,7 +7,7 @@ import { addUserToBakery } from '../utils/associateUserWithBakery';
 // Todo: Add searching functionality
 export const getAllBakeries = async (req: Request, res: Response) => {
   try {
-    const bakeries = await Bakery.find();
+    const bakeries = await Bakery.find().populate('bakers.user');
 
     res.status(200).json({
       status: 'success',
@@ -63,8 +63,8 @@ export const createBakery = async (req: Request, res: Response) => {
       status: 'success',
       data: {
         bakery: newBakery,
+        user: (req.user as ProtectedUser).associatedBakeryId,
       },
-      user: (req.user as ProtectedUser).associatedBakeryId,
     });
   } catch (error) {
     res.status(500).json({

@@ -8,14 +8,14 @@ export const addUserToBakery = async (
   role: UserRole,
   bakeryId: ObjectId,
   req: Request,
-  userId?: ObjectId,
+  user?: ObjectId,
 ) => {
-  if (!userId) userId = (req.user as ProtectedUser)._id;
+  if (!user) user = (req.user as ProtectedUser)._id;
 
   const userRole = role ? role : UserRole.bakeryView;
 
   const updatedUser = (await User.findByIdAndUpdate(
-    userId,
+    user,
     {
       associatedBakery: bakeryId,
       role: userRole,
@@ -28,25 +28,25 @@ export const addUserToBakery = async (
 
   if (role !== UserRole.bakeryOwner) {
     const associatedBakery = await Bakery.findById(bakeryId);
-    associatedBakery?.bakers.push({ userId, role });
+    associatedBakery?.bakers.push({ user, role });
     await associatedBakery?.save();
   }
 
-  if (userId === (req.user as ProtectedUser)._id) req.user = updatedUser;
+  if (user === (req.user as ProtectedUser)._id) req.user = updatedUser;
 };
 
 export const removeUserFromBakery = async (
   bakeryId: ObjectId,
   req: Request,
-  userId?: ObjectId,
+  user?: ObjectId,
 ) => {
   try {
-    if (!userId) userId = (req.user as ProtectedUser)._id;
+    if (!user) user = (req.user as ProtectedUser)._id;
 
     const associatedBakery = await Bakery.findById(bakeryId);
     if (associatedBakery) {
       const userToRemove = associatedBakery?.bakers.filter(
-        (baker) => baker.userId.toString() !== userId?.toString(),
+        (baker) => baker.user.toString() !== user?.toString(),
       );
       if (!userToRemove) {
         throw new Error('User not found in bakery');
@@ -56,7 +56,7 @@ export const removeUserFromBakery = async (
       await associatedBakery?.save();
 
       const updatedUser = (await User.findByIdAndUpdate(
-        userId,
+        user,
         {
           associatedBakery: null,
           role: UserRole.defaultUser,
@@ -67,7 +67,7 @@ export const removeUserFromBakery = async (
         },
       ).exec()) as ProtectedUser;
 
-      if (userId === (req.user as ProtectedUser)._id) req.user = updatedUser;
+      if (user === (req.user as ProtectedUser)._id) req.user = updatedUser;
     } else {
       throw new Error('Bakery not found');
     }

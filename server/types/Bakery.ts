@@ -1,12 +1,12 @@
 import { Document, Types, ObjectId } from 'mongoose';
-import { UserRole } from './User';
+import { ProtectedUser, UserRole } from './User';
 import Review from './Review';
 
 type Bakery = Document & {
   title: string;
   owner: ObjectId;
   bakers: {
-    userId: ObjectId;
+    user: ObjectId | ProtectedUser;
     role: UserRole;
   }[];
   acceptsToGoOrders: boolean;

@@ -11,8 +11,13 @@ import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { LoginFormState } from '@/types/AuthFormState';
 import login from '@/actions/login';
 import AuthForm from '@/components/UI/Forms/AuthForm';
+import { useSearchParams } from 'next/navigation';
 
 function Login() {
+  const searchParams = useSearchParams();
+  const redirectURL = searchParams.get('redirect') as string | undefined;
+  console.log(redirectURL);
+
   const [formState, setFormState] = useState<LoginFormState>({
     success: false,
     email: '',
@@ -32,6 +37,7 @@ function Login() {
         <section className='hmd:-mt-6 mb-6 flex w-full flex-col items-center justify-center px-4'>
           <h3 className={`${metamorphous.className} text-center`}>Login</h3>
           <AuthForm<LoginFormState>
+            preferRedirect={redirectURL}
             action={login}
             setFormState={setFormState}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'

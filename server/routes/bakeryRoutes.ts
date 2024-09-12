@@ -14,7 +14,7 @@ import BakeryModel from '../models/bakeryModel';
 const router = Router();
 
 // * Bakery routes
-router.route('/').get(getAllBakeries).post(protectRoute, createBakery);
+router.route('/').get(getAllBakeries).post(protectRoute, allowedUsers(UserRole.defaultUser), createBakery);
 router
   .route('/:id')
   .get()

@@ -4,7 +4,7 @@ import crypto from 'crypto';
 import validator from 'validator';
 import User, { UserRole } from '../types/User';
 
-const userSchema = new Schema<User>({
+export const userSchema = new Schema<User>({
   googleId: {
     type: Schema.Types.String,
     unique: true,

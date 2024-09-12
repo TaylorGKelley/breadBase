@@ -28,7 +28,7 @@ export const inviteBaker = async (req: Request, res: Response) => {
 
     // ! Email BakerInvite to ${email}
     res.status(200).json({
-      invite: bakerInvite.inviteCode,
+      invite: bakerInvite.inviteCode, // ! Temporary
       message: 'Invite sent',
     });
   } catch (error) {
