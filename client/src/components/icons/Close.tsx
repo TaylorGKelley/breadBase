@@ -17,8 +17,8 @@ function Close({
       <path
         d='M2 2L12 12M2 12L12 2'
         stroke={fill}
-        stroke-width={strokeWidth}
-        stroke-linecap={strokeLinecap}
+        strokeWidth={strokeWidth}
+        strokeLinecap={strokeLinecap}
       />
     </svg>
   );

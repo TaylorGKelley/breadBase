@@ -16,7 +16,11 @@ L.Marker.prototype.options.icon = L.icon({
   iconAnchor: [12, 41],
 });
 
-export default function Map() {
+export type MapProps = {
+  controlsEnabled?: boolean;
+};
+
+export default function Map({ controlsEnabled = false }: MapProps) {
   const [position, setPosition] = useState<LatLngTuple>([32.3182, -86.9023]);
 
   function successFunction(position: GeolocationPosition) {
@@ -38,16 +42,16 @@ export default function Map() {
     <MapContainer
       center={position}
       zoom={3}
-      // minZoom={3}
+      minZoom={3}
       maxBounds={[
         [-85, -180],
         [85, 180],
       ]}
       maxBoundsViscosity={1}
-      scrollWheelZoom={false}
+      scrollWheelZoom={controlsEnabled}
       style={{ height: '100%', width: '100%' }}
       // Disables user control
-      dragging={false}
+      dragging={controlsEnabled}
       keyboard={false}
       zoomControl={false}
       doubleClickZoom={false}

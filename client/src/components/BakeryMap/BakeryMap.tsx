@@ -1,13 +1,12 @@
 import React from 'react';
-import dynamic from 'next/dynamic';
-import styles from './BakeryMap.module.css';
-const Map = dynamic(() => import('./Map/Map'), { ssr: false });
+import Map from './Map';
+import type { MapProps } from './Map/Map';
 
-export default function BakeryMap() {
+export default function BakeryMap(props: MapProps) {
   return (
     <>
-      <div className={styles.BakeryMap}>
-        <Map />
+      <div className='relative h-full w-full overflow-hidden rounded-3xl bg-black'>
+        <Map {...props} />
       </div>
     </>
   );

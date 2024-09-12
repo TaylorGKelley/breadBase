@@ -6,5 +6,6 @@ export { default as HidePasswordIcon } from './HidePasswordIcon';
 export { default as Search } from './Search';
 export { default as Close } from './Close';
 export { default as GoogleMonoIcon } from './GoogleMonoIcon';
+export { default as SelectedCheck } from './SelectedCheck';
 
 export const defaultColor = '#CCC';
