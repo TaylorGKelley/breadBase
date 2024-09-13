@@ -43,15 +43,14 @@ export type changedPasswordAfter = (
 
 export type createPasswordResetToken = () => string;
 
-export type ProtectedUser = {
-  _id: ObjectId;
-  firstName: string;
-  lastName: string;
-  displayName?: string;
-  email: string;
-  role: UserRole;
-  profilePhoto?: string;
-  associatedBakeryId?: ObjectId;
-};
+export type ProtectedUser = Partial<Pick<User, '_id' | 
+                                               'firstName' | 
+                                               'lastName' | 
+                                               'displayName' | 
+                                               'email' | 
+                                               'role' |
+                                               'lastLogin' | 
+                                               'profilePhoto' | 
+                                               'associatedBakery'>>
 
 export default User;

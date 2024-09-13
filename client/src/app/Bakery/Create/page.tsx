@@ -37,6 +37,9 @@ function Create() {
             setFormState={setFormState}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
+            {formState?.errors?.message && (
+              <p className='text-red-600'>{formState?.errors?.message}</p>
+            )}
             <Input
               id='title'
               label='Title:'
@@ -61,6 +64,14 @@ function Create() {
               defaultValue={formState.suiteNumber}
               error={formState.errors?.suiteNumber}
             />
+            <Input
+              id='city'
+              label='City:'
+              placeholder='City'
+              required
+              defaultValue={formState.city}
+              error={formState.errors?.city}
+            />
             {/* // Todo: Replace this with dropdown/select element */}
             <Input
               id='state'
@@ -69,14 +80,6 @@ function Create() {
               required
               defaultValue={formState.state}
               error={formState.errors?.state}
-            />
-            <Input
-              id='city'
-              label='City:'
-              placeholder='City'
-              required
-              defaultValue={formState.city}
-              error={formState.errors?.city}
             />
             <Input
               type='number'

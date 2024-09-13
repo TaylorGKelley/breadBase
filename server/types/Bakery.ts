@@ -6,7 +6,7 @@ type Bakery = Document & {
   title: string;
   owner: ObjectId;
   bakers: {
-    user: ObjectId | ProtectedUser;
+    user: ObjectId;
     role: UserRole;
   }[];
   acceptsToGoOrders: boolean;

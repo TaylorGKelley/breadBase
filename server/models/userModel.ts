@@ -30,6 +30,10 @@ export const userSchema = new Schema<User>({
     type: Schema.Types.String,
     enum: UserRole,
     default: UserRole.defaultUser,
+    set: function (newVal: UserRole) {
+      if (this === UserRole.siteAdmin) return this;
+      else return newVal
+    }
   },
   associatedBakery: {
     type: Schema.Types.ObjectId,
@@ -130,6 +134,15 @@ userSchema.pre<User>('save', function (next) {
   this.passwordChangedAt = new Date(Date.now() - 1000); // keeps it 1 second in the past so there are no bugs with the json web token being before the password was changed.
   next();
 });
+
+userSchema.pre<User>('save', function (next) {
+  if (!this.isModified('role') || this.isNew) return next();
+
+  if (this.role === UserRole.siteAdmin ) {
+    this.role = UserRole.siteAdmin 
+  }
+  next();
+})
 
 // Type Error: this.where is not a function
 // userSchema.pre<Query<User[], User>>(/.*/, async function (next) {

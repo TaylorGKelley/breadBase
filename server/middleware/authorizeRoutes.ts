@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import User from '../models/userModel';
 import jwt from 'jsonwebtoken';
-import { ProtectedUser, UserRole } from '../types/User';
+import { type ProtectedUser, UserRole } from '../types/User';
 
 export const protectRoute = async (
   req: Request,
@@ -27,20 +27,26 @@ export const protectRoute = async (
         if (!currentUser) {
           return res
             .status(401)
-            .send('The user belonging to this token no longer exists.');
+            .send({
+              status: 'Failed to Authenticate', 
+              message:'The user belonging to this token no longer exists.'
+            });
         }
 
         if (currentUser.changedPasswordAfter(decoded.iat)) {
           return res
             .status(401)
-            .send('User recently changed password. Please login again.');
+            .json({
+              status: 'Failed to Authenticate',
+              message: 'User recently changed password. Please login again.',
+            });
         }
 
         req.user = {
           _id: currentUser._id,
           email: currentUser.email,
           role: currentUser.role,
-          associatedBakeryId: currentUser.associatedBakery,
+          associatedBakery: currentUser.associatedBakery,
         };
       } catch (error) {
         res.status(500).json({ message: (error as Error).message });
@@ -60,10 +66,10 @@ export const protectRoute = async (
 
 export const allowedUsers = (...roles: string[]) => {
   // Site admin is always allowed
-  roles.push(UserRole.siteAdmin);
+  if (!roles.includes(UserRole.siteAdmin)) roles.push(UserRole.siteAdmin);
 
   return (req: Request, res: Response, next: NextFunction) => {
-    if (!roles.includes((req.user as ProtectedUser)?.role)) {
+    if (!roles.includes((req.user as ProtectedUser)?.role || '')) {
       return res.status(401).send('Not authorized to view this route');
     }
 

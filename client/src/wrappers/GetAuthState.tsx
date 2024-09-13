@@ -30,7 +30,6 @@ function GetAuthState({ children }: GetAuthStateProps) {
           throw new Error('Failed to Authenticate User');
         }
       } catch (error) {
-        console.error(error);
         logoutUser();
       }
     };

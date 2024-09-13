@@ -12,9 +12,9 @@ import Bakery from '../models/bakeryModel';
 export const inviteBaker = async (req: Request, res: Response) => {
   try {
     let { email, role, bakeryId } = req.body;
-    // const { associatedBakeryId: bakeryId } = req.user as ProtectedUser; // ? Removed incase siteAdmin needs to invite someone, front end will manage bakery id
+    // const { associatedBakery: bakeryId } = req.user as ProtectedUser; // ? Removed incase siteAdmin needs to invite someone, front end will manage bakery id
 
-    if (!bakeryId) bakeryId = (req.user as ProtectedUser)?.associatedBakeryId;
+    if (!bakeryId) bakeryId = (req.user as ProtectedUser)?.associatedBakery;
 
     await BakerInvite.deleteOne({ bakeryId, email });
 
@@ -83,7 +83,7 @@ export const acceptBakerInvite = async (req: Request, res: Response) => {
 
 export const leaveBakery = async (req: Request, res: Response) => {
   try {
-    const { associatedBakeryId: bakeryId } = req.user as ProtectedUser;
+    const { associatedBakery: bakeryId } = req.user as ProtectedUser;
 
     if (!bakeryId) {
       return res.status(400).json({
@@ -109,7 +109,7 @@ export const leaveBakery = async (req: Request, res: Response) => {
 export const removeBaker = async (req: Request, res: Response) => {
   try {
     const bakeryId =
-      req.body.bakeryId || (req.user as ProtectedUser).associatedBakeryId;
+      req.body.bakeryId || (req.user as ProtectedUser).associatedBakery;
 
     const userToRemoveId = req.body.userId;
 
@@ -133,7 +133,7 @@ export const removeBaker = async (req: Request, res: Response) => {
 export const transferOwnership = async (req: Request, res: Response) => {
   try {
     const { transferOwnershipToUserId } = req.body;
-    const { _id: currentOwnerId, associatedBakeryId: bakeryId } =
+    const { _id: currentOwnerId, associatedBakery: bakeryId } =
       (req.user as ProtectedUser).role === UserRole.siteAdmin
         ? req.body
         : (req.user as ProtectedUser);

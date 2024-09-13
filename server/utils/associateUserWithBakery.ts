@@ -28,7 +28,7 @@ export const addUserToBakery = async (
 
   if (role !== UserRole.bakeryOwner) {
     const associatedBakery = await Bakery.findById(bakeryId);
-    associatedBakery?.bakers.push({ user, role });
+    associatedBakery?.bakers.push({ user: updatedUser._id, role });
     await associatedBakery?.save();
   }
 

@@ -63,7 +63,7 @@ export const createBakery = async (req: Request, res: Response) => {
       status: 'success',
       data: {
         bakery: newBakery,
-        user: (req.user as ProtectedUser).associatedBakeryId,
+        user: (req.user as ProtectedUser).associatedBakery,
       },
     });
   } catch (error) {

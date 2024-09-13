@@ -1,20 +1,16 @@
-enum UserRole {
-  defaultUser = 'standard_user',
-  bakeryView = 'bakery_view',
-  bakeryManage = 'bakery_manage',
-  bakeryAdmin = 'bakery_admin',
-  bakeryOwner = 'bakery_owner',
-  siteAdmin = 'site_admin',
-}
+import Bakery from './Bakery';
+import UserRole from './UserRole';
 
 type User = {
   _id: string;
   firstName: string;
   lastName: string;
-  displayName?: string;
+  displayName: string;
   email: string;
-  profilePhoto?: string;
-  associatedBakery?: string;
+  role: UserRole;
+  lastLogin: Date;
+  profilePhoto: string;
+  associatedBakery: string | Bakery;
 };
 
 export default User;

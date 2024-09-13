@@ -1,13 +1,12 @@
 'use client';
 
 import useAuthStore from '@/store/useAuthStore';
-import { AuthWithAttempts } from '@/types/AuthFormState';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import React, { FormHTMLAttributes, SetStateAction } from 'react';
 import { useFormState } from 'react-dom';
 
 type AuthFormProps<T> = FormHTMLAttributes<HTMLFormElement> & {
-  action: (formData: FormData) => Promise<T>;
+  action: (formData: FormData, redirectTo: string) => Promise<T>;
   preferRedirect?: string;
   setFormState: (arg: SetStateAction<T>) => void;
 };
@@ -21,27 +20,26 @@ function AuthForm<T>({
   setFormState,
   ...attributes
 }: AuthFormProps<T>) {
-  const router = useRouter();
   const pathname = usePathname();
   const { loginUser, previousPathname } = useAuthStore();
 
   const [formState, dispatch] = useFormState<T, FormData>(
     async (previousState: T, formData: FormData) => {
-      const formState = (await action(formData)) as T;
+      let redirectTo = '/';
+      if (
+        noRedirectRoutes.includes(previousPathname) ||
+        noRedirectRoutes.includes(preferRedirect || '') ||
+        preferRedirect === pathname
+      ) {
+        redirectTo = '/';
+      } else {
+        redirectTo = preferRedirect || previousPathname;
+      }
+
+      const formState = (await action(formData, redirectTo)) as T;
+
       if ((formState as any).success) {
         if ((formState as any)?.user) loginUser((formState as any).user);
-        if (
-          noRedirectRoutes.includes(previousPathname) ||
-          noRedirectRoutes.includes(preferRedirect || '') ||
-          previousPathname === pathname ||
-          preferRedirect === pathname
-        ) {
-          console.log(preferRedirect);
-          router.push('/');
-        } else {
-          console.log('Router push', preferRedirect);
-          router.push(preferRedirect || previousPathname);
-        }
       }
 
       setFormState({ ...formState });

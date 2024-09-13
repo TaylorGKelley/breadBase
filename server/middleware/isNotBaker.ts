@@ -3,7 +3,7 @@ import { UserRole } from '../types/User';
 const isNotBaker = (req: any, res: any, next: any) => {
   if (
     req.user?.role === UserRole.defaultUser ||
-    !req.user?.associatedBakeryId
+    !req.user?.associatedBakery
   ) {
     next();
   } else {

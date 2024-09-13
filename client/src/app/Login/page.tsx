@@ -11,12 +11,13 @@ import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { LoginFormState } from '@/types/AuthFormState';
 import login from '@/actions/login';
 import AuthForm from '@/components/UI/Forms/AuthForm';
-import { useSearchParams } from 'next/navigation';
 
-function Login() {
-  const searchParams = useSearchParams();
-  const redirectURL = searchParams.get('redirect') as string | undefined;
-  console.log(redirectURL);
+function Login({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const redirectURL = (searchParams?.redirect as string)?.replace('%2F', '/');
 
   const [formState, setFormState] = useState<LoginFormState>({
     success: false,

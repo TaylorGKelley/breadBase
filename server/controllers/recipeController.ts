@@ -44,7 +44,7 @@ export const createRecipe = async (req: Request, res: Response) => {
   try {
     const newRecipe = await Recipes.create({
       ...req.body,
-      bakery: (req.user as ProtectedUser).associatedBakeryId,
+      bakery: (req.user as ProtectedUser).associatedBakery,
     });
 
     res.status(200).json({
@@ -65,7 +65,7 @@ export const updateRecipe = async (req: Request, res: Response) => {
   try {
     const updatedRecipe = await Recipes.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, bakery: (req.user as ProtectedUser).associatedBakeryId },
+      { ...req.body, bakery: (req.user as ProtectedUser).associatedBakery },
       {
         new: true,
         runValidators: true,

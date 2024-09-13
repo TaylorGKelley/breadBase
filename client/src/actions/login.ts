@@ -3,8 +3,9 @@
 import { LoginFormState as LoginFormResponse } from '@/types/AuthFormState';
 import User from '@/types/User';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export default async (formData: FormData): Promise<LoginFormResponse> => {
+const processLogin = async (formData: FormData): Promise<LoginFormResponse> => {
   const email = formData.get('email')?.toString();
   const password = formData.get('password')?.toString();
 
@@ -75,4 +76,14 @@ export default async (formData: FormData): Promise<LoginFormResponse> => {
       email,
     };
   }
+};
+
+export default async (formData: FormData, redirectTo?: string) => {
+  const response = await processLogin(formData);
+
+  if (response.success) {
+    redirect(redirectTo || '/');
+  }
+
+  return response;
 };

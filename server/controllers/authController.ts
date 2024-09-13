@@ -9,7 +9,7 @@ export const checkUserIsAuthenticated = (req: Request, res: Response) => {
     status: 'You are logged in',
     data: {
       isAuthenticated: true,
-      isBaker: (req.user as ProtectedUser).associatedBakeryId ? true : false,
+      isBaker: (req.user as ProtectedUser).associatedBakery ? true : false,
       user: req.user as ProtectedUser,
     },
   });
