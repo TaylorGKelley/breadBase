@@ -1,9 +1,10 @@
 'use client';
 
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './DropdownMenu.css';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import useMenuOpen from '@/hooks/useMenuOpen';
 
 const links = [
   {
@@ -20,34 +21,32 @@ const links = [
   },
 ];
 
-type NavDropdownMenuProps = {
-  menuOpenState: [boolean, Dispatch<SetStateAction<boolean>>];
-};
+type NavDropdownMenuProps = {};
 
-function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
+function NavDropdownMenu({}: NavDropdownMenuProps) {
   const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = menuOpenState;
+  const { menuOpen, setMenuOpen } = useMenuOpen();
 
   const handleLinkClick = () => {
     setTimeout(() => {
-      setIsMenuOpen(false);
+      setMenuOpen(false);
     }, 150);
   };
 
   useEffect(() => {
     setTimeout(() => {
-      setIsMenuOpen(false);
+      setMenuOpen(false);
     }, 150);
   }, [pathname]);
 
   const handleMenuToggle = () => {
-    setIsMenuOpen((prev) => !prev);
+    setMenuOpen((prev) => !prev);
   };
 
   return (
     <>
       <div
-        className={`menu-open ${isMenuOpen ? 'open' : 'closed'}`}
+        className={`menu-open ${menuOpen ? 'open' : 'closed'}`}
         onClick={handleMenuToggle}
       >
         <span></span>
@@ -55,7 +54,7 @@ function NavDropdownMenu({ menuOpenState }: NavDropdownMenuProps) {
         <span></span>
       </div>
       <nav
-        className={`fixed left-0 top-0 flex h-[101dvh] w-full items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${isMenuOpen ? 'open' : 'closed'}`}
+        className={`fixed left-0 top-0 flex h-[101dvh] w-full items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${menuOpen ? 'open' : 'closed'}`}
       >
         <ul className='flex flex-col gap-4 text-center text-white transition-all duration-500 hover:text-gray-400 hover:*:transition-colors md:px-8 lg:px-12 hover:[&>li]:text-white'>
           {links.map((link, i) => (

@@ -1,16 +1,16 @@
 'use client';
 
-import React, { SetStateAction } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useSelectedBakery from '../../store/useSelectedBakery';
 import { metamorphous } from '../../ui/fonts';
+import useMenuOpen from '@/hooks/useMenuOpen';
 
-type NavTitleProps = {
-  closeMenu: () => void;
-};
+type NavTitleProps = {};
 
-export default function NavTitle({ closeMenu }: NavTitleProps) {
+export default function NavTitle({}: NavTitleProps) {
+  const { setMenuOpen } = useMenuOpen();
   const { id, title } = useSelectedBakery();
   const isBakerySelected = id > 0;
 
@@ -36,7 +36,7 @@ export default function NavTitle({ closeMenu }: NavTitleProps) {
           <div>
             <Link
               href='/'
-              onClick={closeMenu}
+              onClick={() => setMenuOpen(false)}
             >
               <h4
                 className={`${metamorphous.className} text-nowrap text-white`}

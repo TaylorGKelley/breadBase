@@ -7,5 +7,8 @@ export { default as Search } from './Search';
 export { default as Close } from './Close';
 export { default as GoogleMonoIcon } from './GoogleMonoIcon';
 export { default as SelectedCheck } from './SelectedCheck';
+export { default as Heart } from './Heart';
+export { default as Logout } from './Logout';
+export { default as Gear } from './Gear';
 
 export const defaultColor = '#CCC';

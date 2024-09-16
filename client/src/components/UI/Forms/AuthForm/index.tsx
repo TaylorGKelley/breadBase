@@ -1,14 +1,20 @@
 'use client';
 
 import useAuthStore from '@/store/useAuthStore';
-import { usePathname } from 'next/navigation';
-import React, { FormHTMLAttributes, SetStateAction } from 'react';
+import User from '@/types/User';
+import { usePathname, useRouter } from 'next/navigation';
+import React, { FormHTMLAttributes, SetStateAction, useEffect } from 'react';
 import { useFormState } from 'react-dom';
 
 type AuthFormProps<T> = FormHTMLAttributes<HTMLFormElement> & {
-  action: (formData: FormData, redirectTo: string) => Promise<T>;
+  action: (formData: FormData) => Promise<T>;
   preferRedirect?: string;
   setFormState: (arg: SetStateAction<T>) => void;
+};
+
+type GenericFormState<T> = T & {
+  success: boolean;
+  user?: User;
 };
 
 const noRedirectRoutes = ['/SignUp', '/Login'];
@@ -20,23 +26,13 @@ function AuthForm<T>({
   setFormState,
   ...attributes
 }: AuthFormProps<T>) {
+  const router = useRouter();
   const pathname = usePathname();
   const { loginUser, previousPathname } = useAuthStore();
 
   const [formState, dispatch] = useFormState<T, FormData>(
     async (previousState: T, formData: FormData) => {
-      let redirectTo = '/';
-      if (
-        noRedirectRoutes.includes(previousPathname) ||
-        noRedirectRoutes.includes(preferRedirect || '') ||
-        preferRedirect === pathname
-      ) {
-        redirectTo = '/';
-      } else {
-        redirectTo = preferRedirect || previousPathname;
-      }
-
-      const formState = (await action(formData, redirectTo)) as T;
+      const formState = (await action(formData)) as GenericFormState<T>;
 
       if ((formState as any).success) {
         if ((formState as any)?.user) loginUser((formState as any).user);
@@ -48,6 +44,20 @@ function AuthForm<T>({
     },
     {} as Awaited<T>,
   );
+
+  useEffect(() => {
+    if ((formState as GenericFormState<T>).success === true) {
+      if (
+        noRedirectRoutes.includes(previousPathname) ||
+        noRedirectRoutes.includes(preferRedirect || '') ||
+        preferRedirect === pathname
+      ) {
+        router.push('/');
+      } else {
+        router.push(preferRedirect || previousPathname);
+      }
+    }
+  }, [formState]);
 
   return (
     <form
