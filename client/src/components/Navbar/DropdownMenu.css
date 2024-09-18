@@ -35,20 +35,20 @@
   @apply translate-x-[15%] translate-y-1/2 -rotate-45;
 }
 
-nav {
+.dropdown-nav {
   transform-origin: left center;
 
   @apply pointer-events-none opacity-0 transition-opacity duration-500;
 }
 
-nav.open {
+.dropdown-nav.open {
   @apply pointer-events-auto opacity-100;
 }
 
-nav > ul {
+.dropdown-nav > ul {
   @apply opacity-0;
 }
 
-nav.open > ul {
+.dropdown-nav.open > ul {
   @apply opacity-100;
 }

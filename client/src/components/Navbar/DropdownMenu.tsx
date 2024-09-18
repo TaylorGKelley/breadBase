@@ -54,7 +54,7 @@ function NavDropdownMenu({}: NavDropdownMenuProps) {
         <span></span>
       </div>
       <nav
-        className={`fixed left-0 top-0 flex h-[101dvh] w-full items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${menuOpen ? 'open' : 'closed'}`}
+        className={`dropdown-nav fixed left-0 top-0 flex h-[101dvh] w-full items-center justify-center gap-6 overflow-auto bg-gray-950 py-20 ${menuOpen ? 'open' : 'closed'}`}
       >
         <ul className='flex flex-col gap-4 text-center text-white transition-all duration-500 hover:text-gray-400 hover:*:transition-colors md:px-8 lg:px-12 hover:[&>li]:text-white'>
           {links.map((link, i) => (

@@ -42,12 +42,7 @@ export const protectRoute = async (
             });
         }
 
-        req.user = {
-          _id: currentUser._id,
-          email: currentUser.email,
-          role: currentUser.role,
-          associatedBakery: currentUser.associatedBakery,
-        };
+        req.user = currentUser as ProtectedUser;
       } catch (error) {
         res.status(500).json({ message: (error as Error).message });
       }

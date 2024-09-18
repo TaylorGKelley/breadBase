@@ -10,5 +10,6 @@ export { default as SelectedCheck } from './SelectedCheck';
 export { default as Heart } from './Heart';
 export { default as Logout } from './Logout';
 export { default as Gear } from './Gear';
+export { default as Store } from './Store';
 
 export const defaultColor = '#CCC';
