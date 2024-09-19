@@ -7,7 +7,6 @@ import Button from '@/components/UI/Forms/Button';
 import Input from '@/components/UI/Forms/Input';
 import CreateBakeryFormState from '@/types/CreateBakeryFormState';
 import { metamorphous } from '@/ui/fonts';
-import CheckBakerStatus from '@/wrappers/CheckBakerStatus';
 import React, { useState } from 'react';
 
 function Create() {

@@ -41,6 +41,15 @@ const protectedRoutes = new Map<string, ProtectedRoute>([
       params: 'redirect=/Bakery/Create',
     },
   ],
+  [
+    '/Bakery/Create/Menu',
+    {
+      allowed: BakerRoles,
+      redirect: { notAuth: '/Login', notAllowed: '/' },
+      permanent: true,
+      params: 'redirect=/Bakery/Create/Menu',
+    },
+  ],
 ]);
 
 export default async function authMiddleware(req: NextRequest) {
@@ -125,5 +134,9 @@ const checkAuthorization = (
 };
 
 export const config = {
-  matcher: ['/Account/:path*', '/Bakery/:path*', '/Bakery/:path*'],
+  matcher: [
+    '/Account/:path*',
+    '/Bakery/Dashboard/:path*',
+    '/Bakery/Create/:path*',
+  ],
 };
