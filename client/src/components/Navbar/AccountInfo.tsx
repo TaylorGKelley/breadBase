@@ -12,11 +12,15 @@ import { handleLogout } from '@/actions/logout';
 import { metamorphous } from '@/ui/fonts';
 import ProfilePhoto from '../UI/ProfilePhoto';
 
-type AccountInfoProps = {};
+type AccountInfoProps = {
+  tempUser?: User;
+};
 
-function AccountInfo({}: AccountInfoProps) {
-  const { user, logoutUser } = useAuthStore();
+function AccountInfo({ tempUser }: AccountInfoProps) {
+  const { user: authStateUser, logoutUser } = useAuthStore();
   const { menuOpen, setMenuOpen } = useMenuOpen();
+
+  const user = authStateUser || tempUser; // While client loads, the checkAuth runs in the navbar to prevent flashing after the AuthState loads.
 
   const initializeMenuOptions = (user?: User | null) => {
     if (!user) {

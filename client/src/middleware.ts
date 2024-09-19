@@ -45,7 +45,7 @@ const protectedRoutes = new Map<string, ProtectedRoute>([
     '/Bakery/Create/Menu',
     {
       allowed: BakerRoles,
-      redirect: { notAuth: '/Login', notAllowed: '/' },
+      redirect: { notAuth: '/Login', notAllowed: '/Bakery/Create' },
       permanent: true,
       params: 'redirect=/Bakery/Create/Menu',
     },

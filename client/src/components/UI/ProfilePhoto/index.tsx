@@ -11,10 +11,9 @@ function ProfilePhoto({ photoBase, width }: ProfilePhotoProps) {
     <Image
       src={`data:image/*;base64,${photoBase}`}
       alt='Profile Photo'
-      objectPosition='center'
       width={width}
       height={width}
-      className='aspect-square rounded-full'
+      className='aspect-square rounded-full object-center'
     />
   );
 }
