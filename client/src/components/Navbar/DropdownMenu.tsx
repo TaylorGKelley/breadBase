@@ -45,12 +45,15 @@ function NavDropdownMenu({}: NavDropdownMenuProps) {
 
   return (
     <>
-      <div
-        className={`menu-open ${menuOpen ? 'open' : 'closed'}`}
-        onClick={handleMenuToggle}
-      >
+      <div className={`menu-open ${menuOpen ? 'open' : 'closed'}`}>
         <span></span>
         <span></span>
+        <div
+          className="absolute left-1/2 top-1/2 z-50 aspect-square w-[130%] -translate-x-1/2 -translate-y-1/2 content-['']"
+          onClick={handleMenuToggle}
+        >
+          {/* It has to be the third child in the list so that the animation isn't messed up. */}
+        </div>
         <span></span>
       </div>
       <nav

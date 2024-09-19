@@ -96,10 +96,7 @@ function AccountInfo({}: AccountInfoProps) {
         onClick={handleCloseMenu}
         className='group relative transition-all duration-300'
       >
-        <Link
-          className='cursor-pointer'
-          href='/Account'
-        >
+        <div className='relative'>
           {!user?.profilePhoto ? (
             <UserIcon width='40px' />
           ) : (
@@ -108,7 +105,11 @@ function AccountInfo({}: AccountInfoProps) {
               width={40}
             />
           )}
-        </Link>
+          <Link
+            className='pointer-events-none absolute inset-0 z-50 inline-block h-full w-full cursor-pointer sm:pointer-events-auto sm:cursor-pointer'
+            href='/Account'
+          />
+        </div>
         <div className='pointer-events-none absolute right-0 top-[90%] pt-6 opacity-0 transition-opacity delay-75 duration-300 group-hover:pointer-events-auto group-hover:opacity-100'>
           <nav
             className={`${metamorphous.className} flex min-w-64 flex-col gap-4 rounded-3xl border-[1px] border-gray-800 bg-gray-900 px-4 py-5 shadow-lg shadow-gray-950 outline-white`}
