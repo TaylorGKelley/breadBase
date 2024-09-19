@@ -94,10 +94,10 @@ function AccountInfo({}: AccountInfoProps) {
     <div className='flex items-center gap-8'>
       <div
         onClick={handleCloseMenu}
-        className='relative transition-all duration-300'
+        className='group relative transition-all duration-300'
       >
         <Link
-          className='peer cursor-pointer'
+          className='cursor-pointer'
           href='/Account'
         >
           {!user?.profilePhoto ? (
@@ -109,8 +109,7 @@ function AccountInfo({}: AccountInfoProps) {
             />
           )}
         </Link>
-        {/* // TODO: Switch to group hover and get rid of 2 extra classes */}
-        <div className='pointer-events-none absolute right-0 top-[90%] pt-6 opacity-0 transition-all duration-300 hover:pointer-events-auto hover:opacity-100 peer-hover:pointer-events-auto peer-hover:opacity-100'>
+        <div className='pointer-events-none absolute right-0 top-[90%] pt-6 opacity-0 transition-opacity delay-75 duration-300 group-hover:pointer-events-auto group-hover:opacity-100'>
           <nav
             className={`${metamorphous.className} flex min-w-64 flex-col gap-4 rounded-3xl border-[1px] border-gray-800 bg-gray-900 px-4 py-5 shadow-lg shadow-gray-950 outline-white`}
           >
