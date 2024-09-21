@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Input from '@/components/UI/Forms/Input';
 import { metamorphous } from '@/ui/fonts';
 import Button from '@/components/UI/Forms/Button';
@@ -10,23 +10,22 @@ import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { LoginFormState } from '@/types/AuthFormState';
 import login from '@/actions/login';
-import AuthForm from '@/components/UI/Forms/AuthForm';
+import Form from '@/components/UI/Forms/Form';
+import useAuthStore from '@/store/useAuthStore';
 
 function Login({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const { loginUser } = useAuthStore();
+
   const redirectURL = (searchParams?.redirect as string)?.replace('%2F', '/');
 
   const [formState, setFormState] = useState<LoginFormState>({
     success: false,
     email: '',
   });
-
-  useEffect(() => {
-    console.log(formState);
-  }, [formState]);
 
   return (
     <BackgroundImageContainer
@@ -37,10 +36,13 @@ function Login({
       <main className='grid h-screen min-h-fit grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent pb-8 pt-20 md:grid-cols-2'>
         <section className='hmd:-mt-6 mb-6 flex w-full flex-col items-center justify-center px-4'>
           <h3 className={`${metamorphous.className} text-center`}>Login</h3>
-          <AuthForm<LoginFormState>
+          <Form<LoginFormState>
             preferRedirect={redirectURL}
             action={login}
             setFormState={setFormState}
+            onSuccess={(formState) => {
+              if (formState.user) loginUser(formState.user);
+            }}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
           >
             {formState.errors && (
@@ -83,7 +85,7 @@ function Login({
                 Not a user? Sign up now!
               </Link>
             </div>
-          </AuthForm>
+          </Form>
         </section>
       </main>
     </BackgroundImageContainer>

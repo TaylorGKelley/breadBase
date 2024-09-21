@@ -2,7 +2,7 @@
 
 import createBakery from '@/actions/createBakery';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import AuthForm from '@/components/UI/Forms/AuthForm';
+import Form from '@/components/UI/Forms/Form';
 import Button from '@/components/UI/Forms/Button';
 import Input from '@/components/UI/Forms/Input';
 import CreateBakeryFormState from '@/types/CreateBakeryFormState';
@@ -31,7 +31,7 @@ function Create() {
           <h3 className={`${metamorphous.className} mb-4 text-center`}>
             Create Bakery
           </h3>
-          <AuthForm<CreateBakeryFormState>
+          <Form<CreateBakeryFormState>
             action={createBakery}
             setFormState={setFormState}
             className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
@@ -90,7 +90,7 @@ function Create() {
               error={formState.errors?.zipCode}
             />
             <Button className='border-yellow text-yellow'>Create</Button>
-          </AuthForm>
+          </Form>
         </section>
       </main>
     </BackgroundImageContainer>

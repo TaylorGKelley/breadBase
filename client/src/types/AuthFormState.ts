@@ -1,12 +1,12 @@
 import User from './User';
 
-type FormErrors = {
+type AuthFormErrors = {
   message?: string;
 };
 
 type AuthFormState = {
   success: boolean;
-  errors?: FormErrors;
+  errors?: AuthFormErrors;
   user?: User;
 };
 
@@ -16,7 +16,7 @@ export type SignUpFormState = AuthFormState & {
   firstName: string;
   lastName: string;
   email: string;
-  errors?: FormErrors & {
+  errors?: AuthFormErrors & {
     firstName?: string;
     lastName?: string;
     email?: string;
@@ -32,7 +32,7 @@ export type ExtraInfoSignUpFormState = AuthFormState & {
   state: string;
   county: string;
   zipCode: number;
-  errors?: FormErrors & {
+  errors?: AuthFormErrors & {
     phoneNumber?: string;
     address?: string;
     apptNumber?: string;
@@ -44,7 +44,7 @@ export type ExtraInfoSignUpFormState = AuthFormState & {
 
 export type LoginFormState = AuthFormState & {
   email: string;
-  errors?: FormErrors & {
+  errors?: AuthFormErrors & {
     email?: string;
     password?: string;
   };

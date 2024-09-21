@@ -3,7 +3,7 @@
 import { extraInfo } from '@/actions/signup';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
-import AuthForm from '@/components/UI/Forms/AuthForm';
+import Form from '@/components/UI/Forms/Form';
 import Button from '@/components/UI/Forms/Button';
 import DividerLine from '@/components/UI/Forms/DividerLine';
 import Input from '@/components/UI/Forms/Input';
@@ -37,7 +37,7 @@ function ExtraInfo() {
           <p className='text-xs text-red-400'>
             {formState.errors?.message || ' '}
           </p>
-          <AuthForm<ExtraInfoSignUpFormState>
+          <Form<ExtraInfoSignUpFormState>
             action={extraInfo}
             setFormState={setFormState}
             preferRedirect='/SignUp/ExtraInfo'
@@ -118,7 +118,7 @@ function ExtraInfo() {
                 Already a user? Login here!
               </Link>
             </div>
-          </AuthForm>
+          </Form>
         </section>
       </main>
     </BackgroundImageContainer>
