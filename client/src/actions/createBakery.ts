@@ -1,7 +1,7 @@
 'use server';
 
 import Bakery from '@/types/Bakery';
-import CreateBakeryFormResponse from '@/types/CreateBakeryFormState';
+import CreateBakeryFormResponse from '@/types/FormStates/CreateBakeryFormState';
 import User from '@/types/User';
 
 export default async (

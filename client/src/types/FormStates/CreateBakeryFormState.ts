@@ -1,5 +1,5 @@
-import Bakery from './Bakery';
-import User from './User';
+import Bakery from '../Bakery';
+import User from '../User';
 
 type CreateBakeryFormState = {
   success: boolean;

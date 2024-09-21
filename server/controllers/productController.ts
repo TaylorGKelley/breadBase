@@ -65,7 +65,10 @@ export const updateProduct = async (req: Request, res: Response) => {
   try {
     const updatedProduct = await Products.findByIdAndUpdate(
       req.params.id,
-      { ...req.body, bakery: (req.user as ProtectedUser).associatedBakery },
+      { 
+        ...req.body, 
+        bakery: (req.user as ProtectedUser).associatedBakery 
+      },
       {
         new: true,
         runValidators: true,
