@@ -60,7 +60,6 @@ export default async (
     );
 
     // Return User data or error if sign up failed
-    console.log(response.ok, response.status);
     if (!response.ok || response?.status !== 200) {
       const error = await response.json();
       throw new Error(error.message);
