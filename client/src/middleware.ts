@@ -4,8 +4,6 @@ import { NextResponse } from 'next/server';
 import type UserRole from './types/UserRole';
 import User from './types/User';
 import { BakerRoles } from './types/UserRole';
-import { permanentRedirect, redirect, RedirectType } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
 
 type ProtectedRoute = {
   allowed: UserRole[];
@@ -53,7 +51,6 @@ const protectedRoutes = new Map<string, ProtectedRoute>([
 ]);
 
 export default async function authMiddleware(req: NextRequest) {
-  console.log(req.nextUrl.pathname);
   try {
     const url = new URL(req.nextUrl.pathname, req.url);
 
@@ -69,10 +66,6 @@ export default async function authMiddleware(req: NextRequest) {
     } else if (!isAuthorized) {
       url.pathname = protectedRoute.redirect.notAllowed;
     }
-
-    console.log(url.pathname, isAuthenticated, isAuthorized);
-
-    const statusCode = protectedRoute.permanent ? 308 : 307;
 
     return req.nextUrl.pathname === url.pathname // url wasn't modified, so user is authorized
       ? NextResponse.next()
