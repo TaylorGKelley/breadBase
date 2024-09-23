@@ -8,7 +8,7 @@ import DividerLine from '@/components/Forms/DividerLine';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import { LoginFormState } from '@/types/AuthFormState';
+import type { LoginFormState } from '@/types/FormStates/AuthFormState';
 import login from '@/actions/login';
 import Form from '@/components/Forms/Form';
 import useAuthStore from '@/store/useAuthStore';

@@ -20,7 +20,7 @@ function AccountInfo({ tempUser }: AccountInfoProps) {
   const { user: authStateUser, logoutUser } = useAuthStore();
   const { menuOpen, setMenuOpen } = useMenuOpen();
 
-  const user = authStateUser || tempUser; // While client loads, the checkAuth runs in the navbar to prevent flashing after the AuthState loads.
+  const user = authStateUser !== undefined ? authStateUser : tempUser; // While client loads, the checkAuth runs in the navbar to prevent flashing after the AuthState loads.
 
   const initializeMenuOptions = (user?: User | null) => {
     if (!user) {

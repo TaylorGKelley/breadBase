@@ -9,7 +9,7 @@ import Button from '@/components/Forms/Button';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import DividerLine from '@/components/Forms/DividerLine';
 import Form from '@/components/Forms/Form';
-import type { SignUpFormState } from '@/types/AuthFormState';
+import type { SignUpFormState } from '@/types/FormStates/AuthFormState';
 import Link from 'next/link';
 import useAuthStore from '@/store/useAuthStore';
 

@@ -7,7 +7,7 @@ import Form from '@/components/Forms/Form';
 import Button from '@/components/Forms/Button';
 import DividerLine from '@/components/Forms/DividerLine';
 import Input from '@/components/Forms/Input';
-import { ExtraInfoSignUpFormState } from '@/types/AuthFormState';
+import type { ExtraInfoSignUpFormState } from '@/types/FormStates/AuthFormState';
 import { metamorphous } from '@/ui/fonts';
 import Link from 'next/link';
 import React, { useState } from 'react';
