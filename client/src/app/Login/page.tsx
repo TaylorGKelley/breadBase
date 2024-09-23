@@ -1,16 +1,16 @@
 'use client';
 
 import React, { useState } from 'react';
-import Input from '@/components/UI/Forms/Input';
+import Input from '@/components/Forms/Input';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/UI/Forms/Button';
-import DividerLine from '@/components/UI/Forms/DividerLine';
+import Button from '@/components/Forms/Button';
+import DividerLine from '@/components/Forms/DividerLine';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { LoginFormState } from '@/types/AuthFormState';
 import login from '@/actions/login';
-import Form from '@/components/UI/Forms/Form';
+import Form from '@/components/Forms/Form';
 import useAuthStore from '@/store/useAuthStore';
 
 function Login({
