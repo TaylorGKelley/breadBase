@@ -6,6 +6,7 @@ type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   label: string;
   error?: string;
   labelClassName?: string;
+  defaultHeightPx?: number;
 };
 
 function TextArea({
@@ -17,12 +18,24 @@ function TextArea({
   error,
   labelClassName,
   className,
+  defaultHeightPx = 200,
   ...attributes
 }: TextAreaProps) {
   const [showError, setShowError] = useState<boolean>(false);
 
   const handleInputChange = (e: FormEvent<HTMLTextAreaElement>) => {
-    setShowError(false);
+    if (!showError) {
+      setShowError(false);
+    }
+
+    if (
+      e.currentTarget.scrollHeight < defaultHeightPx ||
+      e.currentTarget.value === ''
+    ) {
+      e.currentTarget.style.height = `${defaultHeightPx}px`;
+    } else {
+      e.currentTarget.style.height = e.currentTarget.scrollHeight + 'px';
+    }
   };
 
   const handleUnFocus = (e: FormEvent<HTMLTextAreaElement>) => {
@@ -43,7 +56,7 @@ function TextArea({
         id={id}
         name={name ? name : id}
         placeholder={placeholder}
-        className={`rounded-3xl border border-white ${className}`}
+        className={`focus:border-yellow inline-block h-[${defaultHeightPx}px] w-full resize-none overflow-y-hidden rounded-3xl border border-gray-200 bg-transparent px-6 py-3 text-sm outline-none placeholder:opacity-75 ${className}`}
         required={required}
         {...attributes}
       />
