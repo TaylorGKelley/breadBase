@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import type UserRole from './types/UserRole';
@@ -52,8 +51,6 @@ const protectedRoutes = new Map<string, ProtectedRoute>([
 ]);
 
 export default async function authMiddleware(req: NextRequest) {
-  console.log('middleware ran  ->  ', req.nextUrl.pathname);
-
   try {
     const url = new URL(req.nextUrl.pathname, req.url);
 
@@ -61,6 +58,7 @@ export default async function authMiddleware(req: NextRequest) {
     if (!protectedRoute) return NextResponse.next();
 
     const { user, isAuthenticated } = await checkAuth();
+    console.log({ isAuthenticated });
     const isAuthorized = checkAuthorization(protectedRoute, user);
 
     if (!isAuthenticated) {
