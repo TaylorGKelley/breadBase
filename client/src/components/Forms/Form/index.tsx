@@ -33,20 +33,20 @@ function Form<T>({
   const pathname = usePathname();
   const { previousPathname } = useAuthStore();
 
-  const [formState, dispatch] = useFormState<T, FormData>(
+  const [formState, dispatch] = useFormState<GenericFormState<T>, FormData>(
     async (previousState: T, formData: FormData) => {
-      const formState = (await action(formData)) as GenericFormState<T>;
+      const formState = await action(formData);
 
-      if (formState.success && onSuccess) onSuccess(formState);
-
-      setFormState({ ...formState });
-
-      return formState;
+      return formState as GenericFormState<T>;
     },
-    {} as Awaited<T>,
+    {} as Awaited<GenericFormState<T>>,
   );
 
   useEffect(() => {
+    if (formState.success && onSuccess) onSuccess(formState);
+
+    setFormState({ ...formState });
+
     if ((formState as GenericFormState<T>).success) {
       if (
         noRedirectRoutes.includes(previousPathname) ||
