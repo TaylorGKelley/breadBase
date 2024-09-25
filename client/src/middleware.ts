@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import type UserRole from './types/UserRole';
 import User from './types/User';
 import { BakerRoles } from './types/UserRole';
+import checkAuth from './actions/checkAuth';
 
 type ProtectedRoute = {
   allowed: UserRole[];
@@ -51,13 +52,15 @@ const protectedRoutes = new Map<string, ProtectedRoute>([
 ]);
 
 export default async function authMiddleware(req: NextRequest) {
+  console.log('middleware ran  ->  ', req.nextUrl.pathname);
+
   try {
     const url = new URL(req.nextUrl.pathname, req.url);
 
     const protectedRoute = protectedRoutes.get(req.nextUrl.pathname);
     if (!protectedRoute) return NextResponse.next();
 
-    const { user, isAuthenticated } = await checkAuthenticated();
+    const { user, isAuthenticated } = await checkAuth();
     const isAuthorized = checkAuthorization(protectedRoute, user);
 
     if (!isAuthenticated) {
@@ -74,42 +77,6 @@ export default async function authMiddleware(req: NextRequest) {
     console.error(error, ' from middleware fetch');
   }
 }
-
-const checkAuthenticated = async (): Promise<{
-  user?: User;
-  isAuthenticated: boolean;
-  status: number;
-  error?: Error;
-}> => {
-  try {
-    const tokenCookie = cookies().get('jwt')?.value || '';
-
-    const authResponse = await fetch(
-      `${process.env.URL_API || 'http://localhost:5001'}/api/v1/checkAuth`,
-      {
-        headers: {
-          // * This passes the auth token, as fetch() ran from the server doesn't contain the same cookies as in the client request.
-          // ->  https://stackoverflow.com/questions/60168695/how-to-include-cookies-with-fetch-request-in-nextjs
-          Cookie: `jwt=${tokenCookie}`,
-        },
-      },
-    );
-
-    const body = await authResponse.json();
-
-    return {
-      user: body.data.user,
-      isAuthenticated: body.data.isAuthenticated,
-      status: authResponse.status,
-    };
-  } catch (error) {
-    return {
-      isAuthenticated: false,
-      status: 500,
-      error: error as Error,
-    };
-  }
-};
 
 const checkAuthorization = (
   protectedRoute: ProtectedRoute,

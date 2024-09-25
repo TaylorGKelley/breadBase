@@ -24,11 +24,12 @@ export default async function () {
       return {
         isAuthenticated: data.isAuthenticated,
         user: data.data.user as User,
+        status: response.status,
       };
     } else {
       throw new Error('Failed to Authenticate User');
     }
   } catch (error) {
-    return { isAuthenticated: false, user: undefined };
+    return { isAuthenticated: false, user: undefined, status: 500 };
   }
 }
