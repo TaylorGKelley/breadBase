@@ -22,7 +22,7 @@ export default async function () {
 
     if (response.status === 200) {
       return {
-        isAuthenticated: data.isAuthenticated,
+        isAuthenticated: data.data.isAuthenticated,
         user: data.data.user as User,
         status: response.status,
       };
