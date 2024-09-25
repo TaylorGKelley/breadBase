@@ -12,6 +12,17 @@
   -webkit-box-sizing: border-box;
 }
 
+@layer utilities {
+  .scroll-hidden {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* firefox */
+  }
+
+  .scroll-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
 @layer components {
   body {
     @apply flex min-h-dvh flex-col text-white;
