@@ -58,7 +58,6 @@ export default async function authMiddleware(req: NextRequest) {
     if (!protectedRoute) return NextResponse.next();
 
     const { user, isAuthenticated } = await checkAuth();
-    console.log({ isAuthenticated });
     const isAuthorized = checkAuthorization(protectedRoute, user);
 
     if (!isAuthenticated) {

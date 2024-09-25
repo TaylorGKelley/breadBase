@@ -2,7 +2,7 @@ import React, { SVGProps } from 'react';
 
 type StarProps = SVGProps<SVGElement> & {
   varient: 'full' | 'half' | 'outline';
-  color: string;
+  color: '#F4F4F4' | '#EAA827' | string;
 };
 
 function Star({ varient = 'full', color = '#F4F4F4', className }: StarProps) {

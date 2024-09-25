@@ -14,6 +14,7 @@ function DraggableScrollContainer({
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollSpeed = 1;
 
   const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     if (scrollRef.current) {
@@ -23,12 +24,10 @@ function DraggableScrollContainer({
     }
   };
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    console.log('moved mouse');
-
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll speed
+    const walk = (x - startX) * scrollSpeed; // Scroll speed
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
   const handleMouseUp = () => {
@@ -44,7 +43,7 @@ function DraggableScrollContainer({
   const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
     if (!isDragging || !scrollRef.current) return;
     const x = e.touches[0].pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
+    const walk = (x - startX) * scrollSpeed;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
   const handleTouchEnd = () => {
@@ -54,7 +53,7 @@ function DraggableScrollContainer({
   return (
     <div
       ref={scrollRef}
-      className={`scroll-hidden flex max-w-80 cursor-grab gap-4 overflow-x-scroll scroll-smooth whitespace-nowrap rounded-3xl *:select-none *:snap-start active:cursor-grabbing ${className} ${scrollSnap ? 'snap-x snap-mandatory scroll-px-6' : ''}`}
+      className={`scroll-hidden flex max-w-80 cursor-grab gap-4 overflow-x-scroll whitespace-nowrap rounded-3xl *:select-none *:snap-start active:cursor-grabbing ${className} ${scrollSnap ? 'snap-x snap-mandatory scroll-px-6 scroll-smooth' : ''}`}
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

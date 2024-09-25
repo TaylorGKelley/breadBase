@@ -6,7 +6,7 @@ import Input from '@/components/Forms/Input';
 import TextArea from '@/components/Forms/TextArea';
 import type CreateProductFormState from '@/types/FormStates/CreateProductFormState';
 import React, { useState } from 'react';
-import ImageInput from './ImageInput';
+import ImageInput from '../../../../../components/Forms/ImageInput';
 
 type NewItemViewProps = {};
 
@@ -42,13 +42,13 @@ function NewItemView({}: NewItemViewProps) {
         error={formState.errors?.price}
       />
       <TextArea
-        label='description'
         id='description'
+        label='Description:'
         required
         defaultValue={formState.description}
         error={formState.errors?.description}
       />
-      <ImageInput />
+      <ImageInput label='Images:' />
     </Form>
   );
 }
