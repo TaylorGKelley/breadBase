@@ -1,15 +1,13 @@
-export default function getBase64(file: File) {
+export default function getBase64(file: File): Promise<string> {
   return new Promise((resolve) => {
     let reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onload = function () {
-      const fileByteArray = Array.from(
-        new Uint8Array(reader.result as ArrayBuffer),
-      );
 
-      const fileBase = btoa(fileByteArray.join(''));
-
-      resolve(fileBase);
+    reader.onloadend = function () {
+      // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
+      const b64 = (reader.result as string).replace(/^data:.+;base64,/, '');
+      resolve(b64);
     };
+
+    reader.readAsDataURL(file);
   });
 }

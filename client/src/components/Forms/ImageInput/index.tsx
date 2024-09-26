@@ -1,95 +1,90 @@
 'use client';
 
-import React, { DragEvent, useState } from 'react';
-import DraggableScrollContainer from '@/components/DraggableScrollContainer';
-import ImagePreview from './ImagePreview';
+import React, { useRef, useState } from 'react';
+import type { ChangeEvent, DragEvent } from 'react';
 import getBase64 from '@/utils/getBase64';
+import { Upload } from '@/components/icons';
 
 type ImageInputProps = {
+  id: string;
   label: string;
+  required?: boolean;
 };
 
 type UploadedImage = {
+  name: string;
   image: string;
-  isFavorite: boolean;
 };
 
-function ImageInput({ label }: ImageInputProps) {
-  const [images, setImages] = useState<UploadedImage[]>([]);
+function ImageInput({ id, label, required }: ImageInputProps) {
+  const uploadLabel = useRef<HTMLLabelElement | null>(null);
+  const [image, setImage] = useState<UploadedImage>();
 
-  const handleFavoriteImage = (index: number) => {
-    const currentFavoriteIndex = images
-      .map((image) => image.isFavorite)
-      .indexOf(true);
+  const dragOverStyle = 'bg-white/50' as const;
 
-    setImages((prev) => {
-      const currState = [...prev];
-      if (currentFavoriteIndex !== -1) {
-        currState[currentFavoriteIndex].isFavorite = false;
-      }
-      currState[index].isFavorite = true;
-
-      return currState;
-    });
-  };
-
-  const handleDeleteImage = (index: number) => {
-    // TODO: Add delete functionality
+  const processFile = (fileList: FileList) => {
+    const file = Array.from(fileList)[0];
+    getBase64(file)
+      .then((base64) => {
+        setImage(() => ({
+          name: file.name,
+          image: base64 as string,
+        }));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
-    <div className='[&>div]:border [&>div]:border-white [&>div]:px-4 [&>div]:py-3'>
-      <label>{label}</label>
-      <DraggableScrollContainer>
-        <div className='flex aspect-square h-[86px] items-center justify-center rounded-xl border border-white'>
-          {/* Plus icon */}
-          <input
-            type='file'
-            name='imageUpload'
-            id='imageUpload'
-            className='h-full w-full cursor-pointer file:hidden'
-            multiple
-            onDragOver={(e: DragEvent<HTMLDivElement>) =>
-              (e.currentTarget.style.backgroundColor = 'white')
-            }
-            onDrop={(e: DragEvent<HTMLInputElement>) => {
-              const files = Array.from(e.dataTransfer.files);
-              files.forEach((file) => {
-                getBase64(file)
-                  .then((base64) => {
-                    setImages((prev) => {
-                      let firstImage;
-                      if (prev.length === 0) firstImage = true;
-                      return [
-                        ...prev,
-                        {
-                          image: base64 as string,
-                          isFavorite: firstImage || false,
-                        },
-                      ];
-                    });
-                  })
-                  .catch((error) => {
-                    console.error(error);
-                  });
-              });
-              e.currentTarget.style.backgroundColor = 'transparent';
-            }}
-            onDragLeave={(e: DragEvent<HTMLDivElement>) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-            }}
-          />
-        </div>
-        {images.reverse().map((uploadedImage, i) => (
-          <ImagePreview
-            key={i}
-            imageBase={uploadedImage.image}
-            isFavorite={uploadedImage.isFavorite}
-            favoriteImage={() => handleFavoriteImage(i)}
-            deleteImage={() => handleDeleteImage}
-          />
-        ))}
-      </DraggableScrollContainer>
+    <div className=''>
+      <p className='my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap'>
+        {`${required ? '*' : ''} ${label}`}
+      </p>
+      <div className='relative overflow-hidden rounded-3xl border'>
+        <label
+          ref={uploadLabel}
+          htmlFor={id}
+          className='flex h-full w-full flex-col gap-2 px-4 py-6 text-center transition-colors'
+        >
+          <div className='flex justify-center pb-3'>
+            <Upload
+              fill='white'
+              className='w-10'
+            />
+          </div>
+          <p>{!!image ? 'Edit image' : 'Upload image'}</p>
+          <p
+            className={`${!image && 'font-extralight italic'} max-w-52 overflow-hidden text-ellipsis text-nowrap`}
+          >
+            {!!image ? image.name : 'choose a file'}
+          </p>
+        </label>
+        <input
+          type='file'
+          name={id}
+          id={id}
+          className='absolute inset-0 z-10 cursor-pointer opacity-0 file:cursor-pointer'
+          multiple
+          onDragOver={(e: DragEvent<HTMLDivElement>) => {
+            if (uploadLabel.current)
+              uploadLabel.current.classList.add(dragOverStyle);
+          }}
+          onDrop={(e: DragEvent<HTMLInputElement>) => {
+            processFile(e.dataTransfer.files);
+            if (uploadLabel.current)
+              uploadLabel.current.classList.remove(dragOverStyle);
+          }}
+          onDragLeave={(e: DragEvent<HTMLInputElement>) => {
+            if (uploadLabel.current)
+              uploadLabel.current.classList.remove(dragOverStyle);
+          }}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files) processFile(e.target.files);
+          }}
+          required={required}
+        />
+      </div>
     </div>
   );
 }

@@ -11,5 +11,6 @@ export { default as Heart } from './Heart';
 export { default as Logout } from './Logout';
 export { default as Gear } from './Gear';
 export { default as Store } from './Store';
+export { default as Upload } from './Upload';
 
 export const defaultColor = '#CCC';

@@ -3,7 +3,7 @@ import Product from '../Product';
 type CreateProductFormState = {
   success: boolean;
   name: string;
-  price: number;
+  price: number | undefined;
   description?: string;
   images?: { isFavorite: boolean; image: string }[];
   ingredients?: string;

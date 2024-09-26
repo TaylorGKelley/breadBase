@@ -1,12 +1,8 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import NewItemView from './(components)/NewItemView';
 
 function Menu() {
-  const [currentProductId, setCurrentProductId] = useState();
-
   return (
     <BackgroundImageContainer
       src='/images/MenuBackground.png'

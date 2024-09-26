@@ -14,7 +14,7 @@ function NewItemView({}: NewItemViewProps) {
   const [formState, setFormState] = useState<CreateProductFormState>({
     success: false,
     name: '',
-    price: 0,
+    price: undefined,
   });
 
   return (
@@ -37,6 +37,8 @@ function NewItemView({}: NewItemViewProps) {
         type='number'
         id='price'
         label='Price:'
+        min={0}
+        max={1000}
         required
         defaultValue={formState.price}
         error={formState.errors?.price}
@@ -48,7 +50,11 @@ function NewItemView({}: NewItemViewProps) {
         defaultValue={formState.description}
         error={formState.errors?.description}
       />
-      <ImageInput label='Images:' />
+      <ImageInput
+        id='uploadImage'
+        label='Image:'
+        // required
+      />
     </Form>
   );
 }
