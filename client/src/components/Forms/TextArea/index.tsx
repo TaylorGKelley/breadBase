@@ -32,8 +32,9 @@ function TextArea({
       e.currentTarget.scrollHeight < defaultHeightPx ||
       e.currentTarget.value === ''
     ) {
-      e.currentTarget.style.height = `${defaultHeightPx}px`;
+      e.currentTarget.style.minHeight = `${defaultHeightPx}px`;
     } else {
+      e.currentTarget.style.height = 'auto'; // reset height so that it shrinks properly, otherwise it decrements by 2
       e.currentTarget.style.height = e.currentTarget.scrollHeight + 'px';
     }
   };
@@ -51,12 +52,12 @@ function TextArea({
         {`${required ? '*' : ''} ${label}`}
       </label>
       <textarea
-        onChange={handleInputChange}
+        onInput={handleInputChange}
         onBlur={handleUnFocus}
         id={id}
         name={name ? name : id}
         placeholder={placeholder}
-        className={`focus:border-yellow inline-block h-[${defaultHeightPx}px] w-full resize-none overflow-y-hidden rounded-3xl border border-gray-200 bg-transparent px-6 py-3 text-sm outline-none placeholder:opacity-75 ${className}`}
+        className={`focus:border-yellow inline-block min-h-[${defaultHeightPx}px] h-auto w-full resize-none overflow-y-hidden rounded-3xl border border-gray-200 bg-transparent px-6 py-3 text-sm outline-none placeholder:opacity-75 ${className}`}
         required={required}
         {...attributes}
       />
