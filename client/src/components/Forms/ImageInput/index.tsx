@@ -55,7 +55,7 @@ function ImageInput({ id, label, required }: ImageInputProps) {
           </div>
           <p>{!!image ? 'Edit image' : 'Upload image'}</p>
           <p
-            className={`${!image && 'font-extralight italic'} max-w-52 overflow-hidden text-ellipsis text-nowrap`}
+            className={`${!image && 'font-extralight italic'} mx-auto max-w-52 overflow-hidden text-ellipsis text-nowrap text-center`}
           >
             {!!image ? image.name : 'choose a file'}
           </p>

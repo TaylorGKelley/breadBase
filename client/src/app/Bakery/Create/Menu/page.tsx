@@ -2,7 +2,11 @@ import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import NewItemView from './(components)/NewItemView';
 
-function Menu() {
+type MenuProps = {
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+function Menu({ searchParams }: MenuProps) {
   return (
     <BackgroundImageContainer
       src='/images/MenuBackground.png'

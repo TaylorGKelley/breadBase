@@ -53,7 +53,14 @@ function NewItemView({}: NewItemViewProps) {
       <ImageInput
         id='uploadImage'
         label='Image:'
-        // required
+      />
+      <TextArea
+        id='ingredients'
+        label='Ingredients:'
+        defaultHeightPx={75}
+        bulletPoints
+        defaultValue={formState.description}
+        error={formState.errors?.description}
       />
     </Form>
   );
