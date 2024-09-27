@@ -21,6 +21,8 @@ function NewItemView({}: NewItemViewProps) {
     <Form<CreateProductFormState>
       action={createProduct}
       setFormState={setFormState}
+      preferRedirect='/Bakery/Create/Menu'
+      className='flex w-full flex-col gap-5 transition-all duration-500'
     >
       {formState.errors?.message && (
         <p className='text-xs text-red-400'>{formState.errors.message}</p>
