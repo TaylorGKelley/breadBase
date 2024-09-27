@@ -47,14 +47,14 @@ function TextArea({
   };
 
   return (
-    <div className='flex w-auto flex-col overflow-x-hidden overflow-y-visible'>
+    <div className='relative flex w-auto flex-col overflow-x-hidden overflow-y-visible'>
       <label
         htmlFor={id}
         className={`focus-within:text-yellow my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
       >
         {`${required ? '*' : ''} ${label}`}
       </label>
-      <div className='relative grid w-fit grid-cols-[auto_1fr] items-start'>
+      <div className='relative w-full'>
         {bulletPoints && (
           <div className='pointer-events-none absolute left-6 top-3.5 flex flex-col justify-start'>
             {text.split('\n').map((_, index) => (
