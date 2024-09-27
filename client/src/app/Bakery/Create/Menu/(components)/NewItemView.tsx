@@ -9,10 +9,14 @@ import React, { useState } from 'react';
 import ImageInput from '../../../../../components/Forms/ImageInput';
 import DividerLine from '@/components/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
+import Button from '@/components/Forms/Button';
+import { useRouter } from 'next/navigation';
 
 type NewItemViewProps = {};
 
 function NewItemView({}: NewItemViewProps) {
+  const router = useRouter();
+
   const [formState, setFormState] = useState<CreateProductFormState>({
     success: false,
     name: '',
@@ -24,7 +28,7 @@ function NewItemView({}: NewItemViewProps) {
       action={createProduct}
       setFormState={setFormState}
       preferRedirect='/Bakery/Create/Menu'
-      className='flex w-full flex-col gap-5 transition-all duration-500'
+      className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
     >
       <div className='scroll-narrow h-[500px] w-full max-w-96 overflow-y-auto rounded-3xl border p-4'>
         <DividerLine className={`${metamorphous.className} text-lg`}>
@@ -71,6 +75,14 @@ function NewItemView({}: NewItemViewProps) {
           error={formState.errors?.description}
         />
       </div>
+      <Button className='border-yellow text-yellow'>Add Item</Button>
+      <button
+        type='button'
+        onClick={() => router.push('/Bakery/Create/Menu')}
+        className='flex h-10 items-center justify-center rounded-full border border-gray-300 px-6 text-center text-gray-300'
+      >
+        Back
+      </button>
     </Form>
   );
 }

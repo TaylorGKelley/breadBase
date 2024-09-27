@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import NewItemView from './(components)/NewItemView';
@@ -9,7 +11,7 @@ type MenuProps = {
 };
 
 function Menu({ searchParams }: MenuProps) {
-  const selectedItemId = searchParams && searchParams['itemId'];
+  const itemId = searchParams && searchParams['itemId'];
 
   return (
     <BackgroundImageContainer
@@ -22,7 +24,7 @@ function Menu({ searchParams }: MenuProps) {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Create Menu
           </h3>
-          {!selectedItemId ? <CurrentMenu /> : <NewItemView />}
+          {!itemId ? <CurrentMenu /> : <NewItemView />}
         </section>
       </main>
     </BackgroundImageContainer>
