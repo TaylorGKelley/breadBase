@@ -2,7 +2,6 @@ import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import NewItemView from './(components)/NewItemView';
 import { metamorphous } from '@/ui/fonts';
-import DividerLine from '@/components/Forms/DividerLine';
 import CurrentMenu from './(components)/CurrentMenu';
 
 type MenuProps = {
@@ -23,12 +22,7 @@ function Menu({ searchParams }: MenuProps) {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Create Menu
           </h3>
-          <div className='scroll-narrow h-[500px] w-full max-w-96 overflow-y-auto rounded-3xl border p-4'>
-            <DividerLine className={`${metamorphous.className} text-lg`}>
-              {!selectedItemId ? 'Menu' : 'Add Item'}
-            </DividerLine>
-            {!selectedItemId ? <CurrentMenu /> : <NewItemView />}
-          </div>
+          {!selectedItemId ? <CurrentMenu /> : <NewItemView />}
         </section>
       </main>
     </BackgroundImageContainer>
