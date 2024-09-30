@@ -20,13 +20,13 @@ import { UserRole } from '../types/User';
 const router = Router();
 
 // * Product routes
-router.route('/').get(getAllProducts).post(protectRoute, createProduct);
+router.route('/all/:bakeryId').get(getAllProducts);
 
-router
-  .route('/:id')
-  .get(getProductById)
-  .patch(updateProduct)
-  .delete(deleteProduct);
+router.route('/').post(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), createProduct);
+router.route('/:id')
+.get(getProductById)
+  .patch(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), updateProduct)
+  .delete(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), deleteProduct);
 
 // * Product Review routes
 router

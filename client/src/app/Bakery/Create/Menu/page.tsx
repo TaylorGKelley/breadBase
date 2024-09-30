@@ -11,7 +11,7 @@ type MenuProps = {
 };
 
 function Menu({ searchParams }: MenuProps) {
-  const itemId = searchParams && searchParams['itemId'];
+  const productId = searchParams && searchParams['productId'];
 
   return (
     <BackgroundImageContainer
@@ -24,7 +24,7 @@ function Menu({ searchParams }: MenuProps) {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Create Menu
           </h3>
-          {!itemId ? <CurrentMenu /> : <NewItemView />}
+          {!productId ? <CurrentMenu /> : <NewItemView />}
         </section>
       </main>
     </BackgroundImageContainer>

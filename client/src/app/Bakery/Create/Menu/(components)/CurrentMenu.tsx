@@ -1,20 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import DividerLine from '@/components/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
 import { Arrow } from '@/components/icons';
-import useAuthStore from '@/store/useAuthStore';
 import Link from 'next/link';
+import Product from '@/types/Product';
+import useAuthStore from '@/store/useAuthStore';
 
 type CurrentMenuProps = {};
 
 function CurrentMenu({}: CurrentMenuProps) {
   const { user } = useAuthStore();
   const router = useRouter();
+  const [items, setItems] = useState<Product[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const items = [{ id: 'blah' }];
+  useEffect(() => {
+    fetch(
+      `${process.env.API_URL || 'http://localhost:5001/api/v1'}/product/all/${user?.associatedBakery}`,
+      {
+        credentials: 'include',
+      },
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setItems(data.data.products);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -22,21 +37,26 @@ function CurrentMenu({}: CurrentMenuProps) {
         <DividerLine className={`${metamorphous.className} text-lg`}>
           Menu
         </DividerLine>
-        {/* This div needs to scale to fill container hieght */}
-        <ul className='scroll-narrow flex-grow overflow-y-auto'>
-          {items.map((item, i) => (
-            <li
-              key={i}
-              onClick={() =>
-                router.push(`/Bakery/Create/Menu?itemId=${item.id}`)
-              }
-              className='flex justify-between'
-            >
-              <span>text</span>
-              <span>$0.00</span>
-            </li>
-          ))}
-        </ul>
+        {!isLoading ? (
+          <ul className='scroll-narrow flex-grow overflow-y-auto'>
+            {items?.map((item, i) => (
+              <li
+                key={i}
+                onClick={() =>
+                  router.push(`/Bakery/Create/Menu?productId=${item._id}`)
+                }
+                className='flex cursor-pointer justify-between'
+              >
+                <span>{item.name}</span>
+                <span>{`$${item.price}`}</span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <ul className='scroll-narrow flex-grow'>
+            <li>loading...</li>
+          </ul>
+        )}
         <div className='px-2 py-3'>
           <button
             onClick={() => router.push('/Bakery/Create/Menu?itemId=New')}
