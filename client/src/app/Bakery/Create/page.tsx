@@ -1,20 +1,15 @@
 'use client';
 
-import { createBakery, getBakery } from '@/actions/manageBakery';
+import { createBakery } from '@/actions/manageBakery';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import Form from '@/components/Forms/Form';
 import Button from '@/components/Forms/Button';
 import Input from '@/components/Forms/Input';
 import CreateBakeryFormState from '@/types/FormStates/CreateBakeryFormState';
 import { metamorphous } from '@/ui/fonts';
-import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import useAuthStore from '@/store/useAuthStore';
-import Bakery from '@/types/Bakery';
+import React, { useState } from 'react';
 
 function Create() {
-  const bakeryId = useSearchParams().get('bakeryId');
-  const { user } = useAuthStore();
   const [formState, setFormState] = useState<CreateBakeryFormState>({
     success: false,
     title: '',
@@ -24,29 +19,6 @@ function Create() {
     state: '',
     zipCode: 0,
   });
-
-  useEffect(() => {
-    const populateForm = async () => {
-      if (bakeryId || user?.associatedBakery) {
-        const bakery = await getBakery(
-          bakeryId || (user?.associatedBakery as Bakery)._id,
-        );
-
-        if (bakery)
-          setFormState({
-            success: false,
-            title: '',
-            address: '',
-            suiteNumber: 0,
-            city: '',
-            state: '',
-            zipCode: 0,
-          });
-      }
-    };
-
-    populateForm();
-  }, [bakeryId, user?.associatedBakery]);
 
   return (
     <BackgroundImageContainer
@@ -99,7 +71,7 @@ function Create() {
               defaultValue={formState.city}
               error={formState.errors?.city}
             />
-            {/* // Todo: Replace this with dropdown/select element */}
+            {/* // Todo: Replace this with dropdown/select element for states */}
             <Input
               id='state'
               label='State:'

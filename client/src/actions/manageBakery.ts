@@ -114,16 +114,16 @@ export async function getBakery(
 
     const data = (await response.json())?.data;
 
+    console.log(data);
+
     return {
       success: false,
-      title: data.title,
-      address: data.address,
-      suiteNumber: data.suiteNumber,
-      state: data.state,
-      city: data.city,
-      zipCode: data.zipCode,
-      bakery: data.bakery as Bakery,
-      user: data.user as User,
+      title: data.bakery.title,
+      address: data.bakery.address,
+      suiteNumber: data.bakery.suiteNumber,
+      state: data.bakery.state,
+      city: data.bakery.city,
+      zipCode: data.bakery.zipCode,
     };
   } catch {
     return undefined;

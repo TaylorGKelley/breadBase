@@ -4,6 +4,7 @@ import {
   createBakery,
   deleteBakery,
   getAllBakeries,
+  getBakery,
   reopenBakery,
   updateBakery,
 } from '../controllers/bakeryController';
@@ -17,7 +18,7 @@ const router = Router();
 router.route('/').get(getAllBakeries).post(protectRoute, allowedUsers(UserRole.defaultUser), createBakery);
 router
   .route('/:id')
-  .get()
+  .get(getBakery)
   .patch(
     protectRoute,
     allowedUsers(UserRole.bakeryOwner, UserRole.siteAdmin),
