@@ -1,6 +1,6 @@
 'use client';
 
-import { createBakery, getBakery } from '@/actions/createBakery';
+import { createBakery, getBakery } from '@/actions/manageBakery';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import Form from '@/components/Forms/Form';
 import Button from '@/components/Forms/Button';
