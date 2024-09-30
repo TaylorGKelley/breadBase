@@ -52,7 +52,7 @@ function ImageInput({ id, label, required }: ImageInputProps) {
         <label
           ref={uploadLabel}
           htmlFor={id}
-          className='flex h-full w-full flex-col gap-2 px-4 py-6 text-center transition-colors'
+          className='flex h-full w-full flex-col gap-2 bg-gray-900/30 px-4 py-6 text-center'
         >
           <div className='flex justify-center pb-3'>
             <Upload
