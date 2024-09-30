@@ -6,6 +6,7 @@ import DividerLine from '@/components/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
 import { Arrow } from '@/components/icons';
 import useAuthStore from '@/store/useAuthStore';
+import Link from 'next/link';
 
 type CurrentMenuProps = {};
 
@@ -45,17 +46,15 @@ function CurrentMenu({}: CurrentMenuProps) {
           </button>
         </div>
       </div>
-      <div className='flex w-full max-w-96 justify-between py-6 *:w-12'>
-        <button
-          className='flex aspect-square items-center justify-center rounded-full border'
-          onClick={() =>
-            router.push('/Bakery/Create?bakeryId=' + user?.associatedBakery)
-          }
+      <div className='grid w-full max-w-96 grid-cols-3 py-6 *:w-12'>
+        <Link
+          href='/Bakery/Dashboard'
+          className='col-start-2 h-min self-center justify-self-center text-center underline'
         >
-          <Arrow left />
-        </button>
+          skip
+        </Link>
         <button
-          className='flex aspect-square items-center justify-center rounded-full border'
+          className='flex aspect-square items-center justify-center justify-self-end rounded-full border'
           onClick={() => router.push('/Bakery/Dashboard')}
         >
           <Arrow />
