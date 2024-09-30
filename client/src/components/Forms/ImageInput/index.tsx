@@ -13,7 +13,7 @@ type ImageInputProps = {
 
 type UploadedImage = {
   name: string;
-  image: string;
+  base: string;
 };
 
 function ImageInput({ id, label, required }: ImageInputProps) {
@@ -28,7 +28,7 @@ function ImageInput({ id, label, required }: ImageInputProps) {
       .then((base64) => {
         setImage(() => ({
           name: file.name,
-          image: base64 as string,
+          base: base64 as string,
         }));
       })
       .catch((error) => {
@@ -41,7 +41,14 @@ function ImageInput({ id, label, required }: ImageInputProps) {
       <p className='my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap'>
         {`${required ? '*' : ''} ${label}`}
       </p>
+      {/*  bg-[url('src:image/*;base,${image.base}')]/40 */}
       <div className='relative overflow-hidden rounded-3xl border'>
+        {image && (
+          <img
+            src={`data:image/png;base64,${image.base}`}
+            className='absolute -z-10 h-full w-full object-cover object-center opacity-40'
+          />
+        )}
         <label
           ref={uploadLabel}
           htmlFor={id}
