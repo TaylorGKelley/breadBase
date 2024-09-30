@@ -44,7 +44,8 @@ function NewItemView({}: NewItemViewProps) {
 
   return (
     <Form<CreateProductFormState>
-      action={!productId ? createProduct : updateProduct(productId)}
+      // action={!productId ? createProduct : updateProduct(productId)}
+      action={}
       setFormState={setFormState}
       preferRedirect='/Bakery/Create/Menu'
       className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'

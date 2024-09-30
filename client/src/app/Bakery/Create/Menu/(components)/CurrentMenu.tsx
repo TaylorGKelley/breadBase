@@ -14,7 +14,7 @@ type CurrentMenuProps = {};
 function CurrentMenu({}: CurrentMenuProps) {
   const { user } = useAuthStore();
   const router = useRouter();
-  const [items, setItems] = useState<Product[]>();
+  const [products, setProducts] = useState<Product[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function CurrentMenu({}: CurrentMenuProps) {
     )
       .then((res) => res.json())
       .then((data) => {
-        setItems(data.data.products);
+        setProducts(data.data.products);
         setIsLoading(false);
       });
   }, []);
@@ -39,16 +39,16 @@ function CurrentMenu({}: CurrentMenuProps) {
         </DividerLine>
         {!isLoading ? (
           <ul className='scroll-narrow flex-grow overflow-y-auto'>
-            {items?.map((item, i) => (
+            {products?.map((product, i) => (
               <li
                 key={i}
                 onClick={() =>
-                  router.push(`/Bakery/Create/Menu?productId=${item._id}`)
+                  router.push(`/Bakery/Create/Menu?productId=${product._id}`)
                 }
                 className='flex cursor-pointer justify-between'
               >
-                <span>{item.name}</span>
-                <span>{`$${item.price}`}</span>
+                <span>{product.name}</span>
+                <span>{`$${product.price}`}</span>
               </li>
             ))}
           </ul>

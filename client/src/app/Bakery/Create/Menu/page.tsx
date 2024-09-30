@@ -5,6 +5,7 @@ import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import NewItemView from './(components)/NewItemView';
 import { metamorphous } from '@/ui/fonts';
 import CurrentMenu from './(components)/CurrentMenu';
+import NewItemForm from './(components)/Test_NewItemForm';
 
 type MenuProps = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -24,7 +25,8 @@ function Menu({ searchParams }: MenuProps) {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Create Menu
           </h3>
-          {!productId ? <CurrentMenu /> : <NewItemView />}
+          {/* {!productId ? <CurrentMenu /> : <NewItemView />} */}
+          {!productId ? <CurrentMenu /> : <NewItemForm />}
         </section>
       </main>
     </BackgroundImageContainer>
