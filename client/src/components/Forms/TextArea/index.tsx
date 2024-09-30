@@ -19,7 +19,7 @@ function TextArea({
   error,
   labelClassName,
   className,
-  defaultHeightPx = 200,
+  defaultHeightPx = 150,
   bulletPoints,
   ...attributes
 }: TextAreaProps) {
@@ -77,7 +77,8 @@ function TextArea({
           id={id}
           name={name ? name : id}
           placeholder={placeholder}
-          className={`focus:border-yellow inline-block leading-6 min-h-[${defaultHeightPx}px] h-auto w-full resize-none overflow-y-hidden rounded-3xl border border-gray-200 bg-transparent px-6 py-3 text-sm outline-none placeholder:opacity-75 ${className} ${bulletPoints ? 'pl-10' : ''}`}
+          className={`focus:border-yellow inline-block h-auto w-full resize-none overflow-y-hidden rounded-3xl border border-gray-200 bg-transparent px-6 py-3 text-sm leading-6 outline-none placeholder:opacity-75 ${className} ${bulletPoints ? 'pl-10' : ''}`}
+          style={{ height: `${defaultHeightPx}px` }}
           required={required}
           {...attributes}
         />

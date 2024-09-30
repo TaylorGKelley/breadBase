@@ -4,9 +4,9 @@ import Bakery from '@/types/Bakery';
 import CreateBakeryFormResponse from '@/types/FormStates/CreateBakeryFormState';
 import User from '@/types/User';
 
-export default async (
+export async function createBakery(
   formData: FormData,
-): Promise<CreateBakeryFormResponse> => {
+): Promise<CreateBakeryFormResponse> {
   const title = formData.get('title')?.toString() || '';
   const address = formData.get('address')?.toString() || '';
   const suiteNumber = formData.get('suiteNumber') || '';
@@ -92,4 +92,40 @@ export default async (
       },
     };
   }
-};
+}
+
+export async function getBakery(
+  bakeryId: string,
+): Promise<CreateBakeryFormResponse | undefined> {
+  try {
+    // Handle signup
+    const response = await fetch(
+      `${process.env.API_URL || 'http://localhost:5001'}/api/v1/bakery/${bakeryId}`,
+      {
+        credentials: 'include',
+      },
+    );
+
+    // Return User data or error if sign up failed
+    if (!response.ok || response?.status !== 200) {
+      const error = await response.json();
+      throw new Error(error.message);
+    }
+
+    const data = (await response.json())?.data;
+
+    return {
+      success: false,
+      title: data.title,
+      address: data.address,
+      suiteNumber: data.suiteNumber,
+      state: data.state,
+      city: data.city,
+      zipCode: data.zipCode,
+      bakery: data.bakery as Bakery,
+      user: data.user as User,
+    };
+  } catch {
+    return undefined;
+  }
+}

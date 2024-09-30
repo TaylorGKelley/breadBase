@@ -12,5 +12,6 @@ export { default as Logout } from './Logout';
 export { default as Gear } from './Gear';
 export { default as Store } from './Store';
 export { default as Upload } from './Upload';
+export { default as Arrow } from './Arrow';
 
 export const defaultColor = '#CCC';

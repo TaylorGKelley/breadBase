@@ -1,6 +1,7 @@
 import User from './User';
 
 type Bakery = {
+  _id: string;
   title: string;
   owner: string;
   bakers: User[];
