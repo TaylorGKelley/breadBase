@@ -19,13 +19,13 @@ function NewItemForm({}: NewItemFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<FormData>({
     resolver: zodResolver(ProductSchema),
   });
 
   const onSubmit = async (data: FormData) => {
     console.log('Success!', data);
+    console.log(errors);
   };
 
   return (
@@ -51,7 +51,6 @@ function NewItemForm({}: NewItemFormProps) {
           type='text'
           placeholder='$0.00'
           name='price'
-          valueAsNumber
           register={register}
           error={errors.price}
         />
@@ -84,9 +83,9 @@ function FormField({
         type={type}
         placeholder={placeholder}
         {...register(name, { valueAsNumber })}
-        className='color-black'
+        className='rounded-full px-4 py-3 text-black'
       />
-      {error && <span className='text-red-600'></span>}
+      {error && <span className='block text-red-600'>{error.message}</span>}
     </>
   );
 }

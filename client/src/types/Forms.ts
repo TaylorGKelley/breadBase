@@ -2,7 +2,7 @@ import { FieldError, UseFormRegister } from 'react-hook-form';
 
 export type FormData = {
   name: string;
-  price: number;
+  price: number | string;
 };
 
 export type FormFieldProps = {

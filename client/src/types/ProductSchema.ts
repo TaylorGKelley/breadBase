@@ -3,14 +3,24 @@ import type { ZodType } from 'zod';
 import { FormData } from './Forms';
 
 export const ProductSchema: ZodType<FormData> = z.object({
-  name: z.string({
-    required_error: 'required field',
-  }),
+  name: z.string().min(1, { message: 'Name is required' }),
   price: z
-    .number({
-      required_error: 'required field',
-      invalid_type_error: 'Price is required',
+    .string()
+    .refine((val) => {
+      // Validate using regex (matches $1000.00 down to 0.00)
+      return /^(\$)?(\d{1,3}(,\d{3})*|(\d+))(\.\d{2})?$/.test(val);
+    }, 'Invalid price format')
+    .transform((val) => {
+      // Remove any commas and dollar sign, then parse as a float
+      const cleanedValue = val.replace(/[\$,]/g, '');
+      return parseFloat(cleanedValue);
     })
-    .min(0.01)
-    .max(1000),
+    .refine((n) => {
+      // Ensure it's a positive value
+      return n >= 0;
+    }, 'Invalid price value')
+    .refine((n) => {
+      // Check if the item is not too expensive
+      return n <= 1000;
+    }, 'Item is too expensive'),
 });

@@ -59,7 +59,7 @@ function CurrentMenu({}: CurrentMenuProps) {
         )}
         <div className='px-2 py-3'>
           <button
-            onClick={() => router.push('/Bakery/Create/Menu?itemId=New')}
+            onClick={() => router.push('/Bakery/Create/Menu?productId=New')}
             className='inline-block w-full rounded-full border p-2'
           >
             Add Item
