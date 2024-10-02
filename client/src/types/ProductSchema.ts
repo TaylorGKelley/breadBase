@@ -1,8 +1,7 @@
 import { z } from 'zod';
 import type { ZodType } from 'zod';
-import { FormData } from './Forms';
 
-export const ProductSchema: ZodType<FormData> = z.object({
+export const CreateProductForm: ZodType = z.object({
   name: z.string().min(1, { message: 'Name is required' }),
   price: z
     .string()
@@ -24,3 +23,5 @@ export const ProductSchema: ZodType<FormData> = z.object({
       return n <= 1000;
     }, 'Item is too expensive'),
 });
+
+export type CreateProductFormType = z.infer<typeof CreateProductForm>;

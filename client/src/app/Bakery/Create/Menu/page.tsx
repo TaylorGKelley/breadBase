@@ -2,10 +2,9 @@
 
 import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import NewItemView from './(components)/NewItemView';
 import { metamorphous } from '@/ui/fonts';
 import CurrentMenu from './(components)/CurrentMenu';
-import NewItemForm from './(components)/Test_NewItemForm';
+import ProductForm from './(components)/ProductForm';
 
 type MenuProps = {
   searchParams: { [key: string]: string | string[] | undefined };
@@ -26,7 +25,7 @@ function Menu({ searchParams }: MenuProps) {
             Create Menu
           </h3>
           {/* {!productId ? <CurrentMenu /> : <NewItemView />} */}
-          {!productId ? <CurrentMenu /> : <NewItemForm />}
+          {!productId ? <CurrentMenu /> : <ProductForm product={undefined} />}
         </section>
       </main>
     </BackgroundImageContainer>
