@@ -28,7 +28,7 @@ function ProductForm({ product }: ProductFormProps) {
           name: product.name,
           price: product.price,
           description: product.description,
-          image: product.images?.at(0)?.image,
+          image: product.image,
           ingredients: product.ingredients?.join('\n'),
         }
       : undefined,
@@ -36,13 +36,40 @@ function ProductForm({ product }: ProductFormProps) {
   });
 
   const onSubmit = async (data: CreateProductFormType) => {
+    // Default to create product
+    const request = {
+      url: `${process.env.API_URL || 'http://localhost:5001'}/api/v1/product`,
+      method: 'POST',
+    };
+
     if (product) {
-      // PATCH request
-      console.log(`Product with id -- ${product._id} -- is updated!!`, data);
-    } else {
-      // POST request
-      console.log('Created product!!', data);
+      // PATCH - update request
+      request.url = `${process.env.API_URL || 'http://localhost:5001'}/api/v1/product/${product._id}`;
+      request.method = 'PATCH';
     }
+
+    const response = await fetch(request.url, {
+      method: request.method,
+      body: JSON.stringify({
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        image: data.image,
+        ingredients: data.ingredients,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+
+    if (!response.ok) {
+      const { error } = await response.json();
+      methods.setError('root', { message: error });
+      return;
+    }
+
+    router.push('/Bakery/Create/Menu');
   };
 
   return (

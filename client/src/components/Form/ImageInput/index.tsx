@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import type { ChangeEvent, DragEvent, InputHTMLAttributes } from 'react';
 import getBase64 from '@/utils/getBase64';
 import { Upload } from '@/components/icons';
 import { useFormContext } from 'react-hook-form';
+import convertToFileList from '@/utils/convertToFileList';
 
 type ImageInputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -20,14 +21,26 @@ function ImageInput({
   name,
   label,
   className,
+  required = false,
   ...attributes
 }: ImageInputProps) {
   const {
     setValue,
+    getValues,
     formState: { errors },
   } = useFormContext();
   const uploadLabel = useRef<HTMLLabelElement | null>(null);
   const [image, setImage] = useState<UploadedImage>();
+
+  useEffect(() => {
+    const image = getValues(name);
+    if (image) {
+      setImage(() => ({
+        name: image.name,
+        base: image.base,
+      }));
+    }
+  }, [getValues, name]);
 
   const dragOverStyle = 'bg-white/50' as const;
 
@@ -39,7 +52,11 @@ function ImageInput({
           name: file.name,
           base: base64 as string,
         }));
-        setValue(name, base64);
+        setValue(
+          name,
+          { name: file.name, base: base64 as string },
+          { shouldDirty: true },
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -49,11 +66,11 @@ function ImageInput({
   return (
     <div className=''>
       <p className='my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap'>
-        {`${attributes.required ? '* ' : ''}${label}`}
+        {`${required ? '* ' : ''}${label}`}
       </p>
       {/*  bg-[url('src:image/*;base,${image.base}')]/40 */}
       <div className='relative overflow-hidden rounded-3xl border'>
-        {image && (
+        {image?.base && (
           <img
             src={`data:image/png;base64,${image.base}`}
             className='absolute -z-10 h-full w-full object-cover object-center opacity-40'

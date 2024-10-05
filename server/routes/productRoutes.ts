@@ -24,7 +24,7 @@ router.route('/all/:bakeryId').get(getAllProducts);
 
 router.route('/').post(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), createProduct);
 router.route('/:id')
-.get(getProductById)
+  .get(getProductById)
   .patch(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), updateProduct)
   .delete(protectRoute, allowedUsers(UserRole.bakeryAdmin, UserRole.bakeryManage, UserRole.bakeryOwner), deleteProduct);
 

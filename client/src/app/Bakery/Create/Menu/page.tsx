@@ -1,17 +1,27 @@
-'use client';
-
 import React from 'react';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import { metamorphous } from '@/ui/fonts';
 import CurrentMenu from './(components)/CurrentMenu';
 import ProductForm from './(components)/ProductForm';
+import checkAuth from '@/actions/checkAuth';
+import Product from '@/types/Product';
 
 type MenuProps = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-function Menu({ searchParams }: MenuProps) {
+async function Menu({ searchParams }: MenuProps) {
   const productId = searchParams && searchParams['productId'];
+
+  const { user } = await checkAuth();
+
+  const response = await fetch(
+    `${process.env.API_URL || 'http://localhost:5001/api/v1'}/product/all/${user?.associatedBakery}`,
+    {
+      credentials: 'include',
+    },
+  );
+  const products: Product[] = (await response.json()).data.products;
 
   return (
     <BackgroundImageContainer
@@ -25,7 +35,11 @@ function Menu({ searchParams }: MenuProps) {
             Create Menu
           </h3>
           {/* {!productId ? <CurrentMenu /> : <NewItemView />} */}
-          {!productId ? <CurrentMenu /> : <ProductForm product={undefined} />}
+          {!productId ? (
+            <CurrentMenu products={products} />
+          ) : (
+            <ProductForm product={products.find((p) => p._id === productId)} />
+          )}
         </section>
       </main>
     </BackgroundImageContainer>

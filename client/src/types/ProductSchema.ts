@@ -23,7 +23,10 @@ export const CreateProductForm: ZodType = z.object({
       return n <= 1000;
     }, 'Item is too expensive'),
   description: z.string().min(1, { message: 'A description is required' }),
-  image: z.string(),
+  image: z.object({
+    name: z.string(),
+    base: z.string(),
+  }),
   ingredients: z
     .string()
     .optional()

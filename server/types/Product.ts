@@ -6,7 +6,7 @@ type Product = Document & {
   bakery: ObjectId;
   price: string;
   description: string;
-  images?: { isFavorite: boolean; image: Types.Buffer }[];
+  image?: { name: string; base: string };
   ingredients?: string[];
   nutrition?: {
     calories: string;

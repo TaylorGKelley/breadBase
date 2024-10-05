@@ -4,7 +4,7 @@ type Product = {
   bakery: string;
   price: string;
   description: string;
-  images?: { isFavorite: boolean; image: string }[];
+  image?: { name: string; base: string }[];
   ingredients?: string[];
   nutrition?: {
     calories: string;

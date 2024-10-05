@@ -22,7 +22,7 @@ const productSchema = new Schema<Product>({
     type: Schema.Types.String,
     required: [true, 'Product needs a description'],
   },
-  images: [{ isFavorite: Schema.Types.Boolean, image: Schema.Types.Buffer }],
+  image: { name: Schema.Types.String, base: Schema.Types.String },
   ingredients: [Schema.Types.String],
   nutrition: {
     calories: { type: Schema.Types.String },

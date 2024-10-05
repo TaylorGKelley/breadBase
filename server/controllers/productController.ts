@@ -42,9 +42,11 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
+    console.log({...req.body});
     const newProduct = await Products.create({
       ...req.body,
       bakery: (req.user as ProtectedUser).associatedBakery,
+      reviews: [],
     });
 
     res.status(200).json({
@@ -54,6 +56,7 @@ export const createProduct = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
+    console.log(error)
     res.status(404).json({
       status: `Failed to create item with error,`,
       error: (error as Error).message,
