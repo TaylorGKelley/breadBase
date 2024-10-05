@@ -32,7 +32,6 @@ function Input({
   const isPasswordInput = type === 'password';
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [showError, setShowError] = useState<boolean>(true);
-  const { pending } = useFormStatus();
 
   const togglePasswordVisibility = () => {
     if (isPasswordInput) setIsPasswordVisible(!isPasswordVisible);

@@ -14,6 +14,11 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CreateProductForm } from '@/types/ProductSchema';
 import type { CreateProductFormType } from '@/types/ProductSchema';
+import Form from '@/components/Form';
+import Input from '@/components/Form/Input';
+import TextArea from '@/components/Form/TextArea';
+import ImageInput from '@/components/Form/ImageInput';
+import Product from '@/types/Product';
 
 type ProductFormProps = {
   product?: Product;
@@ -23,11 +28,7 @@ function ProductForm({ product }: ProductFormProps) {
   const productId = useSearchParams().get('productId');
   const router = useRouter();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<CreateProductFormType>({
+  const methods = useForm<CreateProductFormType>({
     defaultValues: product
       ? {
           name: product.name,
@@ -46,37 +47,52 @@ function ProductForm({ product }: ProductFormProps) {
       console.log(`Product with id -- ${product._id} -- is updated!!`, data);
     } else {
       // POST request
-      console.log('Success!', data);
-      console.log(errors);
+      console.log('Created product!!', data);
     }
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
+    <Form
+      onSubmit={onSubmit}
+      methods={methods}
       className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
     >
       <div className='scroll-narrow h-[500px] w-full max-w-96 overflow-y-auto rounded-3xl border p-4'>
         <DividerLine className={`${metamorphous.className} text-lg`}>
           Add Item
         </DividerLine>
-        <FormField
+        <Input
           type='text'
-          placeholder='Name'
           name='name'
-          register={register}
-          error={errors.name}
+          label='Name:'
+          required
         />
-        <FormField
-          type='text'
-          placeholder='$0.00'
+        <Input
+          type='number'
           name='price'
-          register={register}
-          error={errors.price}
+          label='Price:'
+          min={0}
+          max={1000}
+          required
+        />
+        <TextArea
+          name='description'
+          label='Description:'
+          required
+        />
+        <ImageInput
+          name='image'
+          label='Image:'
+        />
+        <TextArea
+          name='ingredients'
+          label='Ingredients:'
+          defaultHeightPx={75}
+          bulletPoints
         />
       </div>
       <Button
-        disabled={isSubmitting}
+        disabled={methods.formState.isSubmitting}
         className='border-yellow text-yellow'
       >
         {!productId ? 'Add Item' : 'Save'}
@@ -88,46 +104,10 @@ function ProductForm({ product }: ProductFormProps) {
       >
         Back
       </button>
-      {errors.root && <p className='text-red-500'>{errors.root?.message}</p>}
-    </form>
-  );
-}
-
-import { FieldError, UseFormRegister } from 'react-hook-form';
-import Product from '@/types/Product';
-import React from 'react';
-
-export type FormFieldProps = {
-  type: string;
-  placeholder: string;
-  name: string;
-  register: UseFormRegister<FieldValues>;
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
-  registerOptions?: RegisterOptions;
-};
-
-function FormField({
-  type = 'text',
-  placeholder,
-  name,
-  register,
-  error,
-  registerOptions,
-}: FormFieldProps) {
-  return (
-    <>
-      <input
-        type={type}
-        placeholder={placeholder}
-        {...register(name, registerOptions)}
-        className='rounded-full px-4 py-3 text-black'
-      />
-      {error && (
-        <span className='block text-red-600'>
-          {(error as FieldError).message}
-        </span>
+      {methods.formState.errors.root && (
+        <p className='text-red-500'>{methods.formState.errors.root?.message}</p>
       )}
-    </>
+    </Form>
   );
 }
 
