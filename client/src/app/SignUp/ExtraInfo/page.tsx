@@ -3,10 +3,10 @@
 import { extraInfo } from '@/actions/signup';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
-import Form from '@/components/Forms/Form';
-import Button from '@/components/Forms/Button';
-import DividerLine from '@/components/Forms/DividerLine';
-import Input from '@/components/Forms/Input';
+import Form from '@/components/Archived/Forms/Form';
+import Button from '@/components/Archived/Forms/Button';
+import DividerLine from '@/components/Archived/Forms/DividerLine';
+import Input from '@/components/Archived/Forms/Input';
 import type { ExtraInfoSignUpFormState } from '@/types/FormStates/AuthFormState';
 import { metamorphous } from '@/ui/fonts';
 import Link from 'next/link';

@@ -1,8 +1,8 @@
 'use client';
 
-import DividerLine from '@/components/Forms/DividerLine';
+import DividerLine from '@/components/Archived/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/Forms/Button';
+import Button from '@/components/Archived/Forms/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   FieldErrorsImpl,
@@ -95,6 +95,7 @@ function ProductForm({ product }: ProductFormProps) {
 
 import { FieldError, UseFormRegister } from 'react-hook-form';
 import Product from '@/types/Product';
+import React from 'react';
 
 export type FormFieldProps = {
   type: string;

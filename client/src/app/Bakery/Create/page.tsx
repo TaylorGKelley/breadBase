@@ -2,9 +2,9 @@
 
 import { createBakery } from '@/actions/manageBakery';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import Form from '@/components/Forms/Form';
-import Button from '@/components/Forms/Button';
-import Input from '@/components/Forms/Input';
+import Form from '@/components/Archived/Forms/Form';
+import Button from '@/components/Archived/Forms/Button';
+import Input from '@/components/Archived/Forms/Input';
 import CreateBakeryFormState from '@/types/FormStates/CreateBakeryFormState';
 import { metamorphous } from '@/ui/fonts';
 import React, { useState } from 'react';

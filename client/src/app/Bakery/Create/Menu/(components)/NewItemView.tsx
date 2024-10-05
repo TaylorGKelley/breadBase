@@ -1,15 +1,15 @@
 'use client';
 
 import { createProduct, updateProduct } from '@/actions/manageProducts';
-import Form from '@/components/Forms/Form';
-import Input from '@/components/Forms/Input';
-import TextArea from '@/components/Forms/TextArea';
+import Form from '@/components/Archived/Forms/Form';
+import Input from '@/components/Archived/Forms/Input';
+import TextArea from '@/components/Archived/Forms/TextArea';
 import type CreateProductFormState from '@/types/FormStates/CreateProductFormState';
 import React, { useEffect, useState } from 'react';
-import ImageInput from '../../../../../components/Forms/ImageInput';
-import DividerLine from '@/components/Forms/DividerLine';
+import ImageInput from '../../../../../components/Archived/Forms/ImageInput';
+import DividerLine from '@/components/Archived/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/Forms/Button';
+import Button from '@/components/Archived/Forms/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 type NewItemViewProps = {};
