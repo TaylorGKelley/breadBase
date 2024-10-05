@@ -9,7 +9,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 };
 
 function Input({
-  type,
+  type = 'text',
   name,
   label,
   labelClassName,

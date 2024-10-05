@@ -68,7 +68,7 @@ function ProductForm({ product }: ProductFormProps) {
           required
         />
         <Input
-          type='number'
+          type='text'
           name='price'
           label='Price:'
           min={0}
