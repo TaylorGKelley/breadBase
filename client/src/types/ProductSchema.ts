@@ -22,7 +22,7 @@ export const CreateProductForm: ZodType = z.object({
       // Check if the item is not too expensive
       return n <= 1000;
     }, 'Item is too expensive'),
-  description: z.string(),
+  description: z.string().min(1, { message: 'A description is required' }),
   image: z.string(),
   ingredients: z
     .string()

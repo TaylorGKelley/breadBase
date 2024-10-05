@@ -7,11 +7,7 @@ type InputErrorProps = {
 function InputError({ error }: InputErrorProps) {
   if (!error) return null;
 
-  return (
-    <div className='absolute right-[0.75rem] top-1/2 flex aspect-square h-1/2 -translate-y-1/2 cursor-text items-center justify-center rounded-full bg-red-500 p-1 opacity-80 outline-none transition-opacity hover:opacity-100'>
-      <p>{'!'}</p>
-    </div>
-  );
+  return <p className='ml-4 py-1 text-sm text-red-400'>{error}</p>;
 }
 
 export default InputError;

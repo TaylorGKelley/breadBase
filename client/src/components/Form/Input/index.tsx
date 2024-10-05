@@ -22,7 +22,7 @@ function Input({
   } = useFormContext();
 
   return (
-    <div className='flex w-auto flex-col overflow-x-hidden overflow-y-visible'>
+    <div className='flex w-auto flex-col'>
       <label
         htmlFor={name}
         className={`focus-within:text-yellow my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
