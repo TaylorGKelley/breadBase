@@ -68,9 +68,11 @@ export const createReview = <T extends DocumentWithReviews>(
       const userId = (req.user as ProtectedUser)._id;
 
       const document = await Model.findById(req.params.id);
-      if (
-        !document?.reviews?.find((review: Review) => review.userId === userId)
-      ) {
+      const existingReview = document?.reviews?.find(
+        (review: Review) => review.userId === userId,
+      );
+
+      if (!existingReview) {
         document?.reviews?.push({
           userId,
           ...req.body,
@@ -85,7 +87,7 @@ export const createReview = <T extends DocumentWithReviews>(
           },
         });
       } else {
-        res.status(404).json({
+        res.status(400).json({
           status: 'fail',
           message: 'User already posted a review',
         });

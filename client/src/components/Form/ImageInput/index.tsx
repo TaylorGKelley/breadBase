@@ -5,7 +5,7 @@ import type { ChangeEvent, DragEvent, InputHTMLAttributes } from 'react';
 import getBase64 from '@/utils/getBase64';
 import { Upload } from '@/components/icons';
 import { useFormContext } from 'react-hook-form';
-import convertToFileList from '@/utils/convertToFileList';
+import InputError from '../InputError';
 
 type ImageInputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
@@ -16,6 +16,8 @@ type UploadedImage = {
   name: string;
   base: string;
 };
+
+const dragOverStyle = 'bg-white/50' as const;
 
 function ImageInput({
   name,
@@ -41,8 +43,6 @@ function ImageInput({
       }));
     }
   }, [getValues, name]);
-
-  const dragOverStyle = 'bg-white/50' as const;
 
   const processFile = (fileList: FileList) => {
     const file = Array.from(fileList)[0];
@@ -118,6 +118,9 @@ function ImageInput({
           {...attributes}
         />
       </div>
+      <InputError
+        error={errors[name as keyof typeof errors]?.message?.toString()}
+      />
     </div>
   );
 }
