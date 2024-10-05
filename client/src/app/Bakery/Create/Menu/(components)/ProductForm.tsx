@@ -4,13 +4,7 @@ import DividerLine from '@/components/Archived/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
 import Button from '@/components/Archived/Forms/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
-import {
-  FieldErrorsImpl,
-  FieldValues,
-  Merge,
-  RegisterOptions,
-  useForm,
-} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CreateProductForm } from '@/types/ProductSchema';
 import type { CreateProductFormType } from '@/types/ProductSchema';
