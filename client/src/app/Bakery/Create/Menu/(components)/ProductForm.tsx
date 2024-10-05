@@ -77,6 +77,7 @@ function ProductForm({ product }: ProductFormProps) {
         <ImageInput
           name='image'
           label='Image:'
+          required
         />
         <TextArea
           name='ingredients'

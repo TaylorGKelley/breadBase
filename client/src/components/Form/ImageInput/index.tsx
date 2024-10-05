@@ -23,7 +23,7 @@ function ImageInput({
   ...attributes
 }: ImageInputProps) {
   const {
-    register,
+    setValue,
     formState: { errors },
   } = useFormContext();
   const uploadLabel = useRef<HTMLLabelElement | null>(null);
@@ -39,6 +39,7 @@ function ImageInput({
           name: file.name,
           base: base64 as string,
         }));
+        setValue(name, base64);
       })
       .catch((error) => {
         console.error(error);
@@ -79,7 +80,6 @@ function ImageInput({
         <input
           type='file'
           id={name}
-          {...register(name)}
           className='absolute inset-0 z-10 cursor-pointer opacity-0 file:cursor-pointer'
           multiple
           onDragOver={(e: DragEvent<HTMLDivElement>) => {

@@ -22,6 +22,12 @@ export const CreateProductForm: ZodType = z.object({
       // Check if the item is not too expensive
       return n <= 1000;
     }, 'Item is too expensive'),
+  description: z.string(),
+  image: z.string(),
+  ingredients: z
+    .string()
+    .optional()
+    .transform((val) => val?.split('\n')),
 });
 
 export type CreateProductFormType = z.infer<typeof CreateProductForm>;
