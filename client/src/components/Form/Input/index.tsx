@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, ReactNode } from 'react';
 import InputError from '../InputError';
 import { useFormContext } from 'react-hook-form';
 
@@ -6,6 +6,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   name: string;
   labelClassName?: string;
+  ActionButton?: ReactNode;
 };
 
 function Input({
@@ -14,6 +15,8 @@ function Input({
   label,
   labelClassName,
   className,
+  children,
+  ActionButton,
   ...attributes
 }: InputProps) {
   const {
@@ -40,7 +43,9 @@ function Input({
         <InputError
           error={errors[name as keyof typeof errors]?.message?.toString()}
         />
+        {ActionButton}
       </div>
+      {children}
     </div>
   );
 }

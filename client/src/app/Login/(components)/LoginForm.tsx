@@ -2,14 +2,26 @@ import Form from '@/components/Form';
 import Button from '@/components/Form/Button';
 import DividerLine from '@/components/Form/DividerLine';
 import Input from '@/components/Form/Input';
+import PasswordInput from '@/components/Form/PasswordInput';
+import ForgotPasswordLink from '@/components/Form/PasswordInput/ForgotPasswordLink';
 import { GoogleMonoIcon } from '@/components/icons';
 import useAuthStore from '@/store/useAuthStore';
+import { LoginSchema, LoginSchemaType } from '@/types/Schemas/LoginSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import React from 'react';
-import { FieldValues } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 
 function LoginForm() {
-  const { loginUser } = useAuthStore();
+  const { loginUser, user } = useAuthStore();
+  const methods = useForm<LoginSchemaType>({
+    defaultValues: user
+      ? {
+          email: user.email,
+        }
+      : undefined,
+    resolver: zodResolver(LoginSchema),
+  });
 
   const onSubmit = async (data: FieldValues) => {
     const response = await fetch(
@@ -30,14 +42,15 @@ function LoginForm() {
       return responseData.error;
     }
 
-    loginUser(response.user);
+    loginUser(responseData.data.user);
   };
 
   return (
-    <Form className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'>
-      {formState.errors && (
-        <p className='text-xs text-red-400'>{formState.errors.message}</p>
-      )}
+    <Form
+      onSubmit={onSubmit}
+      methods={methods}
+      className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
+    >
       <Input
         type='email'
         name='email'
@@ -46,13 +59,18 @@ function LoginForm() {
         required
       />
       <PasswordInput
-        type='password'
-        id='password'
+        name='password'
         label='Password:'
         placeholder='●●●●●●●●'
         required
-        displayForgotPassword
-      />
+      >
+        <ForgotPasswordLink />
+      </PasswordInput>
+      {methods.formState.errors['root'] && (
+        <p className='text-xs text-red-400'>
+          {methods.formState.errors['root']?.message}
+        </p>
+      )}
       <div className='flex flex-col gap-3'>
         <Button className='border-yellow text-yellow hover:bg-yellow disabled:hover:text-yellow hover:text-white disabled:hover:bg-transparent'>
           Sign in
