@@ -33,6 +33,7 @@ function ImageInput({
   } = useFormContext();
   const uploadLabel = useRef<HTMLLabelElement | null>(null);
   const [image, setImage] = useState<UploadedImage>();
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     const image = getValues(name);
@@ -69,7 +70,9 @@ function ImageInput({
         {`${required ? '* ' : ''}${label}`}
       </p>
       {/*  bg-[url('src:image/*;base,${image.base}')]/40 */}
-      <div className='relative overflow-hidden rounded-3xl border'>
+      <div
+        className={`relative overflow-hidden rounded-3xl border ${isFocused ? 'border-yellow' : ''} `}
+      >
         {image?.base && (
           <img
             src={`data:image/png;base64,${image.base}`}
@@ -115,6 +118,8 @@ function ImageInput({
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (e.target.files) processFile(e.target.files);
           }}
+          onFocus={() => setIsFocused(true)} // Set focus state
+          onBlur={() => setIsFocused(false)} // Reset focus state
           {...attributes}
         />
       </div>

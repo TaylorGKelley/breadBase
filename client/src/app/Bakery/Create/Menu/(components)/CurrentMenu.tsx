@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import DividerLine from '@/components/Archived/Forms/DividerLine';
 import { metamorphous } from '@/ui/fonts';
@@ -15,13 +15,17 @@ type CurrentMenuProps = {
 function CurrentMenu({ products }: CurrentMenuProps) {
   const router = useRouter();
 
+  useEffect(() => {
+    router.refresh();
+  }, []);
+
   return (
     <>
       <div className='relative flex h-[500px] w-full max-w-96 flex-col rounded-3xl border p-4'>
         <DividerLine className={`${metamorphous.className} text-lg`}>
           Menu
         </DividerLine>
-        <ul className='scroll-narrow flex-grow overflow-y-auto'>
+        <ul className='scroll-narrow flex flex-grow flex-col overflow-y-auto even:*:bg-gray-700/50'>
           {products.length > 0 &&
             products?.map((product, i) => (
               <li
@@ -29,13 +33,12 @@ function CurrentMenu({ products }: CurrentMenuProps) {
                 onClick={() =>
                   router.push(`/Bakery/Create/Menu?productId=${product._id}`)
                 }
-                className='cursor-pointer'
+                className='cursor-pointer rounded-xl px-4 py-3'
               >
                 <div className='flex justify-between'>
                   <span>{product.name}</span>
                   <span>{`$${product.price}`}</span>
                 </div>
-                <span className='underline'>Edit</span>
               </li>
             ))}
         </ul>

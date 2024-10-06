@@ -72,6 +72,18 @@ function ProductForm({ product }: ProductFormProps) {
     router.push('/Bakery/Create/Menu');
   };
 
+  const handleDelete = () => {
+    if (!productId) return;
+
+    fetch(
+      `${process.env.API_URL || 'http://localhost:5001'}/api/v1/product/${productId}`,
+      {
+        method: 'DELETE',
+        credentials: 'include',
+      },
+    ).then(() => router.replace('/Bakery/Create/Menu'));
+  };
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -112,6 +124,14 @@ function ProductForm({ product }: ProductFormProps) {
           defaultHeightPx={75}
           bulletPoints
         />
+        {product && (
+          <p
+            className='cursor-pointer pt-4 text-center underline'
+            onClick={handleDelete}
+          >
+            Delete Product
+          </p>
+        )}
       </div>
       <Button
         disabled={methods.formState.isSubmitting}

@@ -11,7 +11,7 @@ type MenuProps = {
 };
 
 async function Menu({ searchParams }: MenuProps) {
-  const productId = searchParams && searchParams['productId'];
+  const productId = searchParams['productId'];
 
   const { user } = await checkAuth();
 
