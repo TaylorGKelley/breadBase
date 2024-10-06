@@ -1,9 +1,6 @@
-'use client';
-
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import CreateBakeryFormState from '@/types/FormStates/CreateBakeryFormState';
 import { metamorphous } from '@/ui/fonts';
-import React, { useState } from 'react';
+import React from 'react';
 import CreateBakeryForm from './(components)/CreateBakeryForm';
 
 function Create() {

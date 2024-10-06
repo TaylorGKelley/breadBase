@@ -1,26 +1,9 @@
-'use client';
-
-import React, { useState } from 'react';
-import Input from '@/components/Archived/Forms/Input';
+import React from 'react';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/Form/Button';
-import DividerLine from '@/components/Form/DividerLine';
-import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
-import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import type { LoginFormState } from '@/types/FormStates/AuthFormState';
-import login from '@/actions/login';
-import Form from '@/components/Archived/Forms/Form';
-import useAuthStore from '@/store/useAuthStore';
 import LoginForm from './(components)/LoginForm';
 
-function Login({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
-  const redirectURL = (searchParams?.redirect as string)?.replace('%2F', '/');
-
+function Login() {
   return (
     <BackgroundImageContainer
       src='/images/Bread.png'

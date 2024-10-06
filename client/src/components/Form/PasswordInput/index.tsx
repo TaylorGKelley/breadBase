@@ -8,7 +8,12 @@ type PasswordInputProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string;
 };
 
-function PasswordInput({ label, name, children }: PasswordInputProps) {
+function PasswordInput({
+  label,
+  name,
+  children,
+  ...attributes
+}: PasswordInputProps) {
   const {
     formState: { errors },
   } = useFormContext();
@@ -19,6 +24,7 @@ function PasswordInput({ label, name, children }: PasswordInputProps) {
       label={label}
       name={name}
       type={isPasswordVisible ? 'text' : 'password'}
+      {...attributes}
       ActionButton={
         errors[name as keyof typeof errors]?.message && (
           <button
