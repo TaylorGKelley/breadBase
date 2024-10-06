@@ -1,25 +1,12 @@
 'use client';
 
-import { createBakery } from '@/actions/manageBakery';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
-import Form from '@/components/Archived/Forms/Form';
-import Button from '@/components/Archived/Forms/Button';
-import Input from '@/components/Archived/Forms/Input';
 import CreateBakeryFormState from '@/types/FormStates/CreateBakeryFormState';
 import { metamorphous } from '@/ui/fonts';
 import React, { useState } from 'react';
+import CreateBakeryForm from './(components)/CreateBakeryForm';
 
 function Create() {
-  const [formState, setFormState] = useState<CreateBakeryFormState>({
-    success: false,
-    title: '',
-    address: '',
-    suiteNumber: 0,
-    city: '',
-    state: '',
-    zipCode: 0,
-  });
-
   return (
     <BackgroundImageContainer
       src='/images/CreateBakery.png'
@@ -31,66 +18,7 @@ function Create() {
           <h3 className={`${metamorphous.className} mb-4 text-center`}>
             Create Bakery
           </h3>
-          <Form<CreateBakeryFormState>
-            action={createBakery}
-            setFormState={setFormState}
-            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
-          >
-            {formState?.errors?.message && (
-              <p className='text-red-600'>{formState?.errors?.message}</p>
-            )}
-            <Input
-              id='title'
-              label='Title:'
-              placeholder='Title'
-              required
-              defaultValue={formState.title}
-              error={formState.errors?.title}
-            />
-            <Input
-              id='address'
-              label='Address:'
-              placeholder='123 Random Rd'
-              required
-              defaultValue={formState.address}
-              error={formState.errors?.address}
-            />
-            <Input
-              type='number'
-              id='suiteNumber'
-              label='Apartment/Suite Number:'
-              placeholder='0'
-              defaultValue={formState.suiteNumber}
-              error={formState.errors?.suiteNumber}
-            />
-            <Input
-              id='city'
-              label='City:'
-              placeholder='City'
-              required
-              defaultValue={formState.city}
-              error={formState.errors?.city}
-            />
-            {/* // Todo: Replace this with dropdown/select element for states */}
-            <Input
-              id='state'
-              label='State:'
-              placeholder='State'
-              required
-              defaultValue={formState.state}
-              error={formState.errors?.state}
-            />
-            <Input
-              type='number'
-              id='zipCode'
-              label='Zip Code:'
-              placeholder='00000'
-              required
-              defaultValue={formState.zipCode}
-              error={formState.errors?.zipCode}
-            />
-            <Button className='border-yellow text-yellow'>Create</Button>
-          </Form>
+          <CreateBakeryForm />
         </section>
       </main>
     </BackgroundImageContainer>

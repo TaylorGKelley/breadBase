@@ -16,7 +16,7 @@ export const createSendToken = (id: Types.ObjectId, res: Response) => {
   if (!process.env?.JWT_COOKIE_EXPIRES_IN) {
     return res.status(500).json({
       status: 'fail',
-      message: 'Can not find environment variable for JWT_COOKIE_EXPIRES_IN',
+      error: 'Can not find environment variable for JWT_COOKIE_EXPIRES_IN',
     });
   }
 

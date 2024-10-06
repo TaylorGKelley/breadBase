@@ -53,7 +53,9 @@ router
   );
 
 router.all('*', (req, res, next) =>
-  res.status(404).json({ message: 'could not find route for that request' }),
+  res.status(404).json({ 
+    error: 'could not find route for that request' 
+  }),
 );
 
 export default router;

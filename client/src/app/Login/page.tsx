@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Input from '@/components/Archived/Forms/Input';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/Archived/Forms/Button';
-import DividerLine from '@/components/Archived/Forms/DividerLine';
+import Button from '@/components/Form/Button';
+import DividerLine from '@/components/Form/DividerLine';
 import GoogleMonoIcon from '@/components/icons/GoogleMonoIcon';
 import Link from 'next/link';
 import BackgroundImageContainer from '@/components/BackgroundImageContainer';
@@ -12,20 +12,14 @@ import type { LoginFormState } from '@/types/FormStates/AuthFormState';
 import login from '@/actions/login';
 import Form from '@/components/Archived/Forms/Form';
 import useAuthStore from '@/store/useAuthStore';
+import LoginForm from './(components)/LoginForm';
 
 function Login({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const { loginUser } = useAuthStore();
-
   const redirectURL = (searchParams?.redirect as string)?.replace('%2F', '/');
-
-  const [formState, setFormState] = useState<LoginFormState>({
-    success: false,
-    email: '',
-  });
 
   return (
     <BackgroundImageContainer
@@ -36,56 +30,7 @@ function Login({
       <main className='grid h-screen min-h-fit grid-flow-row grid-cols-1 justify-items-center gap-5 overflow-auto bg-transparent pb-8 pt-20 md:grid-cols-2'>
         <section className='hmd:-mt-6 mb-6 flex w-full flex-col items-center justify-center px-4'>
           <h3 className={`${metamorphous.className} text-center`}>Login</h3>
-          <Form<LoginFormState>
-            preferRedirect={redirectURL}
-            action={login}
-            setFormState={setFormState}
-            onSuccess={(formState) => {
-              if (formState.user) loginUser(formState.user);
-            }}
-            className='flex w-full max-w-96 flex-col gap-5 transition-all duration-500'
-          >
-            {formState.errors && (
-              <p className='text-xs text-red-400'>{formState.errors.message}</p>
-            )}
-            <Input
-              type='email'
-              id='email'
-              label='Email:'
-              placeholder='john.doe@example.com'
-              required
-              defaultValue={formState.email}
-              error={formState.errors?.email}
-            />
-            <Input
-              type='password'
-              id='password'
-              label='Password:'
-              placeholder='●●●●●●●●'
-              required
-              displayForgotPassword
-              error={formState.errors?.password}
-            />
-            <div className='flex flex-col gap-3'>
-              <Button className='border-yellow text-yellow hover:bg-yellow disabled:hover:text-yellow hover:text-white disabled:hover:bg-transparent'>
-                Sign in
-              </Button>
-              <DividerLine>or</DividerLine>
-              <Button
-                type='button'
-                className='border-gray-400 text-gray-400 transition-all duration-300 hover:brightness-125 disabled:hover:brightness-100'
-              >
-                <GoogleMonoIcon className='fill-gray-400' />
-                Sign in with Google
-              </Button>
-              <Link
-                href='/SignUp'
-                className='text-center text-xs text-gray-400 underline'
-              >
-                Not a user? Sign up now!
-              </Link>
-            </div>
-          </Form>
+          <LoginForm />
         </section>
       </main>
     </BackgroundImageContainer>

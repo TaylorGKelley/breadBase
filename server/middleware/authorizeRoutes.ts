@@ -13,7 +13,7 @@ export const protectRoute = async (
 
     if (!token) {
       return res.status(401).json({
-        message: 'You are not authorized to perform this action',
+        error: 'You are not authorized to perform this action',
       });
     }
 
@@ -38,13 +38,13 @@ export const protectRoute = async (
             .status(401)
             .json({
               status: 'Failed to Authenticate',
-              message: 'User recently changed password. Please login again.',
+              error: 'User recently changed password. Please login again.',
             });
         }
 
         req.user = currentUser as ProtectedUser;
       } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        res.status(500).json({ error: (error as Error).message });
       }
 
       next();
@@ -54,7 +54,7 @@ export const protectRoute = async (
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: `${(error as Error).message} -- Try logging in`,
+      error: `${(error as Error).message} -- Try logging in`,
     });
   }
 };

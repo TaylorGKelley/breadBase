@@ -32,18 +32,18 @@ export const signIn = async (
 
   if (user?.googleId) {
     return res.status(401).json({
-      message: 'Please try logging in with google',
+      error: 'Please try logging in with google',
     });
   } else if (!password) {
     return res.status(401).json({
-      message: 'Please provide a password',
+      error: 'Please provide a password',
     });
   }
 
   if (!user || !(await user.correctPassword(password, user.password || ''))) {
     return res
       .status(401)
-      .json({ message: `Incorrect ${!user ? 'email' : 'password'}` });
+      .json({ error: `Incorrect ${!user ? 'email' : 'password'}` });
   }
 
   createSendToken(user._id, res);
@@ -82,7 +82,7 @@ export const signup = async (req: Request, res: Response) => {
   if (req.body.password !== req.body.passwordConfirm)
     return res.status(400).json({
       status: 'fail',
-      message: 'Passwords do not match'
+      error: 'Passwords do not match'
     });
 
   try {
@@ -90,7 +90,7 @@ export const signup = async (req: Request, res: Response) => {
     if (user) {
       return res.status(403).json({
         status: 'failed to create user',
-        message: 'User already exists',
+        error: 'User already exists',
       });
     }
 
@@ -114,7 +114,7 @@ export const signup = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -128,7 +128,7 @@ export const forgotPassword = async (
 
   if (!user || user.googleId) {
     return res.status(404).json({
-      message: 'Invalid email address',
+      error: 'Invalid email address',
     });
   }
 
@@ -158,7 +158,7 @@ export const resetPassword = async (req: Request, res: Response) => {
 
       if (!user) {
         return res.status(400).json({
-          message: 'Token is invalid or has expired',
+          error: 'Token is invalid or has expired',
         });
       }
 
@@ -166,7 +166,7 @@ export const resetPassword = async (req: Request, res: Response) => {
 
       if (!password) {
         return res.status(401).json({
-          message: 'Request does not contain new password',
+          error: 'Request does not contain new password',
         });
       }
 
@@ -194,7 +194,7 @@ export const resetPassword = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -213,7 +213,7 @@ export const updatePassword = async (req: Request, res: Response) => {
     ))
   ) {
     return res.status(401).json({
-      message: 'Current password is incorrect',
+      error: 'Current password is incorrect',
     });
   }
 
@@ -245,7 +245,7 @@ export const authenticateGoogle = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };

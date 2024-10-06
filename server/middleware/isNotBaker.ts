@@ -8,7 +8,7 @@ const isNotBaker = (req: any, res: any, next: any) => {
     next();
   } else {
     res.status(401).json({
-      message: 'This account is already part of a bakery',
+      error: 'This account is already part of a bakery',
     });
   }
 };

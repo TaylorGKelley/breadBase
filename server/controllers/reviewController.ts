@@ -25,7 +25,7 @@ export const getAllReviews = <T extends DocumentWithReviews>(
     } catch (error) {
       res.status(500).json({
         status: 'fail',
-        message: (error as Error).message,
+        error: (error as Error).message,
       });
     }
   };
@@ -48,7 +48,7 @@ export const getReview = <T extends DocumentWithReviews>(Model: Model<T>) => {
       } else {
         res.status(404).json({
           status: 'fail',
-          message: 'Could not find a review with that Id',
+          error: 'Could not find a review with that Id',
         });
       }
     } catch (error) {
@@ -89,13 +89,13 @@ export const createReview = <T extends DocumentWithReviews>(
       } else {
         res.status(400).json({
           status: 'fail',
-          message: 'User already posted a review',
+          error: 'User already posted a review',
         });
       }
     } catch (error) {
       res.status(500).json({
         status: 'fail',
-        message: (error as Error).message,
+        error: (error as Error).message,
       });
     }
   };
@@ -128,7 +128,7 @@ export const updateReview = <T extends DocumentWithReviews>(
     } catch (error) {
       res.status(500).json({
         status: 'fail',
-        message: (error as Error).message,
+        error: (error as Error).message,
       });
     }
   };
@@ -152,7 +152,7 @@ export const deleteReview = <T extends DocumentWithReviews>(
           data: null,
         });
       } else {
-        res.status(404).json({ status: 'fail', message: 'Review not found' });
+        res.status(404).json({ status: 'fail', error: 'Review not found' });
       }
     } catch (error) {
       res.status(500).json({

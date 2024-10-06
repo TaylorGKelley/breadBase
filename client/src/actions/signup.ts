@@ -120,7 +120,7 @@ export default async (formData: FormData): Promise<SignUpFormResponse> => {
       lastName,
       email,
       errors: {
-        message: (error as Error).message,
+        error: (error as Error).message,
       },
     };
   }

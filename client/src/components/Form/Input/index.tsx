@@ -27,7 +27,7 @@ function Input({
         htmlFor={name}
         className={`focus-within:text-yellow my-1 w-full max-w-96 overflow-hidden text-ellipsis text-nowrap ${labelClassName}`}
       >
-        {`${attributes.required && '* '}${label}`}
+        {`${attributes?.required ? '* ' : ''}${label}`}
       </label>
       <div className='relative'>
         <input

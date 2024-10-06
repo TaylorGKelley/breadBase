@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import DividerLine from '@/components/Archived/Forms/DividerLine';
+import DividerLine from '@/components/Form/DividerLine';
 import { metamorphous } from '@/ui/fonts';
 import { Arrow } from '@/components/icons';
 import Link from 'next/link';

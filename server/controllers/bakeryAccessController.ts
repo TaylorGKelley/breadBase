@@ -34,7 +34,7 @@ export const inviteBaker = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -76,7 +76,7 @@ export const acceptBakerInvite = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -88,7 +88,7 @@ export const leaveBakery = async (req: Request, res: Response) => {
     if (!bakeryId) {
       return res.status(400).json({
         status: 'fail',
-        message: 'User not associated with any bakery',
+        error: 'User not associated with any bakery',
       });
     }
     await removeUserFromBakery(bakeryId, req);
@@ -101,7 +101,7 @@ export const leaveBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -125,7 +125,7 @@ export const removeBaker = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -141,7 +141,7 @@ export const transferOwnership = async (req: Request, res: Response) => {
     if (!(await User.findById(transferOwnershipToUserId))) {
       return res.status(404).json({
         status: 'fail',
-        message: 'Could not find a user with that Id',
+        error: 'Could not find a user with that Id',
       });
     }
 
@@ -174,13 +174,13 @@ export const transferOwnership = async (req: Request, res: Response) => {
     } else {
       res.status(404).json({
         status: 'fail',
-        message: 'Please provide a bakery id',
+        error: 'Please provide a bakery id',
       });
     }
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };

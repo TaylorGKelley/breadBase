@@ -18,7 +18,7 @@ export const getAllBakeries = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -30,7 +30,7 @@ export const getBakery = async (req: Request, res: Response) => {
     if (!bakery) {
       return res.status(404).json({
         status: 'fail',
-        message: 'Cannot find a bakery with that Id',
+        error: 'Cannot find a bakery with that Id',
       });
     }
 
@@ -43,7 +43,7 @@ export const getBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -69,7 +69,7 @@ export const createBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -80,7 +80,7 @@ export const updateBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -103,7 +103,7 @@ export const deleteBakery = async (req: Request, res: Response) => {
     if (!updatedBakery) {
       return res.status(404).json({
         status: 'fail',
-        message: 'Could not find a bakery with that Id',
+        error: 'Could not find a bakery with that Id',
       });
     } else {
       res.status(200).json({
@@ -114,7 +114,7 @@ export const deleteBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };
@@ -137,7 +137,7 @@ export const reopenBakery = async (req: Request, res: Response) => {
     if (!updatedBakery) {
       return res.status(404).json({
         status: 'fail',
-        message: 'Could not find a bakery with that Id',
+        error: 'Could not find a bakery with that Id',
       });
     } else {
       res.status(200).json({
@@ -148,7 +148,7 @@ export const reopenBakery = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       status: 'fail',
-      message: (error as Error).message,
+      error: (error as Error).message,
     });
   }
 };

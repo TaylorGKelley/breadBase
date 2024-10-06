@@ -1,13 +1,13 @@
 'use client';
 
-import DividerLine from '@/components/Archived/Forms/DividerLine';
+import DividerLine from '@/components/Form/DividerLine';
 import { metamorphous } from '@/ui/fonts';
-import Button from '@/components/Archived/Forms/Button';
+import Button from '@/components/Form/Button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CreateProductForm } from '@/types/ProductSchema';
-import type { CreateProductFormType } from '@/types/ProductSchema';
+import { CreateProductForm } from '@/types/Schemas/ProductSchema';
+import type { CreateProductFormType } from '@/types/Schemas/ProductSchema';
 import Form from '@/components/Form';
 import Input from '@/components/Form/Input';
 import TextArea from '@/components/Form/TextArea';
@@ -133,6 +133,9 @@ function ProductForm({ product }: ProductFormProps) {
           </p>
         )}
       </div>
+      {methods.formState.errors.root && (
+        <p className='text-red-500'>{methods.formState.errors.root?.message}</p>
+      )}
       <Button
         disabled={methods.formState.isSubmitting}
         className='border-yellow text-yellow'
@@ -146,9 +149,6 @@ function ProductForm({ product }: ProductFormProps) {
       >
         Back
       </button>
-      {methods.formState.errors.root && (
-        <p className='text-red-500'>{methods.formState.errors.root?.message}</p>
-      )}
     </Form>
   );
 }
