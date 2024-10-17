@@ -11,11 +11,13 @@ import useAuthStore from '@/store/useAuthStore';
 import { LoginSchema, LoginSchemaType } from '@/types/Schemas/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 
 function LoginForm() {
   const { loginUser, user } = useAuthStore();
+  const router = useRouter();
   const methods = useForm<LoginSchemaType>({
     defaultValues: user
       ? {
@@ -27,7 +29,7 @@ function LoginForm() {
 
   const onSubmit = async (data: FieldValues) => {
     const response = await fetch(
-      `${process.env.API_URL || 'http://localhost:5001'}/api/v1/login`,
+      `${process.env.API_URL || 'http://localhost:5001'}/api/v1/signin`,
       {
         method: 'POST',
         credentials: 'include',
@@ -45,6 +47,8 @@ function LoginForm() {
     }
 
     loginUser(responseData.data.user);
+
+    router.push('/');
   };
 
   return (
