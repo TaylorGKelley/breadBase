@@ -34,7 +34,6 @@ async function Menu({ searchParams }: MenuProps) {
           <h3 className={`${metamorphous.className} mb-3 text-center`}>
             Create Menu
           </h3>
-          {/* {!productId ? <CurrentMenu /> : <NewItemView />} */}
           {!productId ? (
             <CurrentMenu products={products} />
           ) : (
