@@ -43,6 +43,10 @@ const bakerySchema = new Schema<Bakery>({
       'Please provide a valid Zip Code',
     ],
   },
+  position: {
+    lat: Schema.Types.Number,
+    lon: Schema.Types.Number
+  },
   contactPhone: {
     type: Schema.Types.Number,
     validate: [validator.isMobilePhone, 'Please provide a valid Phone Number'],

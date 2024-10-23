@@ -8,6 +8,7 @@ import {
   resetPassword,
   updatePassword,
   checkUserIsAuthenticated,
+  extraInfo,
 } from '../controllers/authController';
 import passport from 'passport';
 import { protectRoute } from '../middleware/authorizeRoutes';
@@ -19,6 +20,7 @@ router.get('/checkAuth', protectRoute, checkUserIsAuthenticated);
 router.post('/signin', signIn);
 router.post('/logOut', logOut);
 router.post('/signup', signup);
+// router.post('/signup/extraInfo', protectRoute, extraInfo)
 
 // Google OAuth
 router.get(

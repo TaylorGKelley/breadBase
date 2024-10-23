@@ -18,6 +18,10 @@ type Bakery = Document & {
   state: string;
   city: string;
   zipCode: number;
+  position: {
+    lat: number,
+    long: number
+  }
   contactPhone: number;
   deleted: boolean;
   reviews: Types.DocumentArray<Review>;

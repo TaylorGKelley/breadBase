@@ -15,6 +15,8 @@ async function Menu({ searchParams }: MenuProps) {
 
   const { user } = await checkAuth();
 
+  console.log(user?.associatedBakery);
+
   const response = await fetch(
     `${process.env.API_URL || 'http://localhost:5001/api/v1'}/product/all/${user?.associatedBakery}`,
     {

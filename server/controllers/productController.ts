@@ -3,8 +3,10 @@ import Products from '../models/productModel';
 import { ProtectedUser } from '../types/User';
 
 export const getAllProducts = async (req: Request, res: Response) => {
+  const {bakeryId} = req.params;
+
   try {
-    const products = await Products.find();
+    const products = await Products.find({bakery: bakeryId});
 
     res.status(200).json({
       message: 'success',
@@ -42,7 +44,6 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    console.log({...req.body});
     const newProduct = await Products.create({
       ...req.body,
       bakery: (req.user as ProtectedUser).associatedBakery,

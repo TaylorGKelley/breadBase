@@ -51,7 +51,7 @@ function SignUpForm() {
 
     loginUser(responseData.data.user);
 
-    router.push(redirectURL || '/SignUp/ExtraInfo');
+    router.push(redirectURL || '/Account');
   };
 
   return (

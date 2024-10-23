@@ -119,6 +119,24 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
+export const extraInfo = async (req: Request, res: Response) => {
+  const {phoneNumber, address, suiteNumber, city, state, zipCode, lat, lon} = req.body;
+  
+  try {
+    const user = await User.findByIdAndUpdate((req.user as ProtectedUser)?._id,
+  {phoneNumber, address, suiteNumber, city, state, zipCode, lat, lon}
+  );
+
+
+
+  } catch (error) {
+    res.status(500).json({
+      status: 'fail',
+      error: (error as Error).message,
+    })
+  }
+}
+
 export const forgotPassword = async (
   req: Request,
   res: Response,

@@ -6,7 +6,6 @@ import ReviewSchema from './reviewSchema';
 const productSchema = new Schema<Product>({
   name: {
     type: Schema.Types.String,
-    unique: true,
     required: [true, 'Product requires a name'],
   },
   bakery: {
