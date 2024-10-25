@@ -18,48 +18,24 @@ function Search() {
       title: 'Small Town Bread',
       description: '1043 Birmingham Rd',
       rating: 3.5,
+      lat: 35.028,
+      lon: 82.0328,
     },
     {
       title: 'Delicious Delights',
       description: '3410 Prattville Ave',
       rating: 4.5,
+      lat: 35.028,
+      lon: 81.0328,
     },
     {
       title: 'Sweet Tooth Bakery',
       description: '653 Montgomery Highway',
       rating: 5,
+      lat: 34.028,
+      lon: 82.0328,
     },
   ];
-
-  useEffect(() => {
-    const fetchAPi = async () => {
-      try {
-        const response = await fetch(
-          'https://nominatim.openstreetmap.org/search?format=json&street=1034+Gaddis+Ave&city=Prattville&state=AL&postalcode=36066',
-        );
-
-        if (!response) {
-          console.error('Failed api fetch');
-        }
-
-        const json = await response.json();
-
-        json.forEach((place: any) => {
-          const distanceFromMe = distanceBetweenCoords(
-            [32.374614, -86.296126],
-            [place.lat, place.lon],
-          );
-
-          console.log(distanceFromMe);
-        });
-        return json;
-      } catch (error) {
-        console.info((error as Error).message);
-      }
-    };
-
-    fetchAPi();
-  }, []);
 
   return (
     <BackgroundImageContainer
